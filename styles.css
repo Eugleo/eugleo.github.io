@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-Medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/Archivo/Archivo-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+
+body {
+  font-family: "Archivo";
+  font-size: 22px;
+  line-height: 1.5em;
+}
+
+.container {
+  padding: 60px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 60px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 1.2em;
+  width: 1000px;
+  margin-right: 75px;
+}
+
+#dna {
+  height: 100px;
+}
+
+.personal-description {
+  font-size: 22px;
+  max-width: 500px;
+}
