@@ -50,25 +50,36 @@
   font-style: italic;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General layout */
+
 body {
   font-family: "Archivo";
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1.5em;
 }
 
 .container {
-  padding: 60px;
+  padding: 20px 60px;
 }
+
+/* Header */
 
 .title-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 60px;
+  margin: 100px -60px 100px 0px;
+  overflow-x: hidden;
 }
 
 .name {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 60px;
   line-height: 1.2em;
   width: 1000px;
@@ -76,10 +87,24 @@ body {
 }
 
 #dna {
-  height: 100px;
+  max-height: 100px;
 }
 
 .personal-description {
   font-size: 22px;
   max-width: 500px;
+  color: #686868;
+}
+
+.links-container {
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.social-media-link a {
+  text-transform: uppercase;
+  color: #c4c4c4;
+  margin-right: 30px;
+  text-decoration: none;
 }
