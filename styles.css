@@ -1,53 +1,37 @@
 @font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-Regular.woff2") format("woff2");
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-Medium.woff2") format("woff2");
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-Medium.otf") format("opentype");
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-MediumItalic.woff2") format("woff2");
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-SemiBold.woff2") format("woff2");
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-SemiBold.otf") format("opentype");
   font-weight: 600;
 }
 
 @font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-SemiBoldItalic.woff2") format("woff2");
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-Bold.woff2") format("woff2");
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "Archivo";
-  src: url("fonts/Archivo/Archivo-BoldItalic.woff2") format("woff2");
-  font-weight: 700;
-  font-style: italic;
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("fonts/LibreFranklin/LibreFranklin-Black.otf") format("opentype");
+  font-weight: 900;
 }
 
 * {
@@ -59,7 +43,7 @@
 /* General layout */
 
 body {
-  font-family: "Archivo";
+  font-family: "Libre Franklin", sans-serif;
   font-size: 18px;
   line-height: 1.5em;
   background: #e8c443;
@@ -89,6 +73,7 @@ body {
   display: inline-block;
   position: relative;
 }
+
 .social-media-link a:after {
   background: none repeat scroll 0 0 transparent;
   bottom: -5px;
@@ -101,6 +86,7 @@ body {
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
+
 .social-media-link a:hover:after {
   width: 100%;
   left: 0;
@@ -115,7 +101,7 @@ body {
 }
 
 .name {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 3.5em;
   line-height: 1.2em;
   width: 1000px;
@@ -172,15 +158,15 @@ body {
 
 .portfolio-card-title {
   font-size: 1.2em;
-  font-weight: 800;
+  font-weight: 700;
   color: #3f540b;
   margin-bottom: 5px;
 }
 
 .portfolio-card-lang {
   font-size: 1.2em;
-  font-weight: 500;
   margin-bottom: 1rem;
+  font-weight: 400;
   color: #c9c9c9;
 }
 
