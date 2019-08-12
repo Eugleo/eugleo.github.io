@@ -62,10 +62,11 @@ body {
   font-family: "Archivo";
   font-size: 18px;
   line-height: 1.5em;
+  /* background: rgb(233, 233, 229); */
 }
 
 .container {
-  padding: 20px 60px;
+  padding: 20px 150px;
 }
 
 /* Header */
@@ -74,32 +75,34 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 100px -60px 100px 0px;
+  margin: 0px -150px 75px 0px;
   overflow-x: hidden;
 }
 
 .name {
   font-weight: 700;
-  font-size: 60px;
+  font-size: 3.5em;
   line-height: 1.2em;
   width: 1000px;
   margin-right: 75px;
 }
 
 #dna {
-  max-height: 100px;
+  max-height: 110px;
 }
 
 .personal-description {
-  font-size: 22px;
+  font-size: 1.2em;
   max-width: 500px;
   color: #686868;
+  margin-bottom: 4em;
 }
 
 .links-container {
   display: flex;
   align-content: center;
   justify-content: flex-start;
+  margin-bottom: 4em;
 }
 
 .social-media-link a {
@@ -107,4 +110,32 @@ body {
   color: #c4c4c4;
   margin-right: 30px;
   text-decoration: none;
+}
+
+/* Portfolio cards */
+
+.portfolio-container {
+  columns: 3;
+  column-width: 300px;
+  column-gap: 3em;
+  margin-bottom: 2em;
+}
+
+.portfolio-card-container {
+  padding-top: 3em;
+  display: inline-block;
+  transform: translateZ(0);
+}
+
+.portfolio-card {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+  padding: 2em;
+  display: inline-block;
+}
+
+.portfolio-title {
+  font-size: 1.2em;
+  font-weight: 800;
+  margin-bottom: 1em;
 }
