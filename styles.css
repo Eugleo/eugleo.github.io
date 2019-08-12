@@ -79,10 +79,31 @@ body {
 }
 
 .social-media-link a {
+  font-size: 0.95rem;
   text-transform: uppercase;
   color: rgb(110, 93, 31);
   margin-right: 30px;
   text-decoration: none;
+  letter-spacing: 0.15em;
+
+  display: inline-block;
+  position: relative;
+}
+.social-media-link a:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: -5px;
+  content: "";
+  display: block;
+  height: 4px;
+  left: 0%;
+  position: absolute;
+  background: #e84345;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.social-media-link a:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 .title-container {
@@ -104,6 +125,8 @@ body {
 
 #dna {
   max-height: 110px;
+  user-select: none;
+  pointer-events: none;
 }
 
 .personal-description {
