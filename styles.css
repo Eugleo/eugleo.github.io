@@ -71,11 +71,25 @@ body {
 
 /* Header */
 
+.links-container {
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+  margin-bottom: 10rem;
+}
+
+.social-media-link a {
+  text-transform: uppercase;
+  color: rgb(110, 93, 31);
+  margin-right: 30px;
+  text-decoration: none;
+}
+
 .title-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 0px -150px 2.5rem 0px;
+  margin: 0px -150px 2rem 0px;
   overflow-x: hidden;
 }
 
@@ -96,22 +110,8 @@ body {
   font-size: 1.2em;
   max-width: 500px;
   color: rgb(85, 72, 24);
-  margin-bottom: 4em;
+  margin-bottom: 5em;
   line-height: 1.6em;
-}
-
-.links-container {
-  display: flex;
-  align-content: center;
-  justify-content: flex-start;
-  margin-bottom: 6rem;
-}
-
-.social-media-link a {
-  text-transform: uppercase;
-  color: rgb(110, 93, 31);
-  margin-right: 30px;
-  text-decoration: none;
 }
 
 /* Portfolio cards */
@@ -137,11 +137,18 @@ body {
   background: white;
 }
 
-.portfolio-title {
+.portfolio-card-title {
   font-size: 1.2em;
   font-weight: 800;
-  margin-bottom: 1rem;
   color: #3f540b;
+  margin-bottom: 5px;
+}
+
+.portfolio-card-lang {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #c9c9c9;
 }
 
 /* Colors */
