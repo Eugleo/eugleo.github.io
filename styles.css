@@ -251,9 +251,11 @@ body {
   width: 0;
 }
 
-.social-media-link a:hover:after {
-  width: 100%;
-  left: 0;
+@media (hover: hover) {
+  .social-media-link a:hover:after {
+    width: 100%;
+    left: 0;
+  }
 }
 
 .js-mode-toggle {
@@ -412,9 +414,11 @@ body {
   transform: scale(1) translateZ(0);
 }
 
-.portfolio-card:hover {
-  box-shadow: 0 4px 30px 0 var(--portfolio-card-shadow-color-2);
-  transform: scale(1.01) translateZ(0);
+@media (hover: hover) {
+  .portfolio-card:hover {
+    box-shadow: 0 4px 30px 0 var(--portfolio-card-shadow-color-2);
+    transform: scale(1.01) translateZ(0);
+  }
 }
 
 .portfolio-card-title {
