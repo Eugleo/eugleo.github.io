@@ -40,13 +40,101 @@
   box-sizing: border-box;
 }
 
+/* Variables */
+
+:root {
+  --color-mode: "light";
+
+  --background-color-light: #e8c443;
+  --title-color-light: black;
+  --name-color-light: #3f540b;
+  --surname-color-light: #e84345;
+  --portfolio-card-title-color-light: #3f540b;
+  --portfolio-card-content-color-light: black;
+  --portfolio-card-lang-color-light: #c9c9c9;
+  --portfolio-card-background-color-light: white;
+  --portfolio-card-shadow-color-1-light: #caab3c;
+  --portfolio-card-shadow-color-2-light: #bfa23a;
+  --links-color-light: #69581c;
+
+  --background-color-dark: #3f540b;
+  --title-color-dark: #749919;
+  --name-color-dark: #e8c443;
+  --surname-color-dark: #e84345;
+  --portfolio-card-title-color-dark: #e8c443;
+  --portfolio-card-content-color-dark: #1d2706;
+  --portfolio-card-lang-color-dark: #3b4e0b;
+  --portfolio-card-background-color-dark: #5c7913;
+  --portfolio-card-shadow-color-1-dark: #324209;
+  --portfolio-card-shadow-color-2-dark: #2c3a08;
+  --links-color-dark: #81ac16;
+
+  --background-color: var(--background-color-light);
+  --title-color: var(--title-color-light);
+  --name-color: var(--name-color-light);
+  --surname-color: var(--surname-color-light);
+  --portfolio-card-title-color: var(--portfolio-card-title-color-light);
+  --portfolio-card-content-color: var(--portfolio-card-content-color-light);
+  --portfolio-card-lang-color: var(--portfolio-card-lang-color-light);
+  --portfolio-card-background-color: var(
+    --portfolio-card-background-color-light
+  );
+  --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-light);
+  --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-light);
+  --links-color: var(--links-color-light);
+}
+
+/* Dark mode */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-mode: "dark";
+  }
+
+  :root:not([data-user-color-scheme]) {
+    --background-color: var(--background-color-dark);
+    --title-color: var(--title-color-dark);
+    --name-color: var(--name-color-dark);
+    --surname-color: var(--surname-color-dark);
+    --portfolio-card-title-color: var(--portfolio-card-title-color-dark);
+    --portfolio-card-content-color: var(--portfolio-card-content-color-dark);
+    --portfolio-card-lang-color: var(--portfolio-card-lang-color-dark);
+    --portfolio-card-background-color: var(
+      --portfolio-card-background-color-dark
+    );
+    --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-dark);
+    --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-dark);
+    --links-color: var(--links-color-dark);
+  }
+}
+
+[data-user-color-scheme="dark"] {
+  --background-color: var(--background-color-dark);
+  --title-color: var(--title-color-dark);
+  --name-color: var(--name-color-dark);
+  --surname-color: var(--surname-color-dark);
+  --portfolio-card-title-color: var(--portfolio-card-title-color-dark);
+  --portfolio-card-content-color: var(--portfolio-card-content-color-dark);
+  --portfolio-card-lang-color: var(--portfolio-card-lang-color-dark);
+  --portfolio-card-background-color: var(
+    --portfolio-card-background-color-dark
+  );
+  --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-dark);
+  --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-dark);
+  --links-color: var(--links-color-dark);
+}
+
+.js-mode-toggle {
+  cursor: default;
+}
+
 /* General layout */
 
 body {
   font-family: "Libre Franklin", sans-serif;
   font-size: 15px;
   line-height: 1.5em;
-  background: #e8c443;
+  background: var(--background-color);
 }
 
 /* Tablet */
@@ -89,6 +177,10 @@ body {
   margin-bottom: 4rem;
 }
 
+.filler {
+  flex-grow: 1;
+}
+
 /* Tablet */
 @media only screen and (min-width: 401px) and (max-width: 960px) {
   .links-container {
@@ -104,9 +196,10 @@ body {
 }
 
 .social-media-link a {
+  flex-grow: 0;
   font-size: 0.95rem;
   text-transform: uppercase;
-  color: rgb(110, 93, 31);
+  color: var(--links-color);
   text-decoration: none;
   letter-spacing: 0.15em;
   margin-right: 15px;
@@ -136,7 +229,7 @@ body {
   height: 4px;
   left: 0%;
   position: absolute;
-  background: #e84345;
+  background: var(--surname-color);
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
@@ -176,7 +269,7 @@ body {
   font-size: 3.5em;
   line-height: 1.2em;
   margin-bottom: 2rem;
-  color: black;
+  color: var(--title-color);
 }
 
 /* Tablet */
@@ -217,7 +310,7 @@ body {
 
 .personal-description {
   font-size: 1.2rem;
-  color: rgb(85, 72, 24);
+  color: var(--links-color);
   margin-bottom: 44px;
   line-height: 1.6em;
 }
@@ -280,12 +373,12 @@ body {
 }
 
 .portfolio-card {
-  box-shadow: 0 4px 10px 0 #caab3c;
+  box-shadow: 0 4px 10px 0 var(--portfolio-card-shadow-color-1);
   border-radius: 30px;
   padding: 2rem;
   display: inline-block;
-  background: white;
-  color: black;
+  background: var(--portfolio-card-background-color);
+  color: var(--portfolio-card-content-color);
   text-decoration: none;
   cursor: pointer;
   transition: 100ms linear;
@@ -294,14 +387,14 @@ body {
 }
 
 .portfolio-card:hover {
-  box-shadow: 0 4px 30px 0 #bfa23a;
+  box-shadow: 0 4px 30px 0 var(--portfolio-card-shadow-color-2);
   transform: scale(1.01) translateZ(0);
 }
 
 .portfolio-card-title {
   font-size: 1.2em;
   font-weight: 700;
-  color: #3f540b;
+  color: var(--portfolio-card-title-color);
   margin-bottom: 5px;
 }
 
@@ -309,15 +402,15 @@ body {
   font-size: 1.2em;
   margin-bottom: 1rem;
   font-weight: 400;
-  color: #c9c9c9;
+  color: var(--portfolio-card-lang-color);
 }
 
 /* Colors */
 
 green {
-  color: #3f540b;
+  color: var(--name-color);
 }
 
 blue {
-  color: #e84345;
+  color: var(--surname-color);
 }
