@@ -51,7 +51,7 @@
   --surname-color-light: #e84345;
   --portfolio-card-title-color-light: #3f540b;
   --portfolio-card-content-color-light: black;
-  --portfolio-card-lang-color-light: #c9c9c9;
+  --portfolio-card-lang-color-light: #9a9a9a;
   --portfolio-card-background-color-light: white;
   --portfolio-card-shadow-color-1-light: #caab3c;
   --portfolio-card-shadow-color-2-light: #bfa23a;
@@ -433,6 +433,17 @@ body {
   margin-bottom: 1rem;
   font-weight: 400;
   color: var(--portfolio-card-lang-color);
+}
+
+.portfolio-card-content {
+  font-size: 1.1em;
+}
+
+/* Tablet + Desktop */
+@media only screen and (min-width: 470px) {
+  .portfolio-card-content {
+    font-size: 1em;
+  }
 }
 
 /* Colors */
