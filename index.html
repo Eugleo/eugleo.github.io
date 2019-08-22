@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="links-container">
+      <nav class="links-container">
         <div class="social-media-link">
           <a href="files/EvzenWybitul_Resume.pdf">Resume</a>
         </div>
@@ -23,92 +23,92 @@
         <div class="social-media-link js-mode-toggle">
           <a><div role="status" class="js-mode-status"></div></a>
         </div>
-      </div>
-      <div class="title-container">
-        <p class="name">
+      </nav>
+      <header class="title-container">
+        <h1 class="name">
           Hi, I'm<br /><green>Evžen</green><br /><blue>Wybitul</blue>
-        </p>
+        </h1>
         <img
           id="dna"
           src="images/dna.svg"
-          alt="A DNA helix comprising of letters E and W"
+          alt="A DNA helix comprising of letters E and W, my initials"
         />
-      </div>
-      <p class="personal-description">
+      </header>
+      <section class="personal-description">
         I study bioinformatics at Charles University in Prague and recently I’ve
         also got a data analyst internship in MSD Prague. You can see some of my
         previous projects below.
-      </p>
-      <div class="portfolio-container">
-        <div class="portfolio-card-container">
+      </section>
+      <main class="portfolio-container">
+        <article class="portfolio-card-container">
           <a class="portfolio-card" href="https://github.com/Eugleo/gamsa">
-            <p class="portfolio-card-title haskell">
+            <h3 class="portfolio-card-title haskell">
               Gamsa
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Haskell
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               Genetic algorithm multiple sequence alignment, or Gamsa for short,
               is an efficient implementation of a genetic algorithm for the
               alignment of amino acid sequences. The program makes use of the
               rich Haskell type system which provides flexibility and runtime
               safety.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a class="portfolio-card" href="https://github.com/Eugleo/debatimer">
-            <p class="portfolio-card-title swift">
+            <h3 class="portfolio-card-title swift">
               Debatimer
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Swift
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               Debatimer is an iOS app made for referees and debaters that debate
               under the popular Karl Popper ruleset. It sports an intuitive UX
               and can be controlled without even looking at the phone. When it
               was on the AppStore it was one of the most popular iOS debate
               timers.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a
             class="portfolio-card"
             href="https://github.com/Eugleo/magic-racket"
           >
-            <p class="portfolio-card-title regex">
+            <h3 class="portfolio-card-title regex">
               Magic Racket & VSCode Pollen
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Regex
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               Those two are the only "user facing" projects in my whole
               portfolio that are being actively used. Both are relatively
               detailed and complete syntax definitions (so-called textmate
               grammars), to be used in VS Code or similar editors. Both are
               highly rated and well-received in the community.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a
             class="portfolio-card"
             href="https://github.com/Eugleo/markovify.jl"
           >
-            <p class="portfolio-card-title julia">
+            <h3 class="portfolio-card-title julia">
               Markovify.jl
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Julia
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               Markovify.jl is a Julia library that allows the user to generate
               text with characteristics similar to the texts he provides. The
               generation is based on Markov chains (hence the name) and can be
@@ -117,71 +117,71 @@
               sentences or even new names of people and places. It could thus be
               of interest to prose writers or dungeon masters in Dungeons and
               Dragons.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a
             class="portfolio-card"
             href="https://github.com/Eugleo/cbf-python-analysis"
           >
-            <p class="portfolio-card-title python">
+            <h3 class="portfolio-card-title python">
               ČBF Analysis
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Python, Scrapy, Matplotlib
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               This project, which is one of my oldest, uses match data from ČBF
               (Czech Basketball Foundation) to show various interesting
               basketball statistics, such as the frequency and accuracy of shots
               on various positions on the field. However, as it is quite old,
               the most complicated parts are probably the web-crawling, and the
               plotting.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a class="portfolio-card" href="https://github.com/Eugleo/crimson">
-            <p class="portfolio-card-title c-sharp">
+            <h3 class="portfolio-card-title c-sharp">
               Crimson
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               C#, Windows Forms
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               Crimson is a simple 2D top-down shooter, similar in its playstyle
               to Crimsonland. It is pretty simple in terms of features, the most
               interesting bit is hidden under the hood: the whole game is built
               upon entity-component-system architecture. ECS is a type of game
               architecture that uses composition over inheritance—not dissimilar
               to the philosophy of functional languages, that I love.
-            </p>
+            </section>
           </a>
-        </div>
+        </article>
 
-        <div class="portfolio-card-container">
+        <article class="portfolio-card-container">
           <a
             class="portfolio-card"
             href="https://github.com/Eugleo/bioinformatika"
           >
-            <p class="portfolio-card-title racket">
+            <h3 class="portfolio-card-title racket">
               Bioinformatics Notes
-            </p>
-            <p class="portfolio-card-lang">
+            </h3>
+            <section class="portfolio-card-lang">
               Racket
-            </p>
-            <p class="portfolio-card-content">
+            </section>
+            <section class="portfolio-card-content">
               This is an ongoing project that aims to provide standardized notes
               for all the major classes in the bioinformatics curriculum. It
               leverages the power of the Racket publishing system Pollen which
               allows me to export the content in HTML, PDF and plaintext.
-            </p>
+            </section>
           </a>
-        </div>
-      </div>
+        </article>
+      </main>
     </div>
   </body>
 </html>
