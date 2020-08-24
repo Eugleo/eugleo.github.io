@@ -10,9 +10,7 @@ let modeStatusElement;
 let dna;
 
 function getCSSCustomProp(propKey) {
-  let response = getComputedStyle(document.documentElement).getPropertyValue(
-    propKey
-  );
+  let response = getComputedStyle(document.documentElement).getPropertyValue(propKey);
 
   if (response.length) {
     response = response.replace(/\"/g, "").trim();
@@ -24,10 +22,7 @@ function getCSSCustomProp(propKey) {
 function applySetting(passedSetting) {
   let currentSetting = passedSetting || localStorage.getItem(STORAGE_KEY);
   if (currentSetting) {
-    document.documentElement.setAttribute(
-      "data-user-color-scheme",
-      currentSetting
-    );
+    document.documentElement.setAttribute("data-user-color-scheme", currentSetting);
     setButtonLabelAndStatus(currentSetting);
   } else {
     setButtonLabelAndStatus(getCSSCustomProp(COLOR_MODE_KEY));
@@ -46,8 +41,7 @@ function toggleSetting() {
 
   switch (currentSetting) {
     case null:
-      currentSetting =
-        getCSSCustomProp(COLOR_MODE_KEY) === "dark" ? "light" : "dark";
+      currentSetting = getCSSCustomProp(COLOR_MODE_KEY) === "dark" ? "light" : "dark";
       break;
     case "light":
       currentSetting = "dark";
@@ -67,20 +61,20 @@ function checkDnaColor() {
 
   switch (currentSetting) {
     case "light":
-      dna.setAttribute("src", "images/dna.svg");
+      dna.setAttribute("src", "/src/assets/images/dna.svg");
       break;
     case "dark":
-      dna.setAttribute("src", "images/dna-night.svg");
+      dna.setAttribute("src", "/src/assets/images/dna-night.svg");
       break;
   }
 }
 
-document.addEventListener("DOMContentLoaded", function(_) {
+document.addEventListener("DOMContentLoaded", function (_) {
   modeToggleButton = document.querySelector(".js-mode-toggle");
   modeStatusElement = document.querySelector(".js-mode-status");
   dna = document.getElementById("dna");
 
-  modeToggleButton.addEventListener("click", evt => {
+  modeToggleButton.addEventListener("click", (evt) => {
     evt.preventDefault();
     applySetting(toggleSetting());
   });

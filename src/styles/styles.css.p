@@ -1,36 +1,36 @@
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-Medium.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Medium.otf") format("opentype");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-SemiBold.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-SemiBold.otf") format("opentype");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-Bold.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-ExtraBold.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-ExtraBold.otf") format("opentype");
   font-weight: 800;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("fonts/LibreFranklin/LibreFranklin-Black.otf") format("opentype");
+  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Black.otf") format("opentype");
   font-weight: 900;
 }
 
@@ -76,9 +76,7 @@
   --portfolio-card-title-color: var(--portfolio-card-title-color-light);
   --portfolio-card-content-color: var(--portfolio-card-content-color-light);
   --portfolio-card-lang-color: var(--portfolio-card-lang-color-light);
-  --portfolio-card-background-color: var(
-    --portfolio-card-background-color-light
-  );
+  --portfolio-card-background-color: var(--portfolio-card-background-color-light);
   --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-light);
   --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-light);
   --links-color: var(--links-color-light);
@@ -99,9 +97,7 @@
     --portfolio-card-title-color: var(--portfolio-card-title-color-dark);
     --portfolio-card-content-color: var(--portfolio-card-content-color-dark);
     --portfolio-card-lang-color: var(--portfolio-card-lang-color-dark);
-    --portfolio-card-background-color: var(
-      --portfolio-card-background-color-dark
-    );
+    --portfolio-card-background-color: var(--portfolio-card-background-color-dark);
     --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-dark);
     --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-dark);
     --links-color: var(--links-color-dark);
@@ -116,9 +112,7 @@
   --portfolio-card-title-color: var(--portfolio-card-title-color-dark);
   --portfolio-card-content-color: var(--portfolio-card-content-color-dark);
   --portfolio-card-lang-color: var(--portfolio-card-lang-color-dark);
-  --portfolio-card-background-color: var(
-    --portfolio-card-background-color-dark
-  );
+  --portfolio-card-background-color: var(--portfolio-card-background-color-dark);
   --portfolio-card-shadow-color-1: var(--portfolio-card-shadow-color-1-dark);
   --portfolio-card-shadow-color-2: var(--portfolio-card-shadow-color-2-dark);
   --links-color: var(--links-color-dark);
