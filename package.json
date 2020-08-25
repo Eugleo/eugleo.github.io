@@ -1,0 +1,16 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Evžen Wybitul",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^8.0.0",
+    "gulp-tap": "^2.0.0"
+  },
+  "private": true,
+  "dependencies": {
+    "tailwindcss": "^1.7.3"
+  }
+}

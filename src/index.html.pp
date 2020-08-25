@@ -1,7 +1,5 @@
 #lang pollen
 
-◊(require "pollen.rkt")
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,21 +15,21 @@
 
     <link
       rel="preload"
-      href="assets/fonts/LibreFranklin/LibreFranklin-Regular.otf"
+      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/LibreFranklin/LibreFranklin-Black.otf"
+      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Black.otf"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="assets/fonts/LibreFranklin/LibreFranklin-Bold.otf"
+      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Bold.otf"
       as="font"
       type="font/woff2"
       crossorigin
@@ -44,15 +42,10 @@
   <body>
     <div class="container">
       <nav class="links-container">
-        <div class="social-media-link">
-          <a href="files/EvzenWybitul_Resume.pdf">Resume</a>
-        </div>
-        <div class="social-media-link">
-          <a href="https://github.com/Eugleo">GitHub</a>
-        </div>
-        <div class="social-media-link">
-          <a href="mailto:wybitul@evzen.dev">E-Mail</a>
-        </div>
+        ◊navlink[#:link "assets/files/EvzenWybitul_Resume.pdf"]{Resume}
+        ◊navlink[#:link "https://github.com/Eugleo"]{GitHub}
+        ◊navlink[#:link "mailto:wybitul@evzen.dev"]{E-Mail}
+        ◊navlink[#:link "classes/2020-2021/index.html"]{For students}
         <div class="filler"></div>
         <div class="social-media-link js-mode-toggle">
           <a><div role="status" class="js-mode-status"></div></a>
@@ -63,7 +56,7 @@
         <h1 class="name"> Hi, I'm<br /><name>Evžen</name><br /><surname>Wybitul</surname> </h1>
         <img
           id="dna"
-          src="assets/images/dna.svg"
+          src="/src/assets/images/dna.svg"
           alt="A DNA helix comprising of letters E and W, my initials"
         />
       </header>
@@ -74,39 +67,19 @@
       </section>
 
       <main class="portfolio-container">
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/gamsa">
-            <h2 class="portfolio-card-title haskell">
-              Gamsa
-            </h2>
-            <section class="portfolio-card-lang">
-              Haskell
-            </section>
-            <section class="portfolio-card-content">
-              Genetic algorithm multiple sequence alignment, or Gamsa for short, is an efficient
-              implementation of a genetic algorithm for the alignment of amino acid sequences. The
-              program makes use of the rich Haskell type system which provides flexibility and
-              runtime safety.
-            </section>
-          </a>
-        </article>
+        ◊project[#:title "Gamsa" #:link "https://github.com/Eugleo/gamsa" #:lang "Haskell"]{
+            Genetic algorithm multiple sequence alignment, or Gamsa for short, is an efficient
+            implementation of a genetic algorithm for the alignment of amino acid sequences. The
+            program makes use of the rich Haskell type system which provides flexibility and
+            runtime safety.
+        }
 
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/debatimer">
-            <h2 class="portfolio-card-title swift">
-              Debatimer
-            </h2>
-            <section class="portfolio-card-lang">
-              Swift
-            </section>
-            <section class="portfolio-card-content">
-              Debatimer is an iOS app made for referees and debaters that debate under the popular
-              Karl Popper ruleset. It sports an intuitive UX and can be controlled without even
-              looking at the phone. When it was on the AppStore it was one of the most popular iOS
-              debate timers.
-            </section>
-          </a>
-        </article>
+        ◊project[#:title "Debatimer" #:link "https://github.com/Eugleo/debatimer" #:lang "Swift"]{
+          Debatimer is an iOS app made for referees and debaters that debate under the popular
+          Karl Popper ruleset. It sports an intuitive UX and can be controlled without even
+          looking at the phone. When it was on the AppStore it was one of the most popular iOS
+          debate timers.
+        }
 
         ◊project[#:title "Magic Racket & VSCode Pollen" #:link "https://github.com/Eugleo/magic-racket" #:lang "Regex & Javascript"]{
           Those two are the only "user facing" projects in my whole portfolio that are being
@@ -124,76 +97,27 @@
           prose writers or dungeon masters in Dungeons and Dragons.
         }
 
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/markovify.jl">
-            <h2 class="portfolio-card-title julia">
+        ◊project[#:title "ČBF Analysis" #:link "https://github.com/Eugleo/cbf-python-analysis" #:lang "Python, Scrapy, Matplotlib"]{
+          This project, which is one of my oldest, uses match data from ČBF (Czech Basketball
+            Federation) to show various interesting basketball statistics, such as the frequency
+            and accuracy of shots on various positions on the field. However, as it is quite old,
+            the most complicated parts are probably the web-crawling, and the plotting.
+        }
 
-            </h2>
-            <section class="portfolio-card-lang">
-              Julia
-            </section>
-            <section class="portfolio-card-content">
-              Markovify.jl is a Julia library that allows the user to generate text with
-              characteristics similar to the texts he provides. The generation is based on Markov
-              chains (hence the name) and can be thoroughly configured. Depending on which text
-              files the user uses as the input, the library can be used to generate new words, new
-              sentences or even new names of people and places. It could thus be of interest to
-              prose writers or dungeon masters in Dungeons and Dragons.
-            </section>
-          </a>
-        </article>
+        ◊project[#:title "Crimson" #:link "https://github.com/Eugleo/crimson" #:lang "C#, Windows Forms"]{
+          Crimson is a simple 2D top-down shooter, similar in its playstyle to Crimsonland. It
+          is pretty simple in terms of features, the most interesting bit is hidden under the
+          hood: the whole game is built upon entity-component-system architecture. ECS is a type
+          of game architecture that uses composition over inheritance—not dissimilar to the
+          philosophy of functional languages, that I love.
+        }
 
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/cbf-python-analysis">
-            <h2 class="portfolio-card-title python">
-              ČBF Analysis
-            </h2>
-            <section class="portfolio-card-lang">
-              Python, Scrapy, Matplotlib
-            </section>
-            <section class="portfolio-card-content">
-              This project, which is one of my oldest, uses match data from ČBF (Czech Basketball
-              Federation) to show various interesting basketball statistics, such as the frequency
-              and accuracy of shots on various positions on the field. However, as it is quite old,
-              the most complicated parts are probably the web-crawling, and the plotting.
-            </section>
-          </a>
-        </article>
-
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/crimson">
-            <h2 class="portfolio-card-title c-sharp">
-              Crimson
-            </h2>
-            <section class="portfolio-card-lang">
-              C#, Windows Forms
-            </section>
-            <section class="portfolio-card-content">
-              Crimson is a simple 2D top-down shooter, similar in its playstyle to Crimsonland. It
-              is pretty simple in terms of features, the most interesting bit is hidden under the
-              hood: the whole game is built upon entity-component-system architecture. ECS is a type
-              of game architecture that uses composition over inheritance—not dissimilar to the
-              philosophy of functional languages, that I love.
-            </section>
-          </a>
-        </article>
-
-        <article class="portfolio-card-container">
-          <a class="portfolio-card" href="https://github.com/Eugleo/bioinformatika">
-            <h2 class="portfolio-card-title racket">
-              Bioinformatics Notes
-            </h2>
-            <section class="portfolio-card-lang">
-              Racket
-            </section>
-            <section class="portfolio-card-content">
-              This is an ongoing project that aims to provide standardized notes for all the major
-              classes in the bioinformatics curriculum. It leverages the power of the Racket
-              publishing system Pollen which allows me to export the content in HTML, PDF and
-              plaintext.
-            </section>
-          </a>
-        </article>
+        ◊project[#:title " Bioinformatics Notes" #:link "https://github.com/Eugleo/bioinformatika" #:lang "Racket"]{
+          This is an ongoing project that aims to provide standardized notes for all the major
+          classes in the bioinformatics curriculum. It leverages the power of the Racket
+          publishing system Pollen which allows me to export the content in HTML, PDF and
+          plaintext.
+        }
       </main>
     </div>
   </body>

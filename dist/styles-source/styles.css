@@ -1,3 +1,9 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
 @font-face {
   font-family: "Libre Franklin";
   src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
