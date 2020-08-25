@@ -6,37 +6,37 @@
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Medium.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-Medium.otf") format("opentype");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-SemiBold.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-SemiBold.otf") format("opentype");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Bold.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-ExtraBold.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-ExtraBold.otf") format("opentype");
   font-weight: 800;
 }
 
 @font-face {
   font-family: "Libre Franklin";
-  src: url("/src/assets/fonts/LibreFranklin/LibreFranklin-Black.otf") format("opentype");
+  src: url("assets/fonts/LibreFranklin/LibreFranklin-Black.otf") format("opentype");
   font-weight: 900;
 }
 
