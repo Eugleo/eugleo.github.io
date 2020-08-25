@@ -15,21 +15,21 @@
 
     <link
       rel="preload"
-      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf"
+      href="/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Black.otf"
+      href="/assets/fonts/LibreFranklin/LibreFranklin-Black.otf"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/src/assets/fonts/LibreFranklin/LibreFranklin-Bold.otf"
+      href="/assets/fonts/LibreFranklin/LibreFranklin-Bold.otf"
       as="font"
       type="font/woff2"
       crossorigin
