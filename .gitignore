@@ -1,7 +1,6 @@
 .vscode
 **/compiled/*
 src/*.html
-dist
 
 # Created by https://www.toptal.com/developers/gitignore/api/racket,node,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=racket,node,yarn
