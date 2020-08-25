@@ -19,11 +19,10 @@ jobs:
     - uses: borales/actions-yarn@v2.0.0
       with:
         cmd: install
-    - uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: build
     - name: Use gulp to transform css
-      run: node_modules/.bin/gulp
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: gulp
   build:
     runs-on: ubuntu-latest
     steps:
