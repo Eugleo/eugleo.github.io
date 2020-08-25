@@ -45,7 +45,7 @@
         ◊navlink[#:link "assets/files/EvzenWybitul_Resume.pdf"]{Resume}
         ◊navlink[#:link "https://github.com/Eugleo"]{GitHub}
         ◊navlink[#:link "mailto:wybitul@evzen.dev"]{E-Mail}
-        ◊navlink[#:link "classes/2020-2021/index.html"]{For students}
+        ◊navlink[#:link "students/2020-2021/index.html"]{For students}
         <div class="filler"></div>
         <div class="social-media-link js-mode-toggle">
           <a><div role="status" class="js-mode-status"></div></a>
