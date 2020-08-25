@@ -27,7 +27,6 @@ jobs:
       uses: Bogdanp/setup-racket@v0.10
       with:
         packages: pollen
-    - uses: actions/checkout@v2
     - name: Rerender pollen files and publish them
       run: |
         raco pollen reset
