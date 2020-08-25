@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Evžen Wybitul",
   "license": "MIT",
+  "scripts": {
+    "gulp": "gulp"
+  },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-postcss": "^8.0.0",
