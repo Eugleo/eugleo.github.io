@@ -4,7 +4,7 @@
 ◊(define-meta bg-image "/assets/images/pyret.webp")
 ◊(define-meta title "Programování I | Evžen")
 
-◊header[#:img-path "/assets/images/pyret.webp" #:next-lecture "pátek 4. 9." #:homeworks (@ "Blíží se termín vypracování " (hw 1) " a " (hw 2)) #:tests '() #:last-update "4. 9."]{Programování I}
+◊header[#:img-path "/assets/images/pyret.webp" #:next-lecture "pátek 4. 9." #:homeworks #f #:tests '() #:last-update "4. 9."]{Programování I}
 
 ◊section{Informace o předmětu}
 

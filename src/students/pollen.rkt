@@ -26,11 +26,11 @@
 
   `(div [(class "mb-10 z-10 relative")]
     (div [(class "bg-white rounded-lg shadow-xl mb-2 -mt-16 flex flex-row overflow-hidden")]
-      (div [(class "w-64 bg-cover bg-right") (style ,(format "background-image: url(~a)" img-path))])
+      (div [(class "hidden sm:block w-64 bg-cover bg-right") (style ,(format "background-image: url(~a)" img-path))])
       (div [(class "w-full")]
-        (div [(class "text-black text-4xl font-bold px-8 py-6")] ,title)
+        (div [(class "text-black text-4xl font-bold px-8 py-6 text-center sm:text-left")] ,title)
         (div [(class "flex flex-col px-8 py-6 bg-gray-100")]
-          (p [(class "text-gray-600 text-sm mb-2")] (@ "Následující přednáška bude v " (span [(class "font-semibold")] ,next-lecture)))
+          (p [(class "text-gray-600 text-sm mb-2")] (@ "Další přednáška bude v " (span [(class "font-semibold")] ,next-lecture)))
           ,hw-paragraph
           ,test-paragraph)))
     (div [(class "text-xs w-full text-gray-600 text-right")] ,(format "naposledy upraveno ~a" last-update))))
