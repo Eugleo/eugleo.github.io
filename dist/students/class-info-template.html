@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Evžen Wybitul | Personal Website</title>
+    <title>◊(select-from-metas 'title metas)</title>
     <meta
       name="description"
       content="Evžen Wybitul's personal website, resume and portfolio. See my projects, read about my hobbies, and find links to my GitHub."
@@ -35,11 +35,12 @@
     <link rel="preconnect" href="https://d33wubrfki0l68.cloudfront.net" />
   </head>
 
-  <body>
-    <div class="min-h-screen bg-white">
-      <div class="max-w-2xl mx-auto">
-        ◊(->html doc #:splice #t)
-      </div>
+  <body class="min-h-screen bg-gray-200 w-full">
+    <div class="overflow-hidden z-0 relative">
+      <img class="h-64 w-full object-cover" style="filter: blur(10px)" src="◊(select-from-metas 'bg-image metas)" />
+    </div>
+    <div class="max-w-2xl mx-auto mb-20">
+      ◊(->html doc #:splice #t)
     </div>
   </body>
 </html>

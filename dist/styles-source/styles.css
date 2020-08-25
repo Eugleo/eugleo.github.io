@@ -130,7 +130,7 @@
 
 /* General layout */
 
-body {
+.body-frontpage {
   font-family: "Libre Franklin", sans-serif;
   font-size: 15px;
   line-height: 1.5em;
@@ -139,14 +139,14 @@ body {
 
 /* Tablet */
 @media only screen and (min-width: 470px) and (max-width: 960px) {
-  body {
+  .body-frontpage {
     font-size: 17px;
   }
 }
 
 /* Desktop */
 @media only screen and (min-width: 961px) {
-  body {
+  .body-frontpage {
     font-size: 18px;
   }
 }
