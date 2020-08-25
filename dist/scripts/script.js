@@ -61,10 +61,10 @@ function checkDnaColor() {
 
   switch (currentSetting) {
     case "light":
-      dna.setAttribute("src", "/src/assets/images/dna.svg");
+      dna.setAttribute("src", "/assets/images/dna.svg");
       break;
     case "dark":
-      dna.setAttribute("src", "/src/assets/images/dna-night.svg");
+      dna.setAttribute("src", "/assets/images/dna-night.svg");
       break;
   }
 }
