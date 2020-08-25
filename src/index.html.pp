@@ -39,7 +39,7 @@
     <script type="text/javascript" src="scripts/script.js" defer="defer"></script>
   </head>
 
-  <body>
+  <body class="body-frontpage">
     <div class="container">
       <nav class="links-container">
         ◊navlink[#:link "assets/files/EvzenWybitul_Resume.pdf"]{Resume}
