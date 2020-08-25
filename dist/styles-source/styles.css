@@ -4,6 +4,12 @@
 
 @tailwind utilities;
 
+@media (min-width: 640px) {
+  .blur-big {
+    filter: blur(10px);
+  }
+}
+
 @font-face {
   font-family: "Libre Franklin";
   src: url("/assets/fonts/LibreFranklin/LibreFranklin-Regular.otf") format("opentype");
