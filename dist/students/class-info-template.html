@@ -37,9 +37,9 @@
 
   <body class="min-h-screen bg-gray-200 w-full">
     <div class="overflow-hidden z-0 relative">
-      <img class="h-64 w-full object-cover" style="filter: blur(10px)" src="◊(select-from-metas 'bg-image metas)" />
+      <img class="blur-big h-64 w-full object-cover" src="◊(select-from-metas 'bg-image metas)" />
     </div>
-    <div class="max-w-2xl mx-auto mb-20">
+    <div class="md:max-w-2xl w-full px-6 mx-auto mb-20">
       ◊(->html doc #:splice #t)
     </div>
   </body>

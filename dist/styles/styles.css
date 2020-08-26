@@ -22241,6 +22241,13 @@ video {
           animation: bounce 1s infinite;
 }
 
+@media (min-width: 640px) {
+  .blur-big {
+    -webkit-filter: blur(10px);
+            filter: blur(10px);
+  }
+}
+
 @font-face {
   font-family: "Libre Franklin";
 
