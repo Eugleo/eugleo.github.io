@@ -7,30 +7,45 @@
 (define (class-title title)
   `(h1 [(class "text-black text-4xl font-bold")] ,title))
 
+(define (img-wrapper img-path body)
+  `(div [(class "flex flex-row")]
+      (div (img [(src ,img-path) (class "w-5 h-5 mr-3")]))
+      ,body))
+
 (define (header #:img-path img-path #:next-lecture next-lecture #:homeworks (hws #f) #:tests tests #:last-update last-update title)
   (define test-paragraph
-    (cond
-      [(empty? tests)
-        `(p [(class "text-gray-400 text-sm")] "Neblíží se žádný test")]
-      [(eq? 1 (length tests))
-        `(p [(class "text-gray-600 text-sm")]
-          (format "Nejbližší test se bude konat ~a" (first tests)))]
-      [else
-        `(p [(class "text-gray-600 text-sm")]
-            ,(string-join tests ", " #:before-first "Čekají nás testy " #:before-last " a "))]))
+    (img-wrapper
+      "/assets/images/file-text.svg"
+      (cond
+        [(empty? tests)
+          `(p [(class "text-gray-400 text-sm")] "Žádný test není ohlášen")]
+        [(eq? 1 (length tests))
+          `(p [(class "text-gray-600 text-sm")]
+            (format "Nejbližší test se bude konat ~a" (first tests)))]
+        [else
+          `(p [(class "text-gray-600 text-sm")]
+              ,(string-join tests ", " #:before-first "Čekají nás testy " #:before-last " a "))])))
 
   (define hw-paragraph
-    (if hws
-      `(p [(class "text-gray-600 text-sm mb-2")] ,hws)
-      `(p [(class "text-gray-400 text-sm mb-2" )] "Neblíží se odevzdání žádného úkolu")))
+    (img-wrapper
+      "/assets/images/home.svg"
+      (if hws
+        `(p [(class "text-gray-600 text-sm mb-2")] ,hws)
+        `(p [(class "text-gray-400 text-sm mb-2" )] "Neblíží se odevzdání žádného úkolu"))))
+
+  (define next-lecture-paragraph
+    (img-wrapper
+      "/assets/images/calendar.svg"
+      `(p [(class "text-gray-600 text-sm mb-2")]
+        "Další přednáška bude v " (span [(class "font-semibold")] ,next-lecture))))
 
   `(div [(class "mb-10 z-10 relative")]
     (div [(class "bg-white rounded-lg shadow-xl mb-2 -mt-16 flex flex-row overflow-hidden")]
-      (div [(class "hidden sm:block w-64 bg-cover bg-right") (style ,(format "background-image: url(~a)" img-path))])
+      (div [(class "hidden sm:block w-2/3 bg-cover bg-right") (style ,(format "background-image: url(~a)" img-path))])
       (div [(class "w-full")]
         (div [(class "text-black text-4xl font-bold px-8 py-6 text-center sm:text-left")] ,title)
         (div [(class "flex flex-col px-8 py-6 bg-gray-100")]
-          (p [(class "text-gray-600 text-sm mb-2")] (@ "Další přednáška bude v " (span [(class "font-semibold")] ,next-lecture)))
+          ,next-lecture-paragraph
           ,hw-paragraph
           ,test-paragraph)))
     (div [(class "text-xs w-full text-gray-600 text-right")] ,(format "naposledy upraveno ~a" last-update))))

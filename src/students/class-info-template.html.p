@@ -36,8 +36,9 @@
   </head>
 
   <body class="min-h-screen bg-gray-200 w-full">
-    <div class="overflow-hidden z-0 relative">
-      <img class="blur-big h-64 w-full object-cover" src="◊(select-from-metas 'bg-image metas)" />
+    <div class="overflow-hidden lg:h-xl h-64">
+      <div class="overflow-hidden blur-big w-full h-full transform scale-105 bg-center bg-cover relative" style="background-image: url(◊(select-from-metas 'bg-image metas))">
+      </div>
     </div>
     <div class="md:max-w-2xl w-full px-6 mx-auto mb-20">
       ◊(->html doc #:splice #t)

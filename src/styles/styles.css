@@ -10281,6 +10281,10 @@ video {
   height: 100vh;
 }
 
+.h-xl {
+  height: 24rem;
+}
+
 .text-xs {
   font-size: 0.75rem;
 }
@@ -22242,9 +22246,15 @@ video {
 }
 
 @media (min-width: 640px) {
-  .blur-big {
-    -webkit-filter: blur(10px);
-            filter: blur(10px);
+  .blur-big::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: blur(15px); /* apply the blur */
+    backdrop-filter: blur(15px); /* apply the blur */
+    pointer-events: none; /* make the pseudo class click-through */
   }
 }
 
@@ -32427,6 +32437,10 @@ surname {
 
   .sm\:h-screen {
     height: 100vh;
+  }
+
+  .sm\:h-xl {
+    height: 24rem;
   }
 
   .sm\:text-xs {
@@ -54016,6 +54030,10 @@ surname {
     height: 100vh;
   }
 
+  .md\:h-xl {
+    height: 24rem;
+  }
+
   .md\:text-xs {
     font-size: 0.75rem;
   }
@@ -75603,6 +75621,10 @@ surname {
     height: 100vh;
   }
 
+  .lg\:h-xl {
+    height: 24rem;
+  }
+
   .lg\:text-xs {
     font-size: 0.75rem;
   }
@@ -97188,6 +97210,10 @@ surname {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-xl {
+    height: 24rem;
   }
 
   .xl\:text-xs {
