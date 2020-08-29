@@ -1,4 +1,0 @@
-index.html
-  Cache-Control: max-age=no-cache
-/fonts/*
-  Cache-Control: max-age=31557600
