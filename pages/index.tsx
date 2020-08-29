@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-function Link({ to, children }) {
+function Link({ to, children }: { to: string; children: string }) {
   return (
     <a href={to} className="capitalize hover:text-blue-500 text-gray-600 transform duration-100">
       &gt;
