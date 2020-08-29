@@ -36,6 +36,7 @@ export default function Page({ lecture }: InferGetStaticPropsType<typeof getStat
               const language = props.className.replace(/language-/, '');
               return (
                 <SyntaxHighlighter
+                  style={solarizedlight}
                   className="rounded-lg shadow-xs"
                   codeTagProps={{
                     className: 'text-sm',
