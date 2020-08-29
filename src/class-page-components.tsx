@@ -173,7 +173,10 @@ function DueDatePill({ due }: { due: number }) {
 }
 
 export function HomeworkBox({ homework }: { lectureNum: number; homework: Homework }) {
+<<<<<<< HEAD
   const router = useRouter();
+=======
+>>>>>>> next-js
   return (
     <div className="rounded-lg shadow-xs overflow-hidden">
       <div className="flex flex-row items-center bg-white p-4">
@@ -182,10 +185,14 @@ export function HomeworkBox({ homework }: { lectureNum: number; homework: Homewo
             <Homework number={homework.id} className="hover:text-gray-600" /> ze dne{' '}
             {formatTimestamp(homework.timestamp)}
           </p>
+<<<<<<< HEAD
           <a
             className="text-black font-semibold hover:text-blue-700"
             href={`${router.asPath}/ukoly/${homework.id}`}
           >
+=======
+          <a className="text-black font-semibold hover:text-blue-700" href={`ukoly/${homework.id}`}>
+>>>>>>> next-js
             {homework.type === 'bonus' ? 'Bonus: ' : ''}
             {homework.title}
           </a>
