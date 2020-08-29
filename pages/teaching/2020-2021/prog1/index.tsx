@@ -66,9 +66,9 @@ export default function ProgrammingI({
   homeworks,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 min-h-screen pb-10">
       <HeaderBackgroundImage imagePath={BG_PATH} />
-      <main className="md:max-w-2xl w-full px-6 mx-auto mb-20">
+      <main className="md:max-w-2xl w-full px-6 mx-auto">
         <Header
           title="Programování I"
           imagePath={BG_PATH}
