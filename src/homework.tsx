@@ -1,6 +1,6 @@
-import React from 'react';
 import c from 'classnames';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 export type Homework = {
   id: number;

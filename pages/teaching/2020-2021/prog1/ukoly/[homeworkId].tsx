@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React from 'react';
 import { GetStaticProps } from 'next';
+import React from 'react';
+
 import { getAllHomeworks } from '../../../../../src/content-io';
 import { Homework } from '../../../../../src/homework';
 

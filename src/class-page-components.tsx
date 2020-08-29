@@ -1,12 +1,13 @@
+import c from 'classnames';
+import { useRouter } from 'next/router';
 import React from 'react';
 import * as Icon from 'react-feather';
+
 import { Homework } from './homework';
-import { Test } from './test';
 import { Stack } from './layout';
-import c from 'classnames';
 import { Lecture } from './lecture';
+import { Test } from './test';
 import { formatTimestamp, formatTimestampWithDay } from './utils';
-import { useRouter } from 'next/router';
 
 export function HeaderBackgroundImage({ imagePath }: { imagePath: string }) {
   return (

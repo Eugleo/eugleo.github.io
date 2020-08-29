@@ -20,8 +20,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'mdx'],
+  plugins: ['react', '@typescript-eslint', 'mdx', 'simple-import-sort'],
   rules: {
+    'simple-import-sort/sort': 2,
+    'sort-imports': 0,
+
     'react/self-closing-comp': 2,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/jsx-filename-extension': 0,

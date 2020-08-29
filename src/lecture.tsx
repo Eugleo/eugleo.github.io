@@ -1,7 +1,8 @@
-import React from 'react';
 import c from 'classnames';
-import { Homework } from './homework';
 import { useRouter } from 'next/router';
+import React from 'react';
+
+import { Homework } from './homework';
 
 export type Lecture = {
   title: string;

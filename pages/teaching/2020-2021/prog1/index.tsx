@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { InferGetStaticPropsType } from 'next';
 import React from 'react';
+
 import {
-  HeaderBackgroundImage,
   Header,
-  Section,
-  Paragraph,
+  HeaderBackgroundImage,
   HomeworkBox,
   LectureBox,
+  Paragraph,
+  Section,
 } from '../../../../src/class-page-components';
-import { Test } from '../../../../src/test';
+import { getAllHomeworks, getAllLectures } from '../../../../src/content-io';
+import { Homework, HomeworkMeta } from '../../../../src/homework';
 import { Stack } from '../../../../src/layout';
 import { Lecture, LectureMeta } from '../../../../src/lecture';
-import { getAllLectures, getAllHomeworks } from '../../../../src/content-io';
-import { Homework, HomeworkMeta } from '../../../../src/homework';
-import { InferGetStaticPropsType } from 'next';
+import { Test } from '../../../../src/test';
 import { comparator } from '../../../../src/utils';
 
 const TESTS: Test[] = [];

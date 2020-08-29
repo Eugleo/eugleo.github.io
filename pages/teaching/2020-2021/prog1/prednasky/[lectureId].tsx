@@ -1,15 +1,16 @@
 /* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React from 'react';
-import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
-import { getAllLectures, getAllHomeworks } from '../../../../../src/content-io';
-import { LectureMeta, Lecture } from '../../../../../src/lecture';
-import { comparator } from '../../../../../src/utils';
-import { HomeworkMeta, Homework } from '../../../../../src/homework';
-import { ParsedUrlQuery } from 'querystring';
 import { MDXProvider } from '@mdx-js/react';
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+import { getAllHomeworks, getAllLectures } from '../../../../../src/content-io';
+import { Homework, HomeworkMeta } from '../../../../../src/homework';
+import { Lecture, LectureMeta } from '../../../../../src/lecture';
+import { comparator } from '../../../../../src/utils';
 
 export default function Page({ lecture }: InferGetStaticPropsType<typeof getStaticProps>) {
   const Component = require(`../../../../../posts/teaching/2020-2021/prog1/lectures/${lecture.id}.mdx`)
