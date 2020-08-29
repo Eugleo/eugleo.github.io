@@ -20,8 +20,12 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'mdx', 'simple-import-sort'],
+  plugins: ['react', '@typescript-eslint', 'mdx', 'simple-import-sort', 'import'],
   rules: {
+    'import/first': 2,
+    'import/newline-after-import': 2,
+    'import/no-duplicates': 2,
+    'import/no-unresolved': 2,
     'simple-import-sort/sort': 2,
     'sort-imports': 0,
 
@@ -30,5 +34,12 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'react/prop-types': 0,
     'import/extensions': 0,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };
