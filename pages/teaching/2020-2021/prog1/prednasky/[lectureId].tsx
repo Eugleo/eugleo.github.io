@@ -6,7 +6,6 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 import { ChevronLeft } from 'react-feather';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { getAllHomeworks, getAllLectures } from '../../../../../src/content-io';
 import { Homework, HomeworkMeta } from '../../../../../src/homework';
