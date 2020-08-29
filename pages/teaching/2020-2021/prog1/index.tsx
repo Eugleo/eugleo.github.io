@@ -122,7 +122,7 @@ export default function ProgrammingI({
               style={{ gridTemplateColumns: '6fr repeat(4, 1fr)' }}
               className="rounded-md shadow-xs bg-white w-full grid grid-cols-5 h-10 overflow-hidden"
             >
-              <GradeBar color="bg-red-200 text-red-600">0 až 60</GradeBar>
+              <GradeBar color="bg-red-100 text-red-600">0 až 60</GradeBar>
               <GradeBar color="bg-green-100 text-green-600">70</GradeBar>
               <GradeBar color="bg-green-200 text-green-600">80</GradeBar>
               <GradeBar color="bg-green-300 text-green-600">90</GradeBar>
