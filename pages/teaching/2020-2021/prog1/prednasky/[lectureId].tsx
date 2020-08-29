@@ -4,6 +4,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
+import { ChevronLeft } from 'react-feather';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -17,12 +18,20 @@ export default function Page({ lecture }: InferGetStaticPropsType<typeof getStat
     .default;
   return (
     <div className="bg-gray-200 py-10 min-h-screen">
-      <article className="mx-auto max-w-2xl">
-        <h1 className="font-bold text-4xl mb-4">{lecture.title}</h1>
+      <article className="mx-auto max-w-xl px-4">
+        <nav>
+          <a
+            href="/teaching/2020-2021/prog1"
+            className="flex flex-row items-center mb-4 text-blue-600 font-medium uppercase text-xs hover:underline"
+          >
+            <ChevronLeft className="mr-2 text-blue-600 w-4 h-4" /> Programování 1
+          </a>
+        </nav>
+        <h1 className="font-bold text-2xl md:text-4xl mb-4">{lecture.title}</h1>
         <MDXProvider
           components={{
             p: (props) => <p className="text-gray-900 mb-2" {...props} />,
-            h2: (props) => <h2 className="font-bold text-2xl mt-8 mb-4" {...props} />,
+            h2: (props) => <h2 className="font-bold text-lg md:text-2xl mt-8 mb-4" {...props} />,
             code: (props) => {
               const language = props.className.replace(/language-/, '');
               return (
