@@ -1,16 +1,18 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Link({ to, children }: { to: string; children: string }) {
   return (
     <a href={to} className="capitalize hover:text-blue-500 text-gray-600 transform duration-100">
-      &gt;
-      {children}
+      &gt; {children}
     </a>
   );
 }
 
 export default function Home() {
+  useEffect(() => {
+    document.documentElement.lang = 'cs';
+  });
   return (
     <div className="bg-gray-100 min-h-screen w-full">
       <Head>
@@ -24,9 +26,9 @@ export default function Home() {
         <meta name="theme-color" content="#38a169" />
       </Head>
 
-      <main className=" min-h-screen mx-auto flex flex-col justify-center items-center w-full">
-        <div className="px-10 py-8 max-w-2xl rounded-lg shadow-xs bg-white">
-          <h1 className="text-4xl font-black mb-6">
+      <main className="min-h-screen mx-auto flex flex-col justify-center items-center w-full">
+        <div className="px-10 py-8 max-w-lg mx-4 rounded-lg shadow-xs bg-white">
+          <h1 className="text-4xl font-black mb-6 text-center w-full sm:text-left ">
             Evžen
             <span className="text-blue-500"> :: Dev</span>
           </h1>
