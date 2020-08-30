@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { MDXProvider } from '@mdx-js/react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 import { ChevronLeft } from 'react-feather';
@@ -17,6 +18,24 @@ export default function Page({ lecture }: InferGetStaticPropsType<typeof getStat
     .default;
   return (
     <div className="bg-gray-200 py-10 min-h-screen">
+      <NextSeo
+        title={`Přednáška #${lecture.id} | Programování I`}
+        description={lecture.title}
+        openGraph={{
+          title: `Přednáška #${lecture.id} | Programování I`,
+          description: lecture.title,
+          type: 'website',
+          locale: 'cs_CZ',
+          images: [
+            {
+              url: 'https://www.evzen.dev/prog1-og-header.png',
+              width: 1200,
+              height: 630,
+              alt: 'evzen.dev / Programování I',
+            },
+          ],
+        }}
+      />
       <article className="mx-auto max-w-xl px-4">
         <nav>
           <a

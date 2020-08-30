@@ -18,6 +18,7 @@
     "classnames": "^2.2.6",
     "next": "9.5.2",
     "next-compose-plugins": "^2.2.0",
+    "next-seo": "^4.7.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",

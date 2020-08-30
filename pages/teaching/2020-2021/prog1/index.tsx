@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import c from 'classnames';
 import { InferGetStaticPropsType } from 'next';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 
 import {
@@ -76,6 +77,24 @@ export default function ProgrammingI({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="bg-gray-200 min-h-screen pb-10">
+      <NextSeo
+        title="Programování I"
+        description="Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I"
+        openGraph={{
+          title: 'Programování I',
+          description: 'Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I',
+          type: 'website',
+          locale: 'cs_CZ',
+          images: [
+            {
+              url: 'https://www.evzen.dev/prog1-og-header.png',
+              width: 1200,
+              height: 630,
+              alt: 'evzen.dev / Programování I',
+            },
+          ],
+        }}
+      />
       <HeaderBackgroundImage imagePath={BG_PATH} />
       <main className="max-w-2xl w-full px-6 mx-auto">
         <Header

@@ -2369,14 +2369,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001093, can
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001119.tgz#99185d04bc00e76a86c9ff731dc5ec8e53aefca1"
   integrity sha512-Hpwa4obv7EGP+TjkCh/wVvbtNJewxmtg4yVJBLFnxo35vbPapBr138bUWENkb5j5L9JZJ9RXLn4OrXRG/cecPQ==
 
-<<<<<<< HEAD
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.3.0.tgz#23ac613cc9a856e4f88ff8bb73bbb5e989825cf7"
   integrity sha512-/4YgnZS8y1UXXmC02xD5rRrBEu6T5ub+mQHLNRj0fzTRbgdBYhsNo2V5EqwgqrExjxsjtF/OpAKAMkKsxbD5XQ==
 
-=======
->>>>>>> next-js
 ccount@^1.0.0:
   version "1.0.5"
   resolved "https://registry.npmjs.org/ccount/-/ccount-1.0.5.tgz#ac82a944905a65ce204eb03023157edf29425c17"
@@ -3556,14 +3553,11 @@ eslint-plugin-react@^7.20.6:
     resolve "^1.17.0"
     string.prototype.matchall "^4.0.2"
 
-<<<<<<< HEAD
 eslint-plugin-simple-import-sort@^5.0.3:
   version "5.0.3"
   resolved "https://registry.npmjs.org/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-5.0.3.tgz#9ae258ddada6efffc55e47a134afbd279eb31fc6"
   integrity sha512-1rf3AWiHeWNCQdAq0iXNnlccnH1UDnelGgrPbjBBHE8d2hXVtOudcmy0vTF4hri3iJ0MKz8jBhmH6lJ0ZWZLHQ==
 
-=======
->>>>>>> next-js
 eslint-scope@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npmjs.org/eslint-scope/-/eslint-scope-4.0.3.tgz#ca03833310f6889a3264781aa82e63eb9cfe7848"
@@ -5233,6 +5227,11 @@ next-compose-plugins@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/next-compose-plugins/-/next-compose-plugins-2.2.0.tgz#95cd8eb40ab0652070d76572fb648354191628b0"
   integrity sha512-ChUlpT9tWfJ7YxqGw/WQ2T1gf8EeX93n1XqeQw0lkvGa7seszahvF4eOZUJoq7Hetsbzg4UHVnPoCXfXTyQR3g==
+
+next-seo@^4.7.3:
+  version "4.7.3"
+  resolved "https://registry.npmjs.org/next-seo/-/next-seo-4.7.3.tgz#8da82dca4f425c84392c4a8462f215dfcb4195b0"
+  integrity sha512-hEl6fVbYU6h0EqGTqsVM3aEbn+ejlV7JjjIRLzT8at5TDxXQWs1Ypd0UA9oalHfVo7rDbWawD9rrvMe+PWl4kw==
 
 next-tick@~1.0.0:
   version "1.0.0"
