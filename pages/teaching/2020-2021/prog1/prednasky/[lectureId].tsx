@@ -3,8 +3,9 @@
 import { MDXProvider } from '@mdx-js/react';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChevronLeft } from 'react-feather';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
@@ -14,6 +15,9 @@ import { Lecture, LectureMeta } from '../../../../../src/lecture';
 import { comparator } from '../../../../../src/utils';
 
 export default function Page({ lecture }: InferGetStaticPropsType<typeof getStaticProps>) {
+  useEffect(() => {
+    document.documentElement.lang = 'cs';
+  });
   const Component = require(`../../../../../posts/teaching/2020-2021/prog1/lectures/${lecture.id}.mdx`)
     .default;
   return (

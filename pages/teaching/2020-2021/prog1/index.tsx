@@ -2,7 +2,7 @@
 import c from 'classnames';
 import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Header,
@@ -75,6 +75,10 @@ export default function ProgrammingI({
   lectures,
   homeworks,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  useEffect(() => {
+    document.documentElement.lang = 'cs';
+  });
+
   return (
     <div className="bg-gray-200 min-h-screen pb-10">
       <NextSeo
