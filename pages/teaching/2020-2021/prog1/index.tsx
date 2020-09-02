@@ -83,10 +83,10 @@ export default function ProgrammingI({
     <div className="bg-gray-200 min-h-screen pb-10">
       <NextSeo
         title="Programování I"
-        description="Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I"
+        description="Zde naleznete seznam přednášek a úkolů zadaných v Programování I"
         openGraph={{
           title: 'Programování I',
-          description: 'Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I',
+          description: 'Zde naleznete seznam přednášek a úkolů zadaných v Programování I',
           type: 'website',
           locale: 'cs_CZ',
           images: [
