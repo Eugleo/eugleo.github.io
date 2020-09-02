@@ -113,70 +113,35 @@ export default function ProgrammingI({
         <Section title="Informace o předmětu">
           <Stack gap="gap-4">
             <Paragraph>
-              Podmínkou pro úspěšné splnění předmětu je vypracování povinných domácích úkolů a
-              získání alespoň 60 bodů ze 100 v závěrečné zkoušce.
-            </Paragraph>
-            <Paragraph>
-              Studenti mohou navíc už během roku získat body, které se jim na konci připočítají ke
-              zkoušce, a to konkrétně vypracováváním <em>bonusových</em> domácích úkolů a úspěšným
-              plněním průběžných písemných testů. Každému studentovi bude tímto způsobem ke zkoušce
-              převedeno až 50 bodů.
+              Během roku budou průběžně zadávány domácí úkoly, každý z nich ohodnocený nějakým
+              počtem bodů. Za obě pololetí bude vypsáno tolik domácích úkolů, aby za ně bylo celkem
+              možno získat alespoň 150 bodů.
             </Paragraph>
 
-            <div className="p-8 my-4 bg-white rounded-lg shadow-xs">
-              <Stack gap="gap-4">
-                <Paragraph>
-                  S přihlédnutím ke známkovým hranicím níže je zřejmé, že i ten nejaktivnější
-                  student musí ze závěrečné zkoušky vždy získat alespoň 10 bodů, aby ročníkem
-                  prošel.
-                </Paragraph>
-
-                <Paragraph>
-                  Na druhou stranu i student, který nedělal dobrovolné domácí úlohy a moc se mu
-                  nedařilo v průběžných testech může nakonec dostat jedničku, pokud hezky zvládne
-                  závěrečnou zkoušku.
-                </Paragraph>
-              </Stack>
-            </div>
-
-            <Paragraph>Konkrétní bodové hranice a jim odpovídající známky:</Paragraph>
-
-            <div
-              style={{ gridTemplateColumns: '6fr repeat(4, 1fr)' }}
-              className="rounded-md shadow-xs bg-white w-full grid grid-cols-5 h-10 overflow-hidden"
-            >
-              <GradeBar color="bg-red-100 text-red-600">0 až 60</GradeBar>
-              <GradeBar color="bg-green-100 text-green-600">70</GradeBar>
-              <GradeBar color="bg-green-200 text-green-600">80</GradeBar>
-              <GradeBar color="bg-green-300 text-green-600">90</GradeBar>
-              <GradeBar color="bg-green-400 text-green-100">100</GradeBar>
-            </div>
+            <Paragraph>
+              Aby mohl být žák hodnocen, musí v obou pololetích získat za domácí úkoly alespoň 100
+              bodů. Navíc bude minimálně jednou v každém pololetí každý žák prezentovat své řešení
+              domácího úkolu před třídou.
+            </Paragraph>
 
             <Paragraph>
-              Do Bakaláře budou studentům udíleny známky, které budou zhruba odpovídat změnám v
-              jejich bodovém stavu. Tyto známky však budou pouze orientační, hodnocení na vysvědčení
-              bude zcela záviset na získaných bodech.
+              Výsledná známka se bude odvíjet z části právě od této prezentace, ale především bude
+              záviset na úspěšném složení písemné a ústní části pololetní zkoušky.
             </Paragraph>
 
             <h3 className="font-bold mt-4">Podoba zkoušky a průběžných testů</h3>
 
             <Paragraph>
               Zkouška se skládá z písemné a ústní části. Na začátku písemné části je zadána jedna
-              úloha, na jejíž naprogramování studenti mají 90 minut. Průběžné testy mají stejnou
-              formu, ale na jejich vypracování mají žáci pouze 60 minut.
-            </Paragraph>
-
-            <Paragraph>
-              Ústní část zkoušky je vlastně jen krátká diskuze s vyučujícím o předešlé písemné části
-              a o tématech probraných během roku — všechny důležité informace z těchto témat budou v
-              oficiálních zápiscích z přednášek zde na stránkách.
+              úloha, na jejíž naprogramování studenti mají 90 minut. Ústní část se skládá z diskuze
+              o studentově řešení písemné části a z několika otázek na teorii probranou v hodinách.
             </Paragraph>
           </Stack>
         </Section>
 
         <Section title="Zadání úkolů">
           <Stack gap="gap-4">
-            <Paragraph>Zde se budou objevovat zadání úkolů spolu s jejich termíny.</Paragraph>
+            <Paragraph>Zde se budou objevovat zadání úkolů spolu s termíny odevzdání.</Paragraph>
             {homeworks.map((hw) => (
               <HomeworkBox key={hw.id} homework={hw} lectureNum={1} />
             ))}
@@ -185,7 +150,10 @@ export default function ProgrammingI({
 
         <Section title="Zápisky z přednášek">
           <Stack gap="gap-4">
-            <Paragraph>Zde se budou objevovat zápisky důležitých věcí z přednášek.</Paragraph>
+            <Paragraph>
+              Zde se budou objevovat oficiální zápisky z přednášek. V ústní části zkoušky budou
+              vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích.
+            </Paragraph>
             {lectures.map((l) => (
               <LectureBox key={l.id} lecture={l} />
             ))}
