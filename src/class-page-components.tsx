@@ -74,7 +74,6 @@ export function Header({
           <Stack gap="gap-2" className="px-8 py-6 bg-gray-100 w-full">
             <Lectures nextLectureDate={nextLectureDate} />
             <Homeworks homeworks={homeworks} />
-            <Tests tests={tests} />
           </Stack>
         </div>
       </div>
@@ -100,27 +99,6 @@ function Homeworks({ homeworks }: { homeworks: Homework[] }) {
             .map<React.ReactNode>((hw) => (
               <Homework key={hw.id} number={hw.id} className="hover:text-gray-700" />
             ))
-            .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
-            .slice(1)}
-        </Description>
-      )}
-    </DescriptionWrapper>
-  );
-}
-
-function Tests({ tests }: { tests: Test[] }) {
-  const day = 1000 * 60 * 60 * 24;
-  const futureTests = tests.filter((t) => t.timestamp + day >= Date.now());
-  return (
-    <DescriptionWrapper>
-      <Icon.FileText className="w-5 h-5 mr-3 text-gray-500" />
-      {futureTests.length === 0 ? (
-        <Description>Žádný test není ohlášen</Description>
-      ) : (
-        <Description>
-          Čekají nás testy{' '}
-          {futureTests
-            .map((t) => formatTimestamp(t.timestamp))
             .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
             .slice(1)}
         </Description>
