@@ -65,7 +65,7 @@ export function Header({
       <div className="bg-white rounded-lg shadow-xl mb-2 -mt-16 flex flex-row overflow-hidden">
         <div
           style={{ backgroundImage: `url(${imagePath})` }}
-          className="hidden sm:block w-2/3 bg-cover bg-right"
+          className="hidden sm:block w-2/3 bg-cover bg-center"
         />
         <div className="w-full">
           <h1 className="text-black text-4xl font-bold px-8 py-6 text-center sm:text-left">

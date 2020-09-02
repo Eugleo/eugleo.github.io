@@ -20,7 +20,7 @@ import { Test } from '../../../../src/test';
 import { comparator } from '../../../../src/utils';
 
 const TESTS: Test[] = [];
-const BG_PATH = '/pyret.webp';
+const BG_PATH = '/python.jpg';
 
 export const getStaticProps = async () => {
   const lecturePaths = await getAllLectures();
@@ -29,7 +29,7 @@ export const getStaticProps = async () => {
   const promiseHws = homeworkPaths
     .map(async (hid) => {
       const module = await import(
-        `../../../../posts/teaching/2020-2021/prog1/homeworks/${hid}.mdx`
+        `../../../../posts/teaching/2020-2021/prog2/homeworks/${hid}.mdx`
       );
       const homework: HomeworkMeta = module.metadata;
 
@@ -45,7 +45,7 @@ export const getStaticProps = async () => {
   const lectures: Lecture[] = lecturePaths
     .map((idStr) => {
       const id = parseInt(idStr);
-      const lecture: LectureMeta = require(`../../../../posts/teaching/2020-2021/prog1/lectures/${id}.mdx`)
+      const lecture: LectureMeta = require(`../../../../posts/teaching/2020-2021/prog2/lectures/${id}.mdx`)
         .metadata;
       return {
         ...lecture,
@@ -82,19 +82,19 @@ export default function ProgrammingI({
   return (
     <div className="bg-gray-200 min-h-screen pb-10">
       <NextSeo
-        title="Programování I"
-        description="Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I"
+        title="Programování II"
+        description="Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování II"
         openGraph={{
-          title: 'Programování I',
-          description: 'Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování I',
+          title: 'Programování II',
+          description: 'Zde naleznete seznam přednášek, úkolů a testů zadaných v Programování II',
           type: 'website',
           locale: 'cs_CZ',
           images: [
             {
-              url: 'https://www.evzen.dev/prog1-og-header.png',
+              url: 'https://www.evzen.dev/prog2-og-header.png',
               width: 1200,
               height: 630,
-              alt: 'evzen.dev / Programování I',
+              alt: 'evzen.dev / Programování II',
             },
           ],
         }}
@@ -102,7 +102,7 @@ export default function ProgrammingI({
       <HeaderBackgroundImage imagePath={BG_PATH} />
       <main className="max-w-2xl w-full px-6 mx-auto">
         <Header
-          title="Programování I"
+          title="Programování II "
           imagePath={BG_PATH}
           tests={TESTS}
           homeworks={homeworks}
@@ -113,37 +113,27 @@ export default function ProgrammingI({
         <Section title="Informace o předmětu">
           <Stack gap="gap-4">
             <Paragraph>
-              Během roku budou průběžně zadávány domácí úkoly, každý z nich ohodnocený nějakým
-              počtem bodů. Za obě pololetí bude vypsáno tolik domácích úkolů, aby za ně celkem bylo
-              možno získat alespoň 150 bodů.
+              Podmínkou splnění předmětu je dokončení pololetního projektu, na kterém budou žáci
+              pracovat většinu prvního i druhého pololetí. Svou práci na tomto projektu budou žáci
+              minimálně jednou za pololetí prezentovat. Žáci budou rovněž na konci každého pololetí
+              ústně zkoušeni z probrané teorie.
             </Paragraph>
 
             <Paragraph>
-              Aby mohl být žák hodnocen, musí v obou pololetích získat za domácí úkoly alespoň 100
-              bodů. Každý žák navíc bude minimálně jednou v každém pololetí prezentovat své řešení
-              domácího úkolu před třídou. Rozhodujícím faktorem při hodnocení žáka bude závěrečná
-              zkouška skládající se z ústní a písemné části.
-            </Paragraph>
-
-            <Paragraph>
-              Obě části závěrečné zkoušky jsou hodnoceny zvlášť, písemná s váhou 7 a ústní s váhou
-              10. Prezentace jsou hodnoceny s váhou 5. Žáci mohou navíc dostávat známky za práci v
-              hodině.
-            </Paragraph>
-
-            <h3 className="font-bold mt-4">Podoba zkoušky</h3>
-
-            <Paragraph>
-              Zkouška se skládá z písemné a ústní části. Na začátku písemné části je zadána jedna
-              úloha, na jejíž naprogramování studenti mají 90 minut. Ústní část se skládá z diskuze
-              o studentově řešení písemné části a z několika otázek na teorii probranou v hodinách.
+              Prezentace bude hodnocena známkou s váhou 5 a se stejnou váhou bude hodnoceno i
+              závěrečné ústní zkoušení. Práce na projektu bude hodnocena s váhou 10. Žáci mohou
+              navíc dostávat známky za práci v hodině.
             </Paragraph>
           </Stack>
         </Section>
 
-        <Section title="Zadání úkolů">
+        <Section title="Pracovní plány">
           <Stack gap="gap-4">
-            <Paragraph>Zde se budou objevovat zadání úkolů spolu s termíny odevzdání.</Paragraph>
+            <Paragraph>
+              Během práce na projektu si budou žáci rozvrhovat, jaké funkce daný týden implementují.
+              Seznam těchto plánů se objeví zde, aby žáci i vyučující mohli průběžně kontrolovat,
+              jak se jim daří plány plnit.
+            </Paragraph>
             {homeworks.map((hw) => (
               <HomeworkBox key={hw.id} homework={hw} lectureNum={1} />
             ))}
@@ -153,8 +143,9 @@ export default function ProgrammingI({
         <Section title="Zápisky z přednášek">
           <Stack gap="gap-4">
             <Paragraph>
-              Zde se budou objevovat oficiální zápisky z přednášek. V ústní části zkoušky budou
-              vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích.
+              Zde se budou objevovat oficiální zápisky z přednášek. V závěrečném ústním zkoušení
+              budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích (a jejich
+              praktické využití).
             </Paragraph>
             {lectures.map((l) => (
               <LectureBox key={l.id} lecture={l} />
