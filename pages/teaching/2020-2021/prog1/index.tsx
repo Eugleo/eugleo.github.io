@@ -23,8 +23,8 @@ const TESTS: Test[] = [];
 const BG_PATH = '/pyret.webp';
 
 export const getStaticProps = async () => {
-  const lecturePaths = await getAllLectures();
-  const homeworkPaths = await getAllHomeworks();
+  const lecturePaths = await getAllLectures('prog1');
+  const homeworkPaths = await getAllHomeworks('prog1');
 
   const promiseHws = homeworkPaths
     .map(async (hid) => {

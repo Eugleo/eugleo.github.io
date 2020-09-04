@@ -23,8 +23,8 @@ const TESTS: Test[] = [];
 const BG_PATH = '/python.jpg';
 
 export const getStaticProps = async () => {
-  const lecturePaths = await getAllLectures();
-  const homeworkPaths = await getAllHomeworks();
+  const lecturePaths = await getAllLectures('prog2');
+  const homeworkPaths = await getAllHomeworks('prog2');
 
   const promiseHws = homeworkPaths
     .map(async (hid) => {

@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export async function getStaticPaths() {
-  const homeworks = await getAllHomeworks();
+  const homeworks = await getAllHomeworks('prog1');
   return {
     paths: homeworks.map((homeworkId) => ({ params: { homeworkId } })),
     fallback: false,

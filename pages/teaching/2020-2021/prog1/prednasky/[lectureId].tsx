@@ -63,7 +63,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQue
   const meta: LectureMeta = require(`../../../../../posts/teaching/2020-2021/prog1/lectures/${id}.mdx`)
     .metadata;
 
-  const homeworks: Homework[] = (await getAllHomeworks())
+  const homeworks: Homework[] = (await getAllHomeworks('prog1'))
     .map((hid) => {
       const homework: HomeworkMeta = require(`../../../../../posts/teaching/2020-2021/prog1/homeworks/${hid}.mdx`)
         .metadata;
@@ -84,7 +84,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQue
 }
 
 export async function getStaticPaths() {
-  const lectures = await getAllLectures();
+  const lectures = await getAllLectures('prog1');
   return {
     paths: lectures.map((lectureId) => ({ params: { lectureId } })),
     fallback: false,
