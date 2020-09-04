@@ -135,7 +135,7 @@ export default function ProgrammingI({
               jak se jim daří plány plnit.
             </Paragraph>
             {homeworks.map((hw) => (
-              <HomeworkBox key={hw.id} homework={hw} lectureNum={1} />
+              <HomeworkBox key={hw.id} homework={hw} />
             ))}
           </Stack>
         </Section>
