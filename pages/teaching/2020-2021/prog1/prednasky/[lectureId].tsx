@@ -10,6 +10,12 @@ import { ChevronLeft } from 'react-feather';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { getAllHomeworks, getAllLectures } from '../../../../../src/content-io';
+import {
+  Content,
+  HomeworkHeader,
+  LectureHeader,
+  Navigation,
+} from '../../../../../src/content-page';
 import { Homework, HomeworkMeta } from '../../../../../src/homework';
 import { Lecture, LectureMeta } from '../../../../../src/lecture';
 import { comparator } from '../../../../../src/utils';
@@ -41,37 +47,11 @@ export default function Page({ lecture }: InferGetStaticPropsType<typeof getStat
         }}
       />
       <article className="mx-auto max-w-xl px-4">
-        <nav>
-          <a
-            href="/teaching/2020-2021/prog1"
-            className="flex flex-row items-center mb-4 text-blue-600 font-medium uppercase text-xs hover:underline"
-          >
-            <ChevronLeft className="mr-2 text-blue-600 w-4 h-4" /> Programování 1
-          </a>
-        </nav>
-        <h1 className="font-bold text-2xl md:text-4xl mb-4">{lecture.title}</h1>
-        <MDXProvider
-          components={{
-            p: (props) => <p className="text-gray-900 mb-2" {...props} />,
-            h2: (props) => <h2 className="font-bold text-lg md:text-2xl mt-8 mb-4" {...props} />,
-            code: (props) => {
-              const language = props.className.replace(/language-/, '');
-              return (
-                <SyntaxHighlighter
-                  className="rounded-lg shadow-xs"
-                  codeTagProps={{
-                    className: 'text-sm',
-                  }}
-                  language={language}
-                >
-                  {props.children}
-                </SyntaxHighlighter>
-              );
-            },
-          }}
-        >
+        <Navigation title="Programování I" to="/teaching/2020-2021/prog1" />
+        <LectureHeader path="/teaching/2020-2021/prog1" lecture={lecture} />
+        <Content>
           <Component />
-        </MDXProvider>
+        </Content>
       </article>
     </div>
   );

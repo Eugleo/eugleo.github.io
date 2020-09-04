@@ -1,23 +1,48 @@
+/* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { GetStaticProps } from 'next';
-import React from 'react';
+import { NextSeo } from 'next-seo';
+import React, { useEffect } from 'react';
 
 import { getAllHomeworks } from '../../../../../src/content-io';
+import { Content, HomeworkHeader, Navigation } from '../../../../../src/content-page';
 import { Homework } from '../../../../../src/homework';
 
 export default function Page({ homework }: { homework: Homework }) {
   const Component = require(`../../../../../posts/teaching/2020-2021/prog1/homeworks/${homework.id}.mdx`)
     .default;
-  const ReactDOMServer = require('react-dom/server');
-  const ssr = ReactDOMServer.renderToString(<Component />) as string;
-  const mdx = <div dangerouslySetInnerHTML={{ __html: ssr }} />;
+  useEffect(() => {
+    document.documentElement.lang = 'cs';
+  });
 
   return (
-    <article>
-      <h1>{homework.title}</h1>
-      <small>{homework.timestamp}</small>
-      {mdx}
-    </article>
+    <div className="mr-3 bg-gray-200 py-10 min-h-screen">
+      <NextSeo
+        title={`Úkol #${homework.id} | Programování I`}
+        description={homework.title}
+        openGraph={{
+          title: `Úkol' #${homework.id} | Programování I`,
+          description: homework.title,
+          type: 'website',
+          locale: 'cs_CZ',
+          images: [
+            {
+              url: 'https://www.evzen.dev/prog1-og-header.png',
+              width: 1200,
+              height: 630,
+              alt: 'evzen.dev / Programování I',
+            },
+          ],
+        }}
+      />
+      <article className="mx-auto max-w-xl px-4">
+        <Navigation title="Programování I" to="/teaching/2020-2021/prog1" />
+        <HomeworkHeader homework={homework} />
+        <Content>
+          <Component />
+        </Content>
+      </article>
+    </div>
   );
 }
 

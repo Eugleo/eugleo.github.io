@@ -1,0 +1,110 @@
+export const metadata = {
+  title: 'Úvod do programování, datové typy, manipulace s obrázky',
+  timestamp: new Date(2020, 9 - 1, 4).valueOf(),
+};
+
+V této přednášce jsme se seznámili s několika drobnostmi ze světa programovacích jazyků a začali jsme programovat v Pyretu. Naučili jsme se pracovat s čísly, s textem a s obrázky. Přednáška byla vedena podle [třetí kapitoly knihy PAPL](https://papl.cs.brown.edu/2020/getting-started.html).
+
+_Pozn: Kód Pyretu lze spouštět na [těchto stránkách](https://code.pyret.org/editor) v pravém oddílu._
+
+## Srhuntí pojmů
+
+Následující pojmy by bylo fajn si zapamatovat. Pokud vám nějaký z nich není jasný, nezoufejte — mrkněte na text níže, zeptejte se kamaráda, nebo mi napište. Všechny je navíc budeme opakovat v následujících hodinách, abyste si pro ně vybudovali intuici.
+
+- expression
+- value
+- operátor
+- datový typ
+- kontrakt
+- vstup a výstup
+
+## Programovací jazyky
+
+Programovací jazyky jsou pouze nástroje, každý je se hodí na něco jiného a žádný z nich není obecně nejlepší. Programovací jazyky se dělí do nemnoha skupin a jazyky z jedné skupiny jsou si navzájem velmi podobné — jakmile umíte jeden jazyk z dané skupiny, naučit se další vám nezabere mnoho času.
+
+## Čísla, hodnoty (values) a výrazy (expressions)
+
+Pyret můžeme používat jako kalkulačku, například
+
+```txt
+>>> 5 + 10
+15
+```
+
+Šipky `>>>` značí místo, kam jsme vložili náš program, řádek bez `>>>` značí výsledek našeho programu.
+
+Výraz `5 + 10` je obecný příklad něčeho, čemu se říká **expression** (doslova: výraz). Expression je nějaký _výpočet_ popsaný programovacím jazykem. "Atomární", základní výrazy, jako například `5` se nazývají **value** (hodnota).
+
+Čísla můžeme nejen sčítat, ale také odčítat, násobit a dělit. Při použití několika **operátorů** (`+`, `-`, `*`, `/`) najednou je třeba vše odzávorkovat:
+
+```txt
+>>> (5 + 10) * 10
+150
+>>> 5 + 10 * 10
+Error: The * operation is at the same level as the + operation.
+```
+
+## Text
+
+Text, neboli **String** je datový typ obsahující text (zde asi žádné překvapení). Značí se dvojitými uvozovkami: `"toto je string"`.
+
+## Obrázky
+
+Importovali jsme knihovnu pro práci s obrázky pomocí `include image`. Naučili jsme se používat `circle`, `rectangle`, `overlay`, `rotate` a `above` ke tvoření obrázků. Zatímco `circle` a `rectangle` vytvářejí obrázky dle naší specifikace, `overlay`, `rotate` a `above` pracují s již existujícími obrázky.
+
+Například štít Kapitána Ameriky by se udělal následovně (napsáno na více řádků je to čitelnější a vliv na funkci to nemá)
+
+```txt
+overlay(
+  overlay(
+    overlay(
+      overlay(
+        star(100, "solid", "white"),
+        circle(140, "solid", "blue")),
+      circle(160, "solid", "red")),
+    circle(180, "solid", "white")),
+  circle(200, "solid", "red"))
+```
+
+kde jsem použil `star` z [dokumentace](https://www.pyret.org/docs/latest/image.html#%28part._image_star%29). Výsledek je
+
+<img
+  alt="Štít Kapitána Americy vygenerovaný v Pyretu"
+  className="mx-auto w-1/2 my-4"
+  src="/cpt-america.png"
+/>
+
+<div className="bg-white rounded-lg shadow-xs p-6 my-4">
+  Vyznat se ve všech těch `overlay` je těžké — zkuste si tento kód kousek po kousku překopírovat a
+  spustit, abyste veděli, co každý kousek dělá.
+</div>
+
+## Černé skříňky a typy
+
+Zjistili jsme, že když _zavoláme_ `circle` s příslušnými parametry, zobrazí se nám na obrazovce kolečko. Jak to?
+
+Detaily si vysvětlíme příště, zatím stačí vědět, že `circle` se chová jako nějaká černá skříňka, do které zleva vedou tři trubky a zprava trčí jedna ven. Když do těch vstupních trubek (nebo prostě jen **vstupů**) dáme správné věci, naše skříňka nám zprava (na **výstupu**) vyplivne obrázek kruhu. Podobně tomu bylo s `rectangle`, ale do toho zleva vedly trubky čtyři.
+
+<div className="bg-white rounded-lg shadow-xs p-6 my-4">
+  Raději opakuji: Počet vstupů je variabilní, ale výstup je vždy jen jeden.
+</div>
+
+Jakéže vstupy bralo `circle`? (= jaké trubky vedly do naší kruhy-vyráběcí skříňky?)
+
+- radius, což bylo číslo značící poloměr kruhu
+- mode, což byl string značící zda bude kruh obtažený nebo vybarvený
+- color, což byl string značící barvu kruhu
+
+Spolu s faktem, že výstupem `circle` je obrázek, můžeme seznam výše značit následovně takzvaným **kontraktem**:
+
+```txt
+circle(radius :: Number, mode :: String, color :: String) -> Image
+```
+
+`Number`, `String` a `Image` jsou takzvané **datové typy** a označují, jaké druhy věcí máme strkat do vstupních trubek a jaké druhy věcí máme očekávat na výstupu. Kontrakt pro funkci `above`, která vezme dva obrázky a vrátí nový obrázek, ve kterém je jeden ze vstupních obrázků nad tím druhým, by byl
+
+```txt
+above(imgA :: Image, imgB :: Image) -> Image
+```
+
+Obecně konrakty pro všechny _funkce_, které používáme, se dají najít v dokumentaci (stačí v ní vyhledat jméno funkce, např. [zde pro overlay](https://www.pyret.org/docs/latest/image.html#%28part._image_overlay%29)).

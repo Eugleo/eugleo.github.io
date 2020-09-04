@@ -143,9 +143,16 @@ export default function ProgrammingI({
 
         <Section title="Zadání úkolů">
           <Stack gap="gap-4">
-            <Paragraph>Zde se budou objevovat zadání úkolů spolu s termíny odevzdání.</Paragraph>
+            <Paragraph>
+              Všechny úkoly prosím posílejte nejpozději o půlnoci, a to přes messenger nebo přes
+              mail. Nebude-li řečeno jinak, posílejte úkoly v souboru s názvem
+              <code className="text-sm bg-green-100 px-1 rounded-sm">idUkolu_prijmeni.arr</code>,
+              například <code className="text-sm bg-green-100 px-1 rounded-sm">U1_wybitul.arr</code>
+              . Pokud je v rámci jednoho úkolů několik podůkolů, uložte je všechny do jednoho
+              souboru a oddělte je prázdným řádkem.
+            </Paragraph>
             {homeworks.map((hw) => (
-              <HomeworkBox key={hw.id} homework={hw} lectureNum={1} />
+              <HomeworkBox key={hw.id} homework={hw} />
             ))}
           </Stack>
         </Section>
@@ -153,8 +160,15 @@ export default function ProgrammingI({
         <Section title="Zápisky z přednášek">
           <Stack gap="gap-4">
             <Paragraph>
-              Zde se budou objevovat oficiální zápisky z přednášek. V ústní části zkoušky budou
-              vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích.
+              V ústní části zkoušky budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto
+              zápiscích. Přednášky jsou inspirovány knihou{' '}
+              <a
+                className="border-b border-gray-500 hover:border-gray-900 bg-blue-100 px-1 hover:bg-blue-200"
+                href="https://papl.cs.brown.edu/2020/"
+              >
+                Programming and Programming Languages (PAPL)
+              </a>
+              , pokud vám tedy něco z přednášek nebude jasné, můžete se zkusit podívat i do ní.
             </Paragraph>
             {lectures.map((l) => (
               <LectureBox key={l.id} lecture={l} />
