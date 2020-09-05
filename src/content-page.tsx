@@ -26,9 +26,9 @@ export function Content({ children }: { children: React.ReactNode }) {
   return (
     <MDXProvider
       components={{
-        p: (props) => <p className="text-gray-900 mb-2" {...props} />,
+        p: (props) => <p className="text-gray-900 mb-4" {...props} />,
         h2: (props) => <h2 className="font-bold text-lg md:text-2xl mt-8 mb-4" {...props} />,
-        h3: (props) => <h3 className="font-bold md:text-lg mt-4 mb-2" {...props} />,
+        h3: (props) => <h3 className="font-bold md:text-lg mt-6 mb-4" {...props} />,
         ol: (props) => <ol className="list-decimal list-outside pl-10" {...props} />,
         ul: (props) => <ul className="list-disc list-outside pl-10" {...props} />,
         li: (props) => <li className="mb-2" {...props} />,
