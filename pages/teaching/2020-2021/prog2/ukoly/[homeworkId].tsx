@@ -18,10 +18,10 @@ export default function Page({ homework }: { homework: Homework }) {
   return (
     <div className="mr-3 bg-gray-200 py-10 min-h-screen">
       <NextSeo
-        title={`Úkol #${homework.id} | Programování I`}
+        title={`Úkol #${homework.id} | Programování II`}
         description={homework.title}
         openGraph={{
-          title: `Úkol' #${homework.id} | Programování I`,
+          title: `Úkol #${homework.id} | Programování II`,
           description: homework.title,
           type: 'website',
           locale: 'cs_CZ',

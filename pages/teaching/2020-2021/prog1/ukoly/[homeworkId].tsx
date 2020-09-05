@@ -21,7 +21,7 @@ export default function Page({ homework }: { homework: Homework }) {
         title={`Úkol #${homework.id} | Programování I`}
         description={homework.title}
         openGraph={{
-          title: `Úkol' #${homework.id} | Programování I`,
+          title: `Úkol #${homework.id} | Programování I`,
           description: homework.title,
           type: 'website',
           locale: 'cs_CZ',
