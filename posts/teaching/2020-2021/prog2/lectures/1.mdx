@@ -34,9 +34,11 @@ Do teď jste všechny své Pythonovské programy spouštěli "v kuse": do soubor
 
 ### Jak používat REPL ve VS Code
 
-Toto si zkusíme i příští hodinu, takže pokud něco nedává smysl, nezoufejte. Pro ty z vás, kteří by se s REPLem chtěli trochu více seznámit:
+Toto si zkusíme i příští hodinu, takže pokud něco nedává smysl, nezoufejte. Pro ty z vás, kteří by se s REPLem chtěli více seznámit už doma:
 
-- `Ctrl+Shift+P`
+1. Ve VS Code: `Ctrl+Shift+P` > `REPL` > příkaz `Python: Start REPL`
+2. Otevře se okno terminálu s nastartovaným REPL
+3. V REPL můžete napsat jakýkoli Pythonovský kód a pomocí `Enter` ho spustit, popřípadě můžete načíst všechny definované věci (funkce, proměnné) ze svého souboru pomocí `from my_file import *`. Pak je už můžete v REPL normálně používat.
 
 ## VS Code
 
@@ -47,3 +49,29 @@ Pokud máte rádi klávesové zkratky, [zde](https://code.visualstudio.com/short
 - `Ctrl+J` pro zobrazení/skrytí spodního panelu
 - `Ctrl+P` pro ryhlý přechod mezi otevřenými soubory
 - `Ctrl+Shift+P` pro zobrazení příkazové řádky VS Code, kde lze vyhledávat všechny možné příkazy (i ty tři, které jsem popsal výše) — tak se mimochodem dají objevovat nové klávesové zkratky
+
+## Závěrečný program
+
+V poslední půlhodince jsme řešili následující úlohu: Napište funkci, která na vstupu dostane seznam seznamů čísel a vrátí celkový počet čísel napříč všemy seznamy. Příklad:
+
+```py
+IN: [[1, 2, 3], [4, 5]]
+OUT: 5
+```
+
+Mé "normální" řešení:
+
+```python
+def count(lists):
+  total = 0
+  for l in lsts:
+    total += len(l) # tohle je marginálně lepší, než tu mít druhý for-loop
+  return total
+```
+
+Mé řešení, kdybych chtěl flexit:
+
+```python
+def count(lists):
+  return sum(len(l) for l in lists) # (X for Y in Z) je tzv. list comprehension
+```
