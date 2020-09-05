@@ -218,15 +218,18 @@ export function LectureBox({ lecture }: { lecture: Lecture }) {
           </a>
         </div>
       </div>
-      <div className="p-4 bg-gray-100 text-gray-600 text-xs">
-        {lecture.homeworks.length === 1 ? 'Byl zde zadán ' : 'Byly zde zadány '}
-        {lecture.homeworks
-          .map(({ id }) => (
-            <Homework path={path} key={id} number={id} className="hover:text-gray-700" />
-          ))
-          .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
-          .slice(1)}
-      </div>
+
+      {lecture.homeworks.length > 0 ? (
+        <div className="p-4 bg-gray-100 text-gray-600 text-xs">
+          {lecture.homeworks.length === 1 ? 'Byl zde zadán ' : 'Byly zde zadány '}
+          {lecture.homeworks
+            .map(({ id }) => (
+              <Homework path={path} key={id} number={id} className="hover:text-gray-700" />
+            ))
+            .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
+            .slice(1)}
+        </div>
+      ) : null}
     </div>
   );
 }

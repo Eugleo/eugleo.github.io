@@ -28,6 +28,8 @@ export function Content({ children }: { children: React.ReactNode }) {
       components={{
         p: (props) => <p className="text-gray-900 mb-2" {...props} />,
         h2: (props) => <h2 className="font-bold text-lg md:text-2xl mt-8 mb-4" {...props} />,
+        h3: (props) => <h3 className="font-bold md:text-lg mt-4 mb-2" {...props} />,
+        ol: (props) => <ol className="list-decimal list-outside pl-10" {...props} />,
         ul: (props) => <ul className="list-disc list-outside pl-10" {...props} />,
         li: (props) => <li className="mb-2" {...props} />,
         inlineCode: (props) => <code className="text-sm bg-green-100 px-1 rounded-sm" {...props} />,
@@ -110,23 +112,25 @@ export function LectureHeader({ lecture, path }: { lecture: Lecture; path: strin
               </p>
             </div>
 
-            <div className="flex">
-              <Icon.AlertCircle className="text-gray-500 w-5 h-5 mr-3" />
-              <p className="text-sm text-gray-600">
-                Byl zde zadán{' '}
-                {lecture.homeworks
-                  .map<React.ReactNode>((hw) => (
-                    <Homework
-                      path={path}
-                      key={hw.id}
-                      number={hw.id}
-                      className="hover:text-gray-700"
-                    />
-                  ))
-                  .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
-                  .slice(1)}
-              </p>
-            </div>
+            {lecture.homeworks.length > 0 ? (
+              <div className="flex">
+                <Icon.AlertCircle className="text-gray-500 w-5 h-5 mr-3" />
+                <p className="text-sm text-gray-600">
+                  Byl zde zadán{' '}
+                  {lecture.homeworks
+                    .map<React.ReactNode>((hw) => (
+                      <Homework
+                        path={path}
+                        key={hw.id}
+                        number={hw.id}
+                        className="hover:text-gray-700"
+                      />
+                    ))
+                    .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
+                    .slice(1)}
+                </p>
+              </div>
+            ) : null}
           </Stack>
         </div>
       </div>

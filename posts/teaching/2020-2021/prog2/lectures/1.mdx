@@ -1,0 +1,43 @@
+export const metadata = {
+  title: 'Pyenv a REPL',
+  timestamp: new Date(2020, 9 - 1, 4).valueOf(),
+};
+
+Představili jsme si různé části vývojového prostředí a rozjeli jsme `pyenv` a VS Code.
+
+## Vývojové prostředí
+
+K programování je samozřejmě potřeba mít něco, co bude schopno náš program spustit (pro zvídavé konkrétně kompilátor či interpeter), a nějaký textový editor, ve kterém náš program budeme psát.
+
+Na vysoké škole a zvláště pak v zaměstnání však musí každý programátor používat i různé pomocné nástroje, které — ač se to třeba zpočátku může zdát jinak — mu nakonec ulehčí práci. Mezi nimi jsou hlavní:
+
+- [linter](<https://en.wikipedia.org/wiki/Lint_(software)>): ještě před spuštěním programu se v něm linter pokusí najít stylistické i programovací chyby
+  - pro Python například [pylint](https://www.pylint.org/)
+- formatter: formátuje kód tak, aby odpovídal nějakým stylovým standartům
+  - pro Python například [black](https://github.com/psf/black) nebo [yapf](https://github.com/google/yapf) (yet another Python formatter)
+- project manager:
+  - pro Python je jeden z nejlepších [poetry](https://python-poetry.org/)
+- version control system: ukládá pro každý soubor v projektu jeho verze, takže se můžete jednoduše vrátit k přechozímu stavu projektu
+  - standartně se používá `git`, více informací příští přednášku
+
+Většina z těchto nástrojů nás ještě čeká, už jsme se ale seznámili s `pyenv` (respektive s jeho verzí pro Windows `pyenv-win`), což je program, který spravuje verze Pythonu.
+
+### Pyenv
+
+Často se stává, že při práci na více projektech budete pro každý projekt potřebovat jinou verzi Pythonu, většinou proto, že ten projekt napsal někdo před vámi a teď se už nikomu nechce migrovat na novější verzi, když to s tou starou funguje.
+
+Pyenv řeší přesně tento problém: pomocí `pyenv install X` lze nainstalovat libovolnou verzi Pythonu a pomocí `pyenv global X` ji následně i aktivovat. To vám dovolí rychle a jednoduše přepínat mezi libovolným množstvím verzí Pythonu v závislosti na tom, na kterém projektu budete zrovna pracovat.
+
+## REPL
+
+Do teď jste všechny své Pythonovské programy spouštěli "v kuse": do souboru jste napsali nějaký kód a celý tento soubor jste následně spustili na příkazové řádce.
+
+## VS Code
+
+Pokud máte rádi klávesové zkratky, [zde](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) je celkem užitečný cheat sheet. Já nějčastěji používám:
+
+- `Ctrl+N` pro vytvoření nového souboru
+- `Ctrl+B` pro zobrazení/skrytí bočního panelu
+- `Ctrl+J` pro zobrazení/skrytí spodního panelu
+- `Ctrl+P` pro ryhlý přechod mezi otevřenými soubory
+- `Ctrl+Shift+P` pro zobrazení příkazové řádky VS Code, kde lze vyhledávat všechny možné příkazy (i ty tři, které jsem popsal výše) — tak se mimochodem dají objevovat nové klávesové zkratky
