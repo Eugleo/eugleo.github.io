@@ -1,0 +1,23 @@
+export const metadata = {
+  title: 'Setup pyenvu na domácím počítači',
+  timestamp: new Date(2020, 9 - 1, 4).valueOf(),
+  due: new Date(2020, 9 - 1, 10).valueOf(),
+  lectures: [1],
+  points: 0,
+};
+
+Protože některé hodiny budou distační, bude se hodin mít stejné prostředí na všech počítačích, na kterých budete pracovat. Prostředí na školních počítačích jsme nainstalovali v hodině, na těch domácích (nabo jakýchkoli jiných, kde budete chtít pracovat) to budete muset udělat sami doma.
+
+Konkrétně si prosím do příští hodiny:
+
+1. Stáhněte [VS Code](https://code.visualstudio.com/) a v něm [oficiální rozšíření pro Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+2. Stáhněte a nainstalujte [pyenv-win](https://github.com/pyenv-win/pyenv-win#installation) podle oficiálního návodu (pokud jste na Macu nebo Linuxu, nainstalujte [pyenv](https://github.com/pyenv/pyenv))
+
+### Instalace pyenv-win
+
+Mrkněte na [oficiální návod k instalaci](https://github.com/pyenv-win/pyenv-win#installation).
+
+1. Nejprve v sekci "Installation" udělejte všechny čtyři kroky u "With zip file"
+2. Poté prověďte všechny kroky v sekci "Finish the installation"
+
+Mějte napaměti, že `$HOME` je proměnná značící `Users/vaše_login_jméno`, takže složku `.pyenv` tvořte tam. Příkazy z části "Finish the installation" doporučuji spouštět v Powershellu, což je normální Windowsácký program, který je automaticky na všech počítačích.

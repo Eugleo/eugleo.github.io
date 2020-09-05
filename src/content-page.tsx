@@ -85,10 +85,12 @@ export function HomeworkHeader({ homework }: { homework: Homework }) {
               </p>
             </div>
 
-            <div className="flex">
-              <Icon.Award className="text-gray-500 w-5 h-5 mr-3" />
-              <p className="text-sm text-gray-600">Získat můžete až {homework.points} bodů</p>
-            </div>
+            {homework.points > 0 ? (
+              <div className="flex">
+                <Icon.Award className="text-gray-500 w-5 h-5 mr-3" />
+                <p className="text-sm text-gray-600">Získat můžete až {homework.points} bodů</p>
+              </div>
+            ) : null}
           </Stack>
         </div>
       </div>

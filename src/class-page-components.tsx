@@ -185,7 +185,7 @@ export function HomeworkBox({ homework }: { homework: Homework }) {
             {homework.title}
           </a>
         </div>
-        <PointsPill points={homework.points} />
+        {homework.points > 0 ? <PointsPill points={homework.points} /> : null}
         <DueDatePill due={homework.due} />
       </div>
       <div className="p-4 bg-gray-100 text-gray-600 text-xs">
