@@ -13,7 +13,7 @@ Konkrétně si prosím do příští hodiny:
 1. Stáhněte [VS Code](https://code.visualstudio.com/) a v něm [oficiální rozšíření pro Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 2. Stáhněte a nainstalujte [pyenv-win](https://github.com/pyenv-win/pyenv-win#installation) podle oficiálního návodu (pokud jste na Macu nebo Linuxu, nainstalujte [pyenv](https://github.com/pyenv/pyenv))
 
-### Instalace pyenv-win
+## Instalace pyenv-win
 
 Mrkněte na [oficiální návod k instalaci](https://github.com/pyenv-win/pyenv-win#installation).
 
@@ -21,3 +21,32 @@ Mrkněte na [oficiální návod k instalaci](https://github.com/pyenv-win/pyenv-
 2. Poté prověďte všechny kroky v sekci "Finish the installation"
 
 Mějte napaměti, že `$HOME` je proměnná značící `Users/vaše_login_jméno`, takže složku `.pyenv` tvořte tam. Příkazy z části "Finish the installation" doporučuji spouštět v Powershellu, což je normální Windowsácký program, který je automaticky na všech počítačích.
+
+## Instalace Pythonu přes Pyenv
+
+Pokud už máte funkční pyenv(-win) stačí vám otevřít Windows Powershell a spustit následující příkazy
+
+```shell
+>>> pyenv install 3.8.2
+>>> pyenv global 3.8.2
+```
+
+Tím nainstalujete Python 3.8.2 a následně jej aktivujete. Pokud spustíte pouze `pyenv`, zobrazí se vám návod.
+
+## Aktivace Pythonu ve VS Code
+
+VS Code je třeba nastavit tak, aby náš Python 3.8.2 viděl. Nejprve v Powershellu spusťte
+
+```shell
+>>> pyenv which
+```
+
+a zkopírujte výslednou cestu. Tuto cestu pak vložte do políčka "Python Path" v nastavení VS Code (nastavení lze otevřít pomocí `Ctrl+,`). Nahoře v nastavení lze políčka vyhledávat, ale i po vyhledání `Python Path` bude nutné trochu odscrollovat dolů.
+
+Správné políčko se jmenuje doslova "Python Path" a jeho výchozí hodnota je `python`. Tuto hodnotu přepište zkopírovanou cestou a stiskněte `Enter` pro uložení.
+
+## Používání Pythonu ve VS Code
+
+Pomocí `Ctrl+N` můžete vytvořit nový soubor, jehože výchozí jméno bude "Untitled-1". V této chvíli VS Code ještě neví, že chceme psát program v Pythonu. Bude tedy nutné pomocí `Ctrl+S` uložit náš soubor jako `nejake_jmeno.py` — přípona `.py` signalizuje VS Code, že pracujeme s Pythonem.
+
+Alternativně je možné na dolní liště v pravé části kliknout na "Plain Text" (což je výchozí typ Untitled-1) a přepnout jej na Python.
