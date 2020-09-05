@@ -6,12 +6,12 @@ export const metadata = {
   points: 0,
 };
 
-Protože některé hodiny budou distační, bude se hodin mít stejné prostředí na všech počítačích, na kterých budete pracovat. Prostředí na školních počítačích jsme nainstalovali v hodině, na těch domácích (nabo jakýchkoli jiných, kde budete chtít pracovat) to budete muset udělat sami doma.
+Obecně se hodí se mít stejné prostředí na všech počítačích, na kterých budete pracovat. Protože pracovat budete často i z domu, jelikož výuka bude z části distační, setup pyenvu, který jsme dělali ve škole v hodině, budete muset zopakovat i doma.
 
 Konkrétně si prosím do příští hodiny:
 
 1. Stáhněte [VS Code](https://code.visualstudio.com/) a v něm [oficiální rozšíření pro Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-2. Stáhněte a nainstalujte [pyenv-win](https://github.com/pyenv-win/pyenv-win#installation) podle oficiálního návodu (pokud jste na Macu nebo Linuxu, nainstalujte [pyenv](https://github.com/pyenv/pyenv))
+2. Stáhněte a nainstalujte [pyenv-win](https://github.com/pyenv-win/pyenv-win#installation) podle oficiálního návodu (pokud jste na Macu nebo Linuxu, nainstalujte [pyenv](https://github.com/pyenv/pyenv)) — detaily viz další sekce
 
 ## Instalace pyenv-win
 
@@ -22,7 +22,9 @@ Mrkněte na [oficiální návod k instalaci](https://github.com/pyenv-win/pyenv-
 
 Mějte napaměti, že `$HOME` je proměnná značící `Users/vaše_login_jméno`, takže složku `.pyenv` tvořte tam. Příkazy z části "Finish the installation" doporučuji spouštět v Powershellu, což je normální Windowsácký program, který je automaticky na všech počítačích.
 
-## Instalace Pythonu přes Pyenv
+Pokud otevřete Powershell, můžete pomocí `echo $HOME` zjistit, jako přesně hodnotu má `$HOME` na vašem počítači.
+
+## Instalace Pythonu přes pyenv
 
 Pokud už máte funkční pyenv(-win) stačí vám otevřít Windows Powershell a spustit následující příkazy
 
