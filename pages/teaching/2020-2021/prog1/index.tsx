@@ -106,7 +106,7 @@ export default function ProgrammingI({
           imagePath={BG_PATH}
           tests={TESTS}
           homeworks={homeworks}
-          nextLectureDate={new Date(2020, 8, 4)}
+          nextLectureDate={new Date(2020, 9 - 1, 11)}
           lastChanged={new Date()}
         />
 
