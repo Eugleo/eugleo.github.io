@@ -113,16 +113,31 @@ export default function ProgrammingI({
         <Section title="Informace o předmětu">
           <Stack gap="gap-4">
             <Paragraph>
-              Podmínkou splnění předmětu je dokončení pololetního projektu, na kterém budou žáci
-              pracovat většinu prvního i druhého pololetí. Svou práci na tomto projektu budou žáci
-              minimálně jednou za pololetí prezentovat. Žáci budou rovněž na konci každého pololetí
-              ústně zkoušeni z probrané teorie.
+              Podmínkou splnění předmětu v prvním pololetí je aktivita v hodině a úspěšné složení
+              pololetní písemné a ústní zkoušky. Rozvěž je vyžadováno, aby žáci alespoň jednou
+              prezentovali řešení nějakého z domácích úkolů, které jinak budou čistě dobrovolné.
+              teorie.
             </Paragraph>
 
             <Paragraph>
-              Prezentace bude hodnocena známkou s váhou 5 a se stejnou váhou bude hodnoceno i
-              závěrečné ústní zkoušení. Práce na projektu bude hodnocena s váhou 10. Žáci mohou
-              navíc dostávat známky za práci v hodině.
+              Během druhého pololetí budou žáci pracovat na vlastním projektu. Svou práci na tomto
+              projektu budou žáci minimálně jednou za pololetí prezentovat. Žáci budou rovněž na
+              konci roku ústně zkoušeni z probrané teorie.
+            </Paragraph>
+
+            <Paragraph>
+              Prezentace budou hodnoceny známkou s váhou 5 a se stejnou váhou bude hodnoceno i
+              závěrečné ústní zkoušení. Práce na projektu a písemné zkoušení bude hodnoceno s váhou
+              10. Žáci mohou navíc dostávat známky za práci v hodině.
+            </Paragraph>
+
+            <h3 className="font-bold mt-4">Podoba zkoušky</h3>
+
+            <Paragraph>
+              Zkouška v prvním pololetí se skládá z písemné a ústní části. Na začátku písemné části
+              je zadána jedna úloha, na jejíž naprogramování studenti mají 90 minut. Ústní část se
+              skládá z diskuze o studentově řešení písemné části a z několika otázek na teorii
+              probranou v hodinách.
             </Paragraph>
           </Stack>
         </Section>
