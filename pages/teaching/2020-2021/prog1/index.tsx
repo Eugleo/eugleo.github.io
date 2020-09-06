@@ -147,7 +147,7 @@ export default function ProgrammingI({
               Všechny úkoly prosím posílejte nejpozději o půlnoci, a to přes messenger nebo přes
               mail. Nebude-li řečeno jinak, posílejte úkoly v souboru s názvem
               <code className="text-sm bg-green-100 px-1 rounded-sm">idUkolu_prijmeni.arr</code>,
-              například <code className="text-sm bg-green-100 px-1 rounded-sm">U1_wybitul.arr</code>
+              například <code className="text-sm bg-green-100 px-1 rounded-sm">u1_wybitul.arr</code>
               . Pokud je v rámci jednoho úkolů několik podůkolů, uložte je všechny do jednoho
               souboru a oddělte je prázdným řádkem.
             </Paragraph>
