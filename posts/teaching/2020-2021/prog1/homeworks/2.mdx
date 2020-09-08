@@ -1,0 +1,96 @@
+export const metadata = {
+  title: 'Proměnné',
+  timestamp: new Date(2020, 9 - 1, 8).valueOf(),
+  due: new Date(2020, 9 - 1, 14).valueOf(),
+  lectures: [1, 2],
+  points: 7,
+};
+
+Tento úkol slouží k procvičení proměnných.
+
+## Zadání
+
+Zadání má dvě části. První se skládá ze tří otázek na teorii, druhá je praktická.
+
+### Teoretická část (5 bodů)
+
+Odpovězte na následující otázky:
+
+1. (2 body) Jaký by byl typ fiktivní funkce `repeat`, u níž se v dokumentaci píše
+
+```text
+repeat(n, txt)
+Repeats the given text txt n-times and returns the result
+```
+
+Napište jej pomocí standartního typového zápisu (tj. za použí `::` atp).
+
+**Hint:** "Funkce" je formální název pro "krabice", o kterých jsme si povídali na hodině; funkce jsou zkrátka kus kódu, který za použití daných vstupů vyrobí nějaký výstup. Příkladem funkce je `circle`, `+`, nebo `below` — a všechno ostatní, co jsme psali tímto zápisem: `f(input1, input2, ..., inputX)`.
+
+2. (1 bod) Co by mohla dělat funkce s typem
+
+```txt
+line(aX :: Number, aY :: Number, bX :: Number, bY :: Number) -> Image
+```
+
+3. (2 body) Ve většině jazyků se v jménech proměnných nesmí vyskytovat mezery, liší se ale způsoby, jakým se v nich značí jednotlivá slova. Nejčastější způsoby oddělení slov jsou:
+
+```text
+thisIsCamelCase (Java, C, C#, Haskell, ...)
+this_is_snake_case (Python)
+this-is-kebab-case (LISP, Pyret)
+```
+
+Proč myslíte, že se `kebab-case` ve většině jazyků nepoužívá? Jak je tento důvod ošetřený v Pyretu?
+
+**Hint:** nejedná se jen o estetické rozhodnutí.
+
+### Praktická část (2 body)
+
+Přepište jednu ze svých vlajek za použití proměnných — za co přesně dosadíte proměnné, a co necháte být, nechám na vás. Snažte se o co nejlepší čitelnost výsledného programu, **čitelnost je důležitější než nízký počet řádků**.
+
+Příklad:
+
+```javascript
+# Before
+above(
+  rectangle(50, 10,"solid","red"),
+  above(
+    underlay-xy(
+      rectangle(50, 10,"solid","white"),
+      15, 2,
+      underlay-xy(
+          star(5,"solid","darkgreen"),
+          12, 0,
+          star(5,"solid","darkgreen"))),
+    rectangle(50, 10,"solid","black")))
+
+# After
+top-stripe = rectangle(50, 10, "solid", "red")
+bot-stripe = rectangle(50, 10, "solid", "black")
+dark-star = star(5, "solid", "darkgreen")
+
+mid-section =
+  underlay-xy(
+    rectangle(50, 10, "solid", "white"),
+    15, 2,
+    underlay-xy(dark-star, 12, 0, dark-star))
+
+above(
+  top-stripe,
+  above(
+    mid-section,
+    bot-stripe))
+```
+
+Řádky začínající `#` jsou Pyretem ignorovány: slouží ke _komentování_ kódu a pomáhají hlavně vám a ostatním programátorům se v kódu vyznat. Říká se jim _komentáře_.
+
+## Odevzdání
+
+Odpovědi na otázky (označené číslem otázky) a předělaný kód jedné z vlajek prosím uložte do souboru `u2_prijmeni.arr` a pošlete mi jej do pondělní půlnoci na mail nebo přes Facebook.
+
+## Nad čím se při úkolu zamyslet
+
+- proměnné jsou neměnné
+- proměnné mohou ušetřit čas s častým opakováním nějakého kousku kódu, ale také — pokud jsou dobře pojmenované — mohou výrazně zlepšit čitelnost celého programu
+- skládáním jednoduchých funkcí lze dosáhnout velkých výsledků (např. pouze pomocí `circle`, `rectangle`, `star`, `rotate`, `overlay-align`, `above` a `beside` lze nakreslit většinu světových vlajek)
