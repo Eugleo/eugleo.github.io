@@ -20,20 +20,24 @@ Odpovězte na následující otázky:
 
 ```text
 repeat(n, txt)
-Repeats the given text txt n-times and returns the result
+Repeats the given text txt n-times and returns the result as one word.
 ```
 
-Napište jej pomocí standartního typového zápisu (tj. za použí `::` atp).
+Napište jej pomocí standartního typového zápisu (tj. za použití `::` atp).
 
 **Hint:** "Funkce" je formální název pro "krabice", o kterých jsme si povídali na hodině; funkce jsou zkrátka kus kódu, který za použití daných vstupů vyrobí nějaký výstup. Příkladem funkce je `circle`, `+`, nebo `below` — a všechno ostatní, co jsme psali tímto zápisem: `f(input1, input2, ..., inputX)`.
 
 2. (1 bod) Co by mohla dělat funkce s typem
 
-```txt
-line(aX :: Number, aY :: Number, bX :: Number, bY :: Number) -> Image
+```text
+line(
+  aX :: Number,
+  aY :: Number,
+  bX :: Number,
+  bY :: Number) -> Image
 ```
 
-3. (2 body) Ve většině jazyků se v jménech proměnných nesmí vyskytovat mezery, liší se ale způsoby, jakým se v nich značí jednotlivá slova. Nejčastější způsoby oddělení slov jsou:
+3. (2 body) Ve většině jazyků se ve jménech proměnných nesmí vyskytovat mezery, liší se ale způsoby, jakým se v nich značí jednotlivá slova. Nejčastější způsoby oddělení slov jsou:
 
 ```text
 thisIsCamelCase (Java, C, C#, Haskell, ...)
