@@ -1,0 +1,230 @@
+export const metadata = {
+  title: 'Intuice k funkcím, proměnné a kompilátory',
+  timestamp: new Date(2020, 9 - 1, 8).valueOf(),
+};
+
+Během druhé přednášky jsme si ukázali, jak nám proměnné mohou pomoct vyhnout se opakovanému psaní kódu a jak celý náš program mohou udělat čitejnějším. Na konci jsme se seznámili s pojmy **kompilátor** a **interpreter**. Přednáška byla vedena podle [čtvrté kapitoly knihy PAPL](https://papl.cs.brown.edu/2020/Naming_Values.html).
+
+## Shrnutí pojmů
+
+Následující pojmy by bylo fajn si zapamatovat. Pokud vám nějaký z nich není jasný, nezoufejte — mrkněte na text níže, zeptejte se kamaráda, nebo mi napište. Všechny je navíc budeme opakovat v následujících hodinách, abyste si pro ně vybudovali intuici.
+
+- proměnná (variable)
+- funkce, vstupy, výstup, kontrakty, typ funkce
+- expression, statement a rozdíl mezi nimi
+- kompilátor, interpreter a rozdíl mezi nimi
+
+A z předešlých hodin mimo jiné:
+
+- String, Number, Image (datové typy)
+
+## Funkce (úvod)
+
+**Funkce si v detailu popíšeme ve třetí přednášce.**
+
+Věcem jako `circle` a `overlay`, se kterými jsme už pracovali minule, se říká **funkce**. Funkce si můžete představit jako krabice, do kterých zleva vedou nějaké vstupní trubky (**vstupy**) a zprava vychází jedna výstupní trubka (**výstup**).
+
+Například funkce `circle` potřebovala k vytvoření kruhu tři věci:
+
+1. jeho poloměr, což bylo **číslo**, kterému můžeme říkat například `radius`
+2. informaci o tom, jak má být vybarvený, což byl **string**, který můžeme nazvat nazvat třeba `mode`
+3. jeho barvu, což byl rovněž **string**, kterému by se mohlo říkat kupříkladu `color`
+
+Můžeme si tedy `circle` představit jako krabici, do které vedou trubky `radius`, `mode` a `color`, které po řadě očekávají, že dostanou číslo, string a string. Celé `circle`, pokud mu dodáme tyto tři **parametry**, potom **vrátí** obrázek. Tato skutečnost se dá zapsat jako:
+
+```javascript
+circle(
+  radius :: Number,
+  mode :: String,
+  color :: String) -> Image
+```
+
+Povšimněte si části za závorkou, `-> Image`, která značí, že výsledkem volání `circle` je obrázek.
+
+Označení výše se někdy říká **kontrakt** nebo **typ** funkce circle; pokud jej nesplníme (např. pokud do druhé vstupní trubky pošleme číslo místo stringu), `circle` nebude fungovat.
+
+### Řetězení funkcí
+
+Typy vstupů a výstupů nám tedy značí to, co musíme do funkcí dávat, aby dělaly, co mají. Je z nich ale možné vykoukat i to, jak můžeme jednotlivé funkce napojovat na sebe. Například funkce `overlay` má typ
+
+```javascript
+overlay(image1 :: Image, image2 :: Image) -> Image,
+```
+
+tedy očekává na vstupu dva obrázky a sama vrací obázek. Protože `circle` a `rectangle` vrací obrázky, můžeme je následujícím způsobem vnořit do funkce `overlay`:
+
+```javascript
+overlay(circle(10, 'solid', 'red'), rectangle(200, 100, 'solid', 'white'));
+```
+
+Pokud se vrátíme k modelu funkce = krabice s trubkami, můžeme si představit, že napojujeme výstupní trubky vedoucí z `circle` a `rectangle` na vstupní trubky funkce `overlay`.
+
+## Proměnné
+
+Pomocí syntaxe
+
+```python
+NAME = EXPRESSION
+```
+
+můžeme v Pyretu vytvořit novou **proměnnou** (variable). Pyret spustí `EXPRESSION` a její výsledek uloží pod jméno `NAME` a pokud se dále v programu vyskytne `NAME`, nahradí jej uloženým výsledkem. Například
+
+```python
+>>> x = 10 + 20 # do x se uloží 30
+>>> y = x * 8 # za x se dosadí 30, do y se uloží 240
+>>> y # y má hodnotu 240
+30
+```
+
+Proměnné vám mohou pomoci zbavit se často opakovaného kousku kódu, a navíc **dělají váš program čitelnějším**.
+
+<div className="bg-white rounded-lg shadow-xs p-6 my-4">
+  Kouskům kódu za # se říká komentáře a Pyret je ignoruje. Slouží k popisu kódu, buďto pro vás, nebo
+  pro ostatní programátory, kteří váš kód budou číst.
+</div>
+
+### Code style
+
+Koncept proměnných existuje v každém běžném programovacím jazyce, liší se ale způsb, jakým se proměnné pojmenovávají — respektive, jak se v rámci jména proměnné oddělují jednotlivá slova. Tři základní typy oddělování jsou
+
+```text
+thisIsCamelCase (Java, C, C#, Haskell, ...)
+this_is_snake_case (Python)
+this-is-kebab-case (Pyret, LISP)
+```
+
+Jména všech proměnných, a stejně tak komentáře, se navíc podle konvence píší v **angličtině** (a to už je společné všem programovacím jazykům). Každý jazyk má navíc další stylistické zvyklosti, které dodržuje většina programátorů, kteří ho používají — většinou je lze najít na Google pod "_JAZYK_ style guide". Style guide Pyretu je na [tomto odkazu](https://www.pyret.org/docs/latest/Pyret_Style_Guide.html).
+
+Pokud se rozhodnete porušit konvenci a psát jména proměnných jinak, než je v daném jazyce zvykem, popřípadě je budete psát v češtině, váš kód sice bude fungovat, ale bude vypadat divně; v každém programu totiž budete používat knihovny (např. `image`), které psali programátoři, kteří konvence dodržovali, takže váš kód bude amalgamem různých stylů:
+
+```text
+moje_promena =
+  circle(
+    spocitejRadius(...),
+    "solid",
+    vrat_barvu(color-from-rgb(10, 20, 30)))
+```
+
+<div className="bg-white rounded-lg shadow-xs p-6 my-4">
+  Odchýlení od konvencí v rámci úkolů a projektů nebudu brát jako chybu (míněno, nebudu vám strhávat
+  body), ale budu vám vaše úkoly vracet k opravě, než vám body zapíšu.
+</div>
+
+### Statementy
+
+Zatímco **expression** je část kódu, která když se spustí, vydá výsledek, **statement** je kus kódu, který po spuštení žádný výsledek nevrátí. Definice proměnné `[...] = [...]` je statement, což lze ověřit spuštěním
+
+```python
+>>> x = 10 + 20
+* nic *
+```
+
+### Definitions window
+
+Zatímco v pravé části [stránky, kde spouštíme programy](https://code.pyret.org/editor) — tzv. **Interactions window** — je možné rovnou psát krátké programy a spoustět je, levá část se chová jako běžný textový editor. Říká se jí **Definitions window** a slouží primárně k definování věcí, se kterými budeme v pravé části dále pracovat (např. je testovat atp).
+
+V **Definitions window** lze nicméně také provádět běžné výpočty, jen je třeba počítat s tím, že se nespustí hned po stistknutí `ENTER`, ale že obsah je třeba je spustit tlačítkem RUN vpravo nahoře.
+
+## Jak funguje spouštění programů
+
+**Doporučuji skvělé video na toto téma: [How do computers read code?](https://www.youtube.com/watch?v=QXjU9qTsYCc). Má 12 minut a obsahuje všechny informace níže.**
+
+_Neumím assembler ani nevím, jak přesně CPU interpreture binární kódy, talže všechny příklady jsou pouze ilustativní_
+
+Procesory v počítači nerozumí Pyretu, ani jinému běžnému jazyku; umí provádět jen omezenou množinu příkazů zadaných v binárním kódu — konkrétně to jsou příkazy jako "zapiš číslo X na adresu Y", "přičti číslo X k číslu na Z" atp.
+
+```text
+# CPU dostane
+1000010010
+
+# CPU provede
+Na adresu 10000 v RAM uložím číslo 10010
+```
+
+Prvním krokem k jednoduššímu programování byl [Assembler](https://en.wikipedia.org/wiki/Assembly_language). Jedná se vlastně o jiný zápis binárního kódu, ale přesto je lidmi lépe stravitelný. Základní assembler ale stále umí pouze těch pár příkazů, kterým rozumí i procesory, a nic navíc.
+
+```text
+# Assembler
+MOV A7 B6D
+
+# CPU dostane
+1001110010100
+
+# CPU provede
+Na adresu 1001 v přesunu číslo z adresy 1100
+```
+
+Nakonec se přišlo na to, že nejlepší bude psát kód v jazycích, které jsou lidem příjemné, a pak ho nechat přeložit do něčeho, čemu bude rozumnět procesor.
+
+```text
+# Pyret
+x = 18
+
+# CPU dostane
+1000010010
+
+# CPU provede
+Na adresu 10000 v RAM uložím číslo 10010
+```
+
+Tyto překladače se dělí na dva základní druhy: kompilátory a interpretry. Jeden jazyk může být překládaný oběma způsoby — kompilace ani interpretace nejsou vlastnosti jazyka jako takového. Dokonce může pro jeden jazyk existovat několik konkurenčních kompilátorů či interpreterů s různými funkcemi.
+
+### Kompilátory
+
+Kód se přeloží ještě na počítači programátora, uživatelům se posílají už přeložené soubory.
+
+Výhody
+
+1. Uživatel nemá přístup ke zdrojovému kódu
+2. Kompilátor má hodně času (zdržuje vlastně jen programátora), takže má čas dělat různé chytré optimalizace
+
+Nevýhody
+
+1. Kompilace trvá dlouho
+2. Je nutné kompilovat (= překládat) program několikrát, protože různé CPU chápou příkazy různě a tak jeden přeložený soubor nepoběží na všech CPU
+
+Příklady typicky kompilovaných jazyků
+
+1. Java, C#
+2. C, C++
+3. Haskell
+
+### Interpretry
+
+Kód je přeložen až na uživatelově počítači, každý uživatel musí mít vlastní interpreter.
+
+Výhody
+
+1. Programátor se nemusí o nic moc starat, prostě uživateli pošle zdroják a nechá zbytek práce na jeho interpreteru
+2. Interpretované jazyky bývají více "interaktivní" (vyzmětě Pyretův Interactions window)
+
+Nevýhody
+
+1. Uživatel má přístup ke zdrojovému kódu
+2. Protože se program překládá až při samotném spuštění, dochází k drobném zpoždění při jeho spouštění
+3. Interpreter nemá tolik často na optimalizace jako komilátor, takže samotný program většinou běží trochu pomaleji, než kdyby byl kompilovaný
+
+Příklady typicky interpretovaných jazyků
+
+1. Python
+2. Pyret
+3. Ruby
+
+<div className="bg-white rounded-lg shadow-xs p-6 my-4">
+  Napsat překladač, který by překládal váš jazyk až do binárního kódu (nebo assembleru) je velmi
+  složité. Proto se často jazyky překládají ne do assembleru, ale do jiných jazyků, které jsou poté
+  kompilovány vlastními už existujícími kompilátory. Jedním z takových jazyků je i Pyret, který je
+  tzv. <strong>transpilovaný</strong> do Javascriptu.
+</div>
+
+## High-level a low-level jazyky
+
+Jazyky se neliší pouze tím, zda jsou (typicky) kompilované či interpretované. Liší se i svou "vyjadřovací silou": například assembler chápe jen pár primitivních příkazů, zatímco jazyky jako Pyret toho umí mnohem více. Tato vlastnost by se také dala popsat jako "míra abstrakce"; vyjadřuje, jak "daleko" jste od procesoru, neboli jak málo se musíte starat o to, jak reálně počítač, který spouští váš jazyk, funguje.
+
+Všechny jazyky bychom mohli seřadit na spektru od těch nejblíže procesoru (doslova "close to the metal"), až po ty abstraktní.
+
+1. Assembler je velice low-level. Máte hodně svázané ruce, všechny své algoritmy a programy musíte vyjadřovat pomocí několika málo příkazů. Všechno děláte ručně.
+2. Jazyky jako C a C++ jsou hodně **low-level**, ale ne tolik jako assembler. Dovolují vám přímo manipulovat s pamětí, což je potenciálně nebezpečné, ale usnadňuje to práci vývojářům her a dalších performance-sensitive systémů.
+3. Jazyky jako Pyret nebo Haskell jsou hodně **high-level**. Dobře se v nich pracuje, většinou můžete své myšlenky bez větších úprav rovnou zapisovat do kódu. O většinu věcí se postarají samy.
+
+Ve všech jazycích je možné nakódit stejné věci, ale různé věci se budou v různých jazycích dělat různě dobře. Časem najdete jazyk, který vám bude nejvíce vyhovovat — nejspíše bude blízko té high-level části spektra — a v něm budete psát většinu svých osobních projektů. Pouze když budete potřebovat něco extra rychlého, nebo nějakou extra knihovnu, která ve vašem jazyce není, sáhnete po něčem vhodnějším.
