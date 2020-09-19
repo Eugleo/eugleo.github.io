@@ -46,7 +46,7 @@ Vaším úkolem je nyní napsat funkci `table(expr)`, která jako argument dosta
 
 Řáky pravdivostní tabulky odpovídají jednotlivým kombinacím `True` a `False` dosazeným za `x` a `y` a sloupce pak pořadě značí hodnotu `x`, hodnotu `y` a hodnotu várazu `expr(x, y)` — tj. hodnotu logického výrazu, do kterého je dosazeno `x` a `y`.
 
-## Příklady
+## Příklady vstupů a výstupů
 
 Pokud by nás například zajímala pravdivostní tabulka `x a zároveň (negace y)`, nejprve definujeme náš logický výraz jako funkci
 
@@ -69,3 +69,23 @@ False False False  # odpovídá x = False, y = False, logical_expression(False,
 ```
 
 Všimněte si, že `logical_expression` je sice funkce, ale zároveň se chová jako běžná hodnota — můžeme ji poslat jako argument do jiné funkce, podobně jako obyčejné číslo nebo string.
+
+Pro jiný logický výraz bude tabulka vypadat jinak, např. pro
+
+```python
+def logical_expression2(x, y):
+  return OR(x, AND(x, y))
+```
+
+získáme po zavolání `table`
+
+```python
+# Zavoláme
+table(logical_expression2)
+
+# Vypíše se
+True True True # odpovídá x = True, y = True, logical_expression2(True, True)
+True False True  # odpovídá x = True, y = False, logical_expression2(True, False)
+False True False  # odpovídá x = False, y = True, logical_expression2(False, True)
+False False False  # odpovídá x = False, y = False, logical_expression2(False, False)
+```
