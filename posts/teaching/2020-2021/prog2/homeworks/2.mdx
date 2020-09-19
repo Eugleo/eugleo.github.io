@@ -42,7 +42,9 @@ logical_expression(False, True) # vrací False
 
 Obecně řečeno každý logický výraz bude mít tvar funkce která bere dva argumenty a vrací nějaký boolean.
 
-Vaším úkolem je nyní napsat funkci `table(expr)`, která jako argument dostane nějaký takový logický výraz (tj. funkci, která bere dva argumenty) a vypíše jeho _pravdivostní tabulku_, tedy jeho hodnotu pro všechny kombinace `x` a `y`. Taková tabulka bude mít vždy čtyři řádky, které budou odpovídat jednotlivým kombinacím `True` a `False` dosazeným za `x` a `y` a tři sloupce; první bude vyjadřovat hodnotu `x`, druhý hodnotu `y` a třetí hodnotu `expr(x, y)` — tj. hodnotu logických výrazu, do kterého je dosazeno `x` a `y`.
+Vaším úkolem je nyní napsat funkci `table(expr)`, která jako argument dostane nějaký takový logický výraz (tj. funkci, která bere dva argumenty) a vypíše jeho _pravdivostní tabulku_, tedy jeho hodnotu pro všechny kombinace `x` a `y`, přičemž `x` i `y` nabývají pouze hodnot `True` a `False`.
+
+Řáky pravdivostní tabulky odpovídají jednotlivým kombinacím `True` a `False` dosazeným za `x` a `y` a sloupce pak pořadě značí hodnotu `x`, hodnotu `y` a hodnotu várazu `expr(x, y)` — tj. hodnotu logického výrazu, do kterého je dosazeno `x` a `y`.
 
 ## Příklady
 
