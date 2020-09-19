@@ -1,0 +1,69 @@
+export const metadata = {
+  title: 'Pravdivostní tabulka',
+  timestamp: new Date(2020, 9 - 1, 18).valueOf(),
+  due: new Date(2020, 9 - 1, 20).valueOf(),
+  lectures: [2],
+  points: 0,
+};
+
+Zadání úkolu z hodiny, k odevzdání do neděle večer.
+
+## Zadání
+
+Napište své vlastní funkce `AND`, `OR`, `NOT`, `NOR`, `NAND`, `XOR`, `IMPL` (implikace), `EQUIV` (ekvivalence). Jedná se o tradiční funkce z matematické logiky, jejich definice tím pádem můžete v případě nutnosti vyhledat na netu. S výjimkou funkce `NOT` berou všechny tyto funkce dva booleany — tj. hodnoty `True` nebo `False` — a vrací rovněž boolean.
+
+Nejedná se o žádné chytáky, implementace těchto funkcí bude velice jednoduchá. Například funkce `AND`, která vrátí `True` právě tehdy, když jsou oba její parametry `True` by se dala napsat takto:
+
+```python
+def AND(a: bool, b: bool):
+  return a and b
+```
+
+A podobně funkce `NOT` se napíše jako:
+
+```python
+def NOT(a: bool):
+  return not a
+```
+
+Pomocí těchto vašich funkcí můžete psát i složitější logické výrazy; například pokud byste chtěli napsat výraz `x a zároveň (y nebo (negace x))` a zajímalo by vás, jakou hodnotu bude mít v závislosti na tom zda `x` a `y` budou `True` či `False`, můžete si v Pythonu definovat následující funkci
+
+```python
+def logical_expression(x, y):
+  return AND(x, OR(y, NOT(x)))
+```
+
+a zkusit ji zavolat s různými hodnotami `x` a `y`, např.
+
+```python
+logical_expression(True, True) # vrací True
+logical_expression(False, True) # vrací False
+```
+
+Obecně řečeno každý logický výraz bude mít tvar funkce která bere dva argumenty a vrací nějaký boolean.
+
+Vaším úkolem je nyní napsat funkci `table(expr)`, která jako argument dostane nějaký takový logický výraz (tj. funkci, která bere dva argumenty) a vypíše jeho _pravdivostní tabulku_, tedy jeho hodnotu pro všechny kombinace `x` a `y`. Taková tabulka bude mít vždy čtyři řádky, které budou odpovídat jednotlivým kombinacím `True` a `False` dosazeným za `x` a `y` a tři sloupce; první bude vyjadřovat hodnotu `x`, druhý hodnotu `y` a třetí hodnotu `expr(x, y)` — tj. hodnotu logických výrazu, do kterého je dosazeno `x` a `y`.
+
+## Příklady
+
+Pokud by nás například zajímala pravdivostní tabulka `x a zároveň (negace y)`, nejprve definujeme náš logický výraz jako funkci
+
+```python
+def logical_expression(x, y):
+  return AND(x, NOT(y))
+```
+
+a poté na něj zavoláme naší funkci `table`
+
+```python
+# Zavoláme
+table(logical_expression)
+
+# Vypíše se
+True True False # odpovídá x = True, y = True, logical_expression(True, True)
+True False True  # odpovídá x = True, y = False, logical_expression(True, False)
+False True False  # odpovídá x = False, y = True, logical_expression(False, True)
+False False False  # odpovídá x = False, y = False, logical_expression(False, False)
+```
+
+Všimněte si, že `logical_expression` je sice funkce, ale zároveň se chová jako běžná hodnota — můžeme ji poslat jako argument do jiné funkce, podobně jako obyčejné číslo nebo string.
