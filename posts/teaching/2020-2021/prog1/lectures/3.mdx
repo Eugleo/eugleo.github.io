@@ -1,0 +1,246 @@
+export const metadata = {
+  title: 'Psaní vlastních funkcí',
+  timestamp: new Date(2020, 9 - 1, 15).valueOf(),
+};
+
+Ve třetí přednášce jsme probírali další nástroje sloužící ke zjednodušení a zpřehlednění kódu: **Funkce**. Přednáška byla vedena podle [páté kapitoly knihy PAPL](https://papl.cs.brown.edu/2020/From_Repeated_Expressions_to_Functions.html).
+
+## Shrnutí pojmů
+
+Následující pojmy by bylo fajn si zapamatovat. Pokud vám nějaký z nich není jasný, nezoufejte — mrkněte na text níže, zeptejte se kamaráda, nebo mi napište. Všechny je navíc budeme opakovat v následujících hodinách, abyste si pro ně vybudovali intuici.
+
+- funkce
+- vstupy (jinými slovy též parametry) a výstupy funkce
+- typ funkce (učený typovým kontraktem)
+- co jsou to knihovny
+- volání funkce, vracení výsledku
+- rozdíl mezi parametry a argumenty
+- dokumentace a rozdíl mezi dokumentací a komentářem
+- testy (modelové vstupy pro funkci i s výstupy)
+
+A z minula mimo jiné:
+
+- expression, statement a rozdíl mezi nimi
+
+## Funkce
+
+Minulou hodinu jsme se věnovali **proměnným**; když jsme si všimli, že nějaký kus kódu je příliš dlouhý, nebo že ho stále píšeme dokola, nahradili jsme jej námi definovanou proměnnou. Například
+
+```python
+include image
+
+# Vlajka Japonska
+overlay(
+  circle(35, "solid", "red"),
+  rectangle(200, 100, "solid", "white"))
+
+# (Víceméně) Vlajka Bangladéše
+overlay(
+  circle(35, "solid", "red"),
+  rectangle(200, 100, "solid", "dark green"))
+
+## Pomocí proměnných
+rising-sun = circle(35, "solid", "red")
+
+# ... a pak Japonsko
+overlay(rising-sun, rectangle(200, 100, "solid", "white"))
+
+# ... a Bangladéš
+overlay(rising-sun, rectangle(200, 100, "solid", "dark green"))
+```
+
+Všimněme si ale, že i teď opakujeme velké množství kódu:
+
+```python
+overlay(rising-sun, rectangle(200, 100, "solid", "white"))
+overlay(rising-sun, rectangle(200, 100, "solid", "dark green"))
+```
+
+Oba řádky se liší pouze v barvě pozadí. Proměnnou zde použít nemůžeme, právě kvůli této odlišnosti — místo toho si napíšeme vlastní **funkci**, která nám umožní tvořit vlajky s červeným kruhem uprostřed a s různými barvami pozadí.
+
+### Postup psaní funkce
+
+1. Všimneme si, že už po několikáté píšeme hoooodně podobný kód. Z příkaldu výše:
+
+```python
+overlay(rising-sun, rectangle(200, 100, "solid", "white"))
+overlay(rising-sun, rectangle(200, 100, "solid", "dark green"))
+```
+
+2. Zaznamenáme, které věci se opakují, a které se naopak mění.
+
+```python
+#                                          změna vvvvvvv
+overlay(rising-sun, rectangle(200, 100, "solid", "white"))
+overlay(rising-sun, rectangle(200, 100, "solid", "dark green"))
+#                                         změna  ^^^^^^^^^^^^
+```
+
+3. Vymyslíme, jak bychom ty proměnlivé kousky pojmenovali a přepíšeme původní příklad za použití tohoto nového jména
+
+```python
+overlay(
+  rising-sun,
+  rectangle(200, 100, "solid", background-color))
+```
+
+4. Nějak naši funkci pojmenujeme — nejlépe tak, aby ze jména bylo co nejjasnější, co naše funkce dělá. Zde například `red-circle-flag`. Pravidla pro pojmenovávání funkcí jsou stejná jako pro pojmenovávání proměnných; používá se angličtina a slova se oddělují pomlčkami.
+
+5. Vytvoříme kostru naší funkce. Obecný tvar definice funkce je
+
+```python
+fun <JMÉNO FUNKCE>(<PARAMETRY ODDĚLENÉ ČÁRKAMI>):
+  <TĚLO FUNKCE>
+end
+```
+
+Což v tomto konkrétním případě bude vypadat
+
+```python
+fun red-circle-flag(background-color):
+  # Nesmíme zapomenout přidat zde i definici rising-sun
+  # Protože ji dále v těle funkce používáme
+  rising-sun = circle(35, "solid", "red")
+  overlay(
+    rising-sun,
+    rectangle(200, 100, "solid", background-color))
+end
+```
+
+Tímto vlastně vytvoříme **proměnnou** s názvem `red-circle-flag`, ve které je uložena funkce.
+
+6. Do definice funkce doplníme typy.
+
+```python
+fun red-circle-flag(background-color :: String) -> Image:
+  rising-sun = circle(35, "solid", "red")
+  overlay(
+    rising-sun,
+    rectangle(200, 100, "solid", background-color))
+end
+```
+
+Části `red-circle-flag(background-color :: String) -> Image` se říká (typový) **kontrakt**, protože vyjadřuje podmínky, které musíme dodržet, abychom funkci mohli používat.
+
+A je to! Naše funkce je hotová. Pokud toto napíšeme do **definitions window** (tj levá část editoru Pyretu) a soubor spustíme, v pravé části můžeme naši `red-circle-flag` používat.
+
+### Používání funkcí
+
+Používat funkce už vlastně umíme — `rectangle`, `circle` a `overlay` jsou totiž také pouze obyčejné funkce, pouze je za nás napsal někdo jiný. Ten někdo jiný (tvůrci Pyretu) poté tyto funkce uložil do **knihovny** `image`, kterou jsme pomocí `include image` "zkopírovali" k sobě.
+
+Například, pokud tvoříme obdélník pomocí
+
+```python
+rectangle(200, 100, "solid", "red")
+```
+
+Říkáme, že **voláme** funkci `rectangle` a dáváme jí čtyři **argumenty** — v tomto případě konkrétně čísla `200` a `100` a stringy `"solid`" a `"red"`. Funkce `rectangle` poté **vrací** výsledek, což je konkrétně obrázek obdélníku.
+
+Kdybychom znovu chtěli vytvořit vlajku Japonska, mohli bychom k tomu použít naši novou funkci následovně:
+
+```python
+red-circle-flag("white")
+```
+
+Když Pyret narazí na tento řádek, podívá nejprve, zda proměnná se jménem `red-circle-flag` existuje a zda je to funkce, a pokud ano, podívá se na **tělo** funkce...
+
+```python
+fun red-circle-flag(background-color :: String) -> Image:
+  rising-sun = circle(35, "solid", "red")
+  overlay(
+    rising-sun,
+    rectangle(200, 100, "solid", background-color))
+end
+```
+
+...a dosadí **argument** `"white"` za **parametr** `background-color`:
+
+```python
+rising-sun = circle(35, "solid", "red")
+overlay(
+  rising-sun,
+  rectangle(200, 100, "solid", "white")) # zde došlo ke změně
+```
+
+### Parametr vs argument
+
+Podívejme se znovu na definici naší funkce
+
+```python
+#                   vvvvvvvvvvvvvvvv   parametr
+fun red-circle-flag(background-color :: String) -> Image:
+  rising-sun = circle(35, "solid", "red")
+  overlay(
+    rising-sun,
+    rectangle(200, 100, "solid", background-color))
+end
+```
+
+**Parametr** `background-color` se v ní chová jako proměnná, za kterou se dosazuje ve chvíli, kdy funkci někdo zavolá. Když funkci voláme, konkrétním hodnotám, které dosazujeme za jednotlivé parametry říkáme **argumenty**.
+
+```python
+#               vvvvvvv   argument
+red-circle-flag("white")
+```
+
+### Dokumentace
+
+Co daná funkce dělá často nepůjde odvodit jen z jejího typu a jména. Nejlepší je proto připojit k ní i nějaký slovní popis toho, co má dělat.
+
+Můžeme to udělat formou běžných `# komentářů`, ale ty uvidíme pouze my — to může být problém například ve chvíli, kdy budeme chtít vytvořit svou vlastní knihovnu, kterou by měli používat jiní programátoři.
+
+Pokud budeme chtít vygenerovat hezkou dokumentaci, která bude přístupná ke čtení i někomu jinému, než jen nám, nabízí se použít takzvaný **docstring**:
+
+```python
+#                   vvvvvvvvvvvvvvvv   parametr
+fun red-circle-flag(background-color :: String) -> Image:
+  # Docstring = documentation string
+  # V Pyretu doslova "doc" a za ním string
+  doc: "Returns a flag with custom background and a red circle in the middle"
+
+  # Zbytek funkce
+  ...
+end
+```
+
+Kdybychom se chtěli více rozepisovat, můžeme místo běžného stringu použít string víceřádkový:
+
+````python
+fun red-circle-flag(background-color :: String) -> Image:
+  doc: ```Returns a flag with custom background and a red circle in the middle.
+    The color of the background is specified by the parameter [background-color].```
+
+  # Zbytek funkce
+  ...
+end
+````
+
+### Testy
+
+Pamatujete ještě naše úvodní příklady, které jsme nakonec zobecnili pomocí funkce?
+
+```python
+# Vlajka Japonska
+overlay(
+  circle(35, "solid", "red"),
+  rectangle(200, 100, "solid", "white"))
+```
+
+Chceme, aby naše funkce dávala pro argument `"white"` přesně tento výsledek. Tuto skutečnost můžeme speciálním způsobem zapsat a Pyret poté při každém spuštění zkontroluje, zda je to vskutku pravda.
+
+```python
+fun red-circle-flag(background-color :: String) -> Image:
+  # Tělo funkce
+  ...
+where:
+  # Místo na testy
+  red-circle-flag("white") is
+    overlay(
+      circle(35, "solid", "red"),
+      rectangle(200, 100, "solid", "white"))
+end
+```
+
+Tomuto se říká **test** (reálně je to nějaká podmínka, kterou ta funkce musí splnit, jinak se zahlásí chyba) a slouží pro kontrolu toho, zda je naše funkce napsaná správně.
+
+Když například budeme do naší funkce přidávat něco nového, nebo ji přepisovat, aby byla kratší, testy nám zaručí, že jsme si v průběhu nic nerozbili. Konkrétně, pokud jsme něco rozbili, a pokud máme hodně různých vstupů pokrytých pomocí testů, je velká šance, že nějaký z testů přestane fungovat a zahlásí se chyba.
