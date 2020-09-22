@@ -1,0 +1,412 @@
+export const metadata = {
+  title: 'Functions are fun',
+  timestamp: new Date(2020, 9 - 1, 21).valueOf(),
+  due: new Date(2020, 9 - 1, 27).valueOf(),
+  lectures: [3],
+  points: 20,
+};
+
+Pochopení této látky je **naprosto zásadní**. Nemyslím tím to, že by bylo nutné vše pochopit hned, spíše se snažím naznačit, že opsat úkol od kamaráda vám v tomto případě z dlouhodobého hlediska nepomůže.
+
+Toto je jeden z delších úkolů, proto doporučuji nedělat jej na poslední chvíli, ale každý den si nad ním sednout, trochu se zamyslet a kousek vyřešit. S řešením by vám mělo pomoct mrknout se na "Opakování z hodiny" níže.
+
+## Opakování z hodiny
+
+Chceme napsat funkci `repeat-string(str :: String, num :: Number) -> String`, která daný string `num`-krát zopakuje. Například
+
+```python
+>>> repeat-string("a", 4)
+"aaaa"
+```
+
+Jak na to? Pojďme nejprve napsat funkci, která zopakuje daný string dvakrát. K tomu využijeme operátor `+`, kterým jdou sčítat nejen čísla, ale také stringy:
+
+```python
+>>> "Já jsem" + " " + "Evžen"
+"Já jsem Evžen"
+```
+
+Naše funkce bude vypadat následovně:
+
+```python
+fun repeat-string-twice(str :: String) -> String:
+  str + str
+where:
+  repeat-string-twice("a") is "aa"
+  repeat-string-twice("Hello") is "HelloHello"
+end
+```
+
+Toto bylo jednoduché. Co třeba funkce, která ho zopakuje třikrát? To zvládneme obdobně snadno
+
+```python
+fun repeat-string-thrice(str :: String) -> String:
+  str + str + str
+where:
+  repeat-string-thrice("a") is "aaa"
+  repeat-string-thrice("Hello") is "HelloHelloHello"
+end
+```
+
+Všimněme si, že tuto naši poslední funkci můžeme napsat i za použití funkce `repeat-string-twice`. Klidně si sami ověřte v Pyretu, že to funguje!
+
+```python
+fun repeat-string-thrice(str :: String) -> String:
+  # str + str jsme nahradili voláním repeat-string-twice
+  # ta totiž to "str + str" udělá za nás
+  repeat-string-twice(str) + str
+  # ^ původně str + str ^
+where:
+  repeat-string-thrice("a") is "aaa"
+  repeat-string-thrice("Hello") is "HelloHelloHello"
+end
+```
+
+A samozřejmě, tělo naší funkce můžeme zapsat dvěma způsoby.
+
+```python
+# Buďto
+repeat-string-twice(str) + str
+
+# Nebo za použití proměnné
+str2 = repeat-string-twice(str)
+str2 + str
+# str2 je v tomto případě výsledek repeat-string-twice(str)
+# je tedy roven str + str
+```
+
+Už se pomalu blížíme našem kýženému `repeat-string`, ale ještě než se na něj vrhneme, zamyslete se, jak by asi vypadala funkce `repeat-string-four-times`. Zvládli byste ji napsat pomocí `repeat-string-thrice`? (řešení si zkontrolujte na konci textu)
+
+### Obecný `repeat-string` v1
+
+Zezačátku se nabízí ručně kontrolovat, kolikrát že bychom ten string měli zopakovat, a podle toho to ručně vrátit výsledek:
+
+```python
+fun repeat-string-v1(str :: String, num :: Number) -> String:
+  if num == 1:
+    str
+  else if num == 2:
+    str + str
+  else if num == 3:
+    str + str + str
+  else if ...:
+    ...
+  end
+end
+```
+
+Tato funkce má jednu drobnou nevýhodu — pokud bychom chtěli ručně zkontrolovat všechny hodnoty `num`, měla by ta funkce nekonečno řádků.
+
+### Obecný `repeat-string` v2
+
+Všimněme si, že k napsání "repeat-thrice" výše jsme použili "repeat-twice", a k napsání "opakuj čtyřikrát" zase "opakuj třikrát". Dává to rozum, vždyť abychom něco opakovali třikrát, musíme to zopakovat nejprve dvakrát _a pak_ ještě jednou navrch. Jinými slovy
+
+```python
+"HelloHelloHello" = "HelloHello" + "Hello"
+
+"HelloHelloHelloHello" = "HelloHelloHello" + "Hello"
+```
+
+Toto samozřejmě nekončí u čtyřky — když chceme nějakých string _n-krát_ zopakovat, je to to samé jako bychom jej zopakovali _(n-mínus-jedna)-krát_ a pak navrch ještě jednou. Tento poznatek uplatníme v druhém pokusu o funkci `repeat-string`:
+
+```python
+fun repeat-string-v2(str :: String, num :: Number) -> String:
+  # Zopakovat string n-krát je to samé jako...
+
+  # ...zopakovat jej (n-mínus-jedna)-krát
+  str-n-minus-one = repeat-string-v2(str, n - 1)
+
+  # ...a pak navrch ještě jednou (toto je náš výsledek)
+  str-n-minus-one + str
+end
+```
+
+Zkuste si tuto funkci definovat u sebe v Pyretu a pak jí zavolat s nějakým vstupem, například `repeat-string-v2("a", 3)`. Vyjde vám `"aaa"`? **Co se stane?**
+
+Spoiler: Funkce nikdy nedoběhne. Když si zahrajeme na počítač a zkusíme si funkci spustit ručně, uvidíme, proč to tak je.
+
+```python
+# Voláme
+repeat-string("a", 3)
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", 2)
+# ...aby to mohla uložit do str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", 1)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -1)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -2)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -3)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# ...atd, nikdy se nezastavíme, vždy jen zmenšíme num o jedničku
+# a zavoláme se znovu
+```
+
+Pořád je to ale lepší než `v1`; komu se chce psát nekonečno řádků? Zkusme tedy tuto verzi jen trochu upravit tak, abychom odstranili tento poslední problém.
+
+### Obecný `repeat-string` v3
+
+Je zřejmé, že se nemůžeme volat donekonečna s čím dál menšími `num`, tj. že se u nějakého `num` musíme zastavit. Když má naše funkce zopakovat daný string `num`-krát, u jakého `num` je vhodné se zastavit? Můžeme pro začátek zvolit nějaký náhodný, pro který se bude dobře ručně psát výsedek, například `num == 2`:
+
+```python
+fun repeat-string-v3(str :: String, num :: Number) -> String:
+  if num == 2:
+    # Máme zopakovat string dvakrát
+    str + str
+    # ručně jsme napsali výsledek
+  else:
+    # Zopakovat string n-krát je to samé jako...
+
+    # ...zopakovat jej (n-mínus-jedna)-krát
+    str-n-minus-one = repeat-string-v3(str, n - 1)
+
+    # ...a pak navrch ještě jednou (toto je náš výsledek)
+    str-n-minus-one + str
+end
+```
+
+Ověřte si, že tato funkce funguje, například voláním `repeat-string-v3("a", 4)`. **Zkuste se ale také zamyslet nad tím, pro jaké vstupy funkce fungovat nebude.**
+
+Spoiler: `repeat-string-v3("a", 1)` se nám zacyklí, jako kdybychom žádnou zarážku neměli. Proč? 1 je menší než 2, takže nám pod naší zarážkou "proklouzne":
+
+```python
+# Voláme
+repeat-string-v2("a", 1)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -1)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -2)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# A ta v průběhu zavolá
+repeat-string-v2("a", -3)
+# ...aby to mohla uložit do svojí str-n-minus-one
+
+# ...atd, nikdy se nezastavíme, vždy jen zmenšíme num o jedničku
+# na num == 2 nikdy nenarazíme
+```
+
+Teď můžeme udělat dvě věci. Buďto se na jedničku vykašlat a říct, že to pro ní prostě fungovat nebude, nebo nějak upravit naší zarážku tak, aby fungovala i pro `num == 1`. Já hlasuji pro druhý způsob.
+
+### Obecný `repeat-string` v4
+
+Naštěstí není třeba dělat žádné velké úpravy, prostě ručně ošetříme i případ `num == 1`:
+
+```python
+fun repeat-string-v4(str :: String, num :: Number) -> String:
+  if num == 1:
+    # Zopakovat string jednou je to samé jako...
+
+    # ...s ním prostě nic neudělat
+    str
+  else if num == 2:
+    # Máme zopakovat string dvakrát
+    str + str
+  else:
+    # Zopakovat string n-krát je to samé jako...
+
+    # ...zopakovat jej (n-mínus-jedna)-krát
+    str-n-minus-one = repeat-string-v4(str, n - 1)
+
+    # ...a pak navrch ještě jednou (toto je náš výsledek)
+    str-n-minus-one + str
+end
+```
+
+Pro záporná čísla naše funkce sice pořád nefunguje, ale na ty se už vyklašlat můžeme — pokud se někdo snaží opakovat string "mínus třikrát", je to provokatér a zaslouží si, aby mu spadl prohlížeč. Jsme už prakticky hotovi; ověřte, že `repeat-string-v4` funguje pro všechny rozumné vstupy. Naší `repeat-string-v4` už jen trochu zjednodušíme.
+
+### Obecný `repeat-string` v5
+
+Všimněme si, že případ `num == 2` se vyřeší sám v rámci `else`, protože zopakovat něco dvakrát je to samé jako zopakovat to jednou (a to už umíme) a pak to přidat jednou navrch. Naše finální funkce je tedy
+
+```python
+fun repeat-string-v5(str :: String, num :: Number) -> String:
+  if num == 1:
+    # Zopakovat string jednou je to samé jako...
+
+    # ...s ním prostě nic neudělat
+    str
+  else:
+    # Zopakovat string n-krát je to samé jako...
+
+    # ...zopakovat jej (n-mínus-jedna)-krát
+    str-n-minus-one = repeat-string-v5(str, n - 1)
+
+    # ...a pak navrch ještě jednou (toto je náš výsledek)
+    str-n-minus-one + str
+end
+```
+
+První případu (`num == 1`) se říká **base case** a je to tzv. speciální případ — vyčleňujeme za všech možných hodnot num speciálně jedničku a něco pak děláme. Naproti tomu blok kódu za `else` je tzv **obecný případ** (general case) — tento blok provedeme obecně pro všechny ostatní hodnoty `num`.
+
+### Shrnutí
+
+1. Pokusili jsme se ručně ošetřit všechny hodnoty `num` (`v1`). To nefungovalo, protože bychom jich museli ručně popsat nekonečně mnoho.
+
+2. Všimli jsme si, že "zopakovat string n-krát" je to samé jako "zopakovat string n-mínus-jedna-krát a pak ještě jednou". Přepsali jsme naší funkci s použitím tohoto poznatku, ale vznikl nám nekonečný cyklus (`v2`).
+
+3. Přidali jsme zarážku `num == 2`, pro všechna čísla vyšší nebo rovna dvěma tedy naše funkce začala fungovat. K nekonečnýmu cyklu nedošlo proto, že jakmile jsme došli k zarážce, přestali jsme sami sebe volat (tj. přestali jsme se honit za vlastním ocasem).
+
+4. Protože nám u `v3` nefungoval vstup `num == 1`, rozšířili jsme naši zarážku o další speciální případ (`v4`).
+
+5. Konečně, zjednodušili jsme naši funkci tak, že jsme ponechali pouze jeden speciální případ a zbytek výpočtu nechali na tom obecném (`v5`).
+
+Už vám dává smysl, jak `v5` funguje? Super, gratuluji!
+
+### Jak psát podobné funkce
+
+Ve všech podobných funkcích je vždy důležité:
+
+1. Identifikovat obecnou část (to jsme udělali ve `v2`)
+2. Najít správnou zarážku, abychom se měli, kdy zastavit (to jsme udělali ve `v3`)
+
+Já osobně to dělám tak, že začnu od zarážky (zpravidla něco "jednoduchého a malého", jako `0` nebo `1`) a pak se zeptám sám sebe:
+
+1. Jaká bude hodnota v zarážce?
+2. Co se stane, když bude vstup o jedno větší než zarážka?
+3. Jak bych v tomto výpočtu (tj v tom o jedna větším než zarážka) mohl použít výpočet se zarážkou?
+4. A jak bych toto mohl zobecnit pro všechny vstupy, které jsou větší než zarážka?
+
+V případě `repeat-string(str, num)` bych začal s prázdnou skořápkou funkce, do které bych postupně doplňoval kód:
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  ...
+end
+```
+
+1. **Jaká bude zarážka a hodnota v ní?** Zkusil bych `num == 1` nebo `num == 0`. Doplním tento **speciální případ** do své funkce a pokračuji:
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  if num == 1:
+    # Pokud vám není jasné, proč zde je str
+    # Mrkněte na předchozí kapitoly
+    str
+  else:
+    ...
+end
+```
+
+2. **Co se stane, když bude vstup o jedno větší než zarážka?** Opět doplním jako speciální případ.
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  if num == 1:
+    str
+  if num == 2:
+    str + str
+  else:
+    ...
+end
+```
+
+3. **Jak bych v tomto výpočtu (tj v tom o jedna větším než zarážka) mohl použít výpočet se zarážkou?** Nyní už nepřidávám žádné další případy a jen upravuji hodnotu u `num == 2`:
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  if num == 1:
+    str
+  if num == 2:
+    # str jsem nahradil repeat-string(str, 1)
+    # protože chci použít hodnotu repeat-string v zarážce
+    repeat-string(str, 1) + str
+  else:
+    ...
+end
+```
+
+4. **A jak bych toto mohl zobecnit pro všechny vstupy, které jsou větší než zarážka?** Teď se jen snažím zobecnit to, co mám v `num == 2` tak, aby se to dalo použít pro všechny `num > 1`. To, co mám teď je vlastně ""
+
+```python
+# num == 2
+zopakovat něco dvakrát = zopakovat něco jednou a pak to ještě jednou přidat navrch
+
+# num obecně
+zopakovat něco n-krát = ???
+```
+
+Po drobné úvaze doplním:
+
+```python
+# num == 2
+zopakovat něco dvakrát = zopakovat něco jednou a pak to ještě jednou přidat navrch
+#                                        ^ (2 - 1)-krát
+
+# num obecně
+zopakovat něco n-krát =  zopakovat něco n-mínus-jedna-krát a pak to ještě jednou přidat navrch
+```
+
+A mám to! Svůj konkrétní případ pro `num == 2` zobecním následovně:
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  if num == 1:
+    str
+  if num == 2:
+    # str jsem nahradil repeat-string(str, 1)
+    # protože chci použít hodnotu repeat-string v zarážce
+    repeat-string(str, 1) + str
+  else:
+    # zobecněná verze z num == 2
+    repeat-string(str, num - 1) + str
+end
+```
+
+Nakonec můžu odstranit speciální nezarážkový případ, protože je obsažen v té zobecněné verzi v `else`:
+
+```python
+fun repeat-string(str :: String, num :: Number) -> String:
+  if num == 1:
+    str
+  else:
+    # funguje i pto num == 2, takže to nemusím řešit ručně
+    repeat-string(str, num - 1) + str
+end
+```
+
+## Teoretická část
+
+## Praktická část
+
+## Řešení miniúkolů z teoretické části
+
+Záladní verze je jednoduchá, prostě
+
+```python
+fun repeat-string-four-times(str :: String) -> String:
+  str + str + str + str
+where:
+  repeat-string-four-times("a") is "aaaa"
+  repeat-string-four-times("Hello") is "HelloHelloHelloHello"
+end
+```
+
+Můžeme si ale ušetřit práci a zapsat jí i takto, s použitím `repeat-string-thrice`.
+
+```python
+fun repeat-string-thrice(str :: String) -> String:
+  # str + str + str jsme nahradili voláním repeat-string-thrice
+  # ta totiž to "str + str + str" udělá za nás
+  three-times-str = repeat-string-thrice(str)
+  three-times-str + str
+where:
+  repeat-string-four-times("a") is "aaaa"
+  repeat-string-four-times("Hello") is "HelloHelloHelloHello"
+end
+```
