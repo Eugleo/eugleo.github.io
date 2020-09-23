@@ -15,13 +15,13 @@ Toto je jeden z delších úkolů, proto doporučuji nedělat jej na poslední c
 Každý úkol má několik podúkolů (úrovní). Podmínky pro získání základního počtu bodů (10) jsou:
 
 1. Splnit z každého úkolu alespoň jeho nejlehčí úroveň
-2. Alespoň z jednoho úkolu splnit i nějaký složitější podúkol
+2. Alespoň z jednoho úkolu splnit i nějakou složitější úroveň
 
-Za každý podúkol navíc dostanete **extra body** (podle jeho složitosti) až do maximálního cekového počtu 20 bodů. Podúkoly spolu soouvisí jen velmi volně, tj. **úroveň 2 není nutně rozšířenou verzí funkce z úrovně 1** nebo něco podobného.
+Za každý podúkol nad rámec těchto dvou podmínek dostanete **extra body** (podle jeho složitosti) až do maximálního cekového počtu 20 bodů. Podúkoly spolu soouvisí jen velmi volně, tj. **úroveň 2 není nutně rozšířenou verzí funkce z úrovně 1** ani nic podobného.
 
-Všechny úlohy řešte napsáním pouze jedné funkce (není-li řečeno jinak), a to způsobem, jaký jsme si ukazovali na poslední přednášce — tj. funkce volá samu sebe. Všechna zadání u sebe mají testy s několika modelovými vstupy a výstupy; to by vám mělo pomoci zjistit, zda se vaše řešení ubírá správným směrem.
+Všechny úlohy řešte napsáním pouze jedné funkce (není-li řečeno jinak), a to způsobem, jaký jsme si ukazovali na poslední přednášce — tj. funkce volá samu sebe. Pokud není řečeno jinak, nepoužívejte jiné funkce než ty, které jsme používali v hodině.
 
-Doporučuji vám proto prostě zkopírovat zadání a dopsat do něj své řešení.
+Všechna zadání u sebe mají testy s několika modelovými vstupy a výstupy; to by vám mělo pomoci zjistit, zda se vaše řešení ubírá správným směrem. Doporučuji vám proto prostě zkopírovat zadání i s testy a dopsat do něj své řešení.
 
 ### První úkol (number)
 
@@ -56,7 +56,7 @@ where:
 end
 ```
 
-Úroveň 3 (1 bod)
+Úroveň 3 (2 body)
 
 ```python
 fun count-factors(upper-bound :: Number, n :: Number) -> Number:
@@ -117,7 +117,7 @@ end
 
 ```python
 fun char-at(index :: Number, str :: String) -> String:
-  doc: "Returns the character at the index [index]. [index] is always somewhere in the string."
+  doc: "Returns the character at the index [index]. [index] will always point to a valid location in [str]"
   ...
 where:
   char-at(0, "Pyret") is "P"
@@ -184,7 +184,7 @@ end
 
 Úroveň 3 (2 body)
 
-Parametry `str` budou u obou následujících funkcí stringy skládající se pouze z `f` a `t`, kde `f` má představovat `false` a `t` zase `true`.
+Parametry `str` budou u obou následujících funkcí stringy skládající se pouze z `f` a `t`, kde `f` představuje `false` a `t` zase `true`.
 
 ```python
 fun all(str :: String) -> Boolean:
@@ -238,14 +238,23 @@ fun stripe(n :: Number) -> Image:
   doc: "Returns a striped line made from [n] 50x50 squares with alternating blue/red colors. [n] is non-negative."
   ...
 where:
-  blue-square = rectangle(50, 50, "solid", "blue")
-  red-square = rectangle(50, 50, "solid", "red")
+  blue-square = square(50, "solid", "blue")
+  red-square = square(50, "solid", "red")
 
   # empty-image is imported automatically with include image
   stripe(0) is empty-image
-  stripe(1) is beside(blue-square, empty-image)
-  stripe(2) is beside(red-square, beside(blue-square, empty-image))
-  stripe(3) is beside(blue-square, beside(red-square, beside(blue-square, empty-image)))
+  stripe(1) is
+    beside(
+      blue-square,
+      empty-image)
+  stripe(2) is
+    beside(
+      red-square,
+      beside(blue-square, empty-image))
+  stripe(3) is
+    beside(
+      blue-square,
+      beside(red-square,beside(blue-square, empty-image)))
 end
 ```
 
