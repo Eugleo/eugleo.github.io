@@ -3,12 +3,275 @@ export const metadata = {
   timestamp: new Date(2020, 9 - 1, 21).valueOf(),
   due: new Date(2020, 9 - 1, 27).valueOf(),
   lectures: [3],
-  points: 20,
+  points: 10,
 };
 
 Pochopení této látky je **naprosto zásadní**. Nemyslím tím to, že by bylo nutné vše pochopit hned, spíše se snažím naznačit, že opsat úkol od kamaráda vám v tomto případě z dlouhodobého hlediska nepomůže.
 
 Toto je jeden z delších úkolů, proto doporučuji nedělat jej na poslední chvíli, ale každý den si nad ním sednout, trochu se zamyslet a kousek vyřešit. S řešením by vám mělo pomoct mrknout se na "Opakování z hodiny" níže.
+
+## Zadání
+
+Každý úkol má několik podúkolů (úrovní). Podmínky pro získání základního počtu bodů (10) jsou:
+
+1. Splnit z každého úkolu alespoň jeho nejlehčí úroveň
+2. Alespoň z jednoho úkolu splnit i nějaký složitější podúkol
+
+Za každý podúkol navíc dostanete **extra body** (podle jeho složitosti) až do maximálního cekového počtu 20 bodů. Podúkoly spolu soouvisí jen velmi volně, tj. **úroveň 2 není nutně rozšířenou verzí funkce z úrovně 1** nebo něco podobného.
+
+Všechny úlohy řešte napsáním pouze jedné funkce (není-li řečeno jinak), a to způsobem, jaký jsme si ukazovali na poslední přednášce — tj. funkce volá samu sebe. Všechna zadání u sebe mají testy s několika modelovými vstupy a výstupy; to by vám mělo pomoci zjistit, zda se vaše řešení ubírá správným směrem.
+
+Doporučuji vám proto prostě zkopírovat zadání a dopsat do něj své řešení.
+
+### První úkol (number)
+
+Úroveň 1
+
+```python
+fun sum-n(n :: Number) -> Number:
+  doc: "Returns the sum of all numbers from 0 to [n]: 0 + 1 + 2 + ... + n"
+  ...
+where:
+  sum-n(-10) is 0
+  sum-n(-5) is 0
+  sum-n(0) is 0
+  sum-n(1) is 1
+  sum-n(2) is 1 + 2
+  sum-n(3) is 1 + 2 + 3
+end
+```
+
+Úroveň 2 (1 bod)
+
+```python
+fun num-power(base :: Number, power :: Number) -> Number:
+  doc: "Returns [base] to the power of [power]. [power] is always non-negative (i.e. 0 or higher)"
+  ...
+where:
+  num-power(-1, 3) is -1
+  num-power(-1, 2) is 1
+  num-power(3, 3) is 27
+  num-power(3, 0) is 1
+  num-power(5, 2) is 25
+end
+```
+
+Úroveň 3 (1 bod)
+
+```python
+fun count-factors(upper-bound :: Number, n :: Number) -> Number:
+  doc: "Counts the positive numbers that are less than or equal to [upper-bound] that are divisible by [n]"
+  ...
+where:
+  count-factors(10, 2) is 5 # i.e. 2, 4, 6, 8, 10
+  count-factors(10, 5) is 2 # i.e. 5, 10
+  count-factors(7, 1) is 7 # i.e. 1, 2, 3, 4, 5, 6, 7
+end
+```
+
+Jak zjistíte, kdy je jedno číslo dělitelné jiným (beze zbytku)? Mrkněte na funkci `num-modulo`.
+
+### Druhý úkol (string)
+
+Ke všem třem úrovním budete potřebovat funkce `string-first` a `string-rest`, které můžete naimportovat pomocí
+
+```python
+include shared-gdrive("string-utils", "1QChebN-p7mUEmccxwsn-3Xz6X-4k9gFd")
+```
+
+Funkce `string-first(str)` vrací první písmeno ve stringu `str`, zatímco `string-rest` vrací zbytek stringu (tj. od druhého písmena dál). Příklady:
+
+```python
+string-first("Evžen") # -> "E"
+string-rest("Evžen") # -> "vžen"
+
+string-first("retPy") # -> "r"
+string-rest("retPy") # -> "etPy"
+
+string-first("n") # -> "n"
+string-rest("n") # -> ""
+
+string-first("") # -> ""
+string-rest("") # -> ""
+
+# Vždy platí
+string-first(str) + string-rest(str) is str
+```
+
+Úroveň 1
+
+```python
+fun drop-n(n :: Number, str :: String) -> String:
+  doc: "Returns [str] with its first [n] characters removed. [n] is always non-negative."
+  ...
+where:
+  drop-n(0, "Evžen") is "Evžen"
+  drop-n(1, "Evžen") is "vžen"
+  drop-n(2, "Evžen") is "žen"
+  drop-n(5, "Evžen") is ""
+  drop-n(20, "Evžen") is ""
+end
+```
+
+Úroveň 2 (2 body)
+
+```python
+fun char-at(index :: Number, str :: String) -> String:
+  doc: "Returns the character at the index [index]. [index] is always somewhere in the string."
+  ...
+where:
+  char-at(0, "Pyret") is "P"
+  char-at(1, "Pyret") is "y"
+  char-at(4, "Pyret") is "t"
+end
+```
+
+Úroveň 3 (2 body)
+
+```python
+fun replace-character(
+  char :: String,
+  replacement :: String,
+  str :: String) -> String:
+  doc: "Returns [str] with all occurences of [char] replaced by [replacement]. [char] is always one character."
+  ...
+where:
+  replace-character("E", "e", "Evžen") is "evžen"
+  replace-character("E", "Ne", "Evžen") is "Nevžen"
+  replace-character("ž", "", "Evžen") is "Even"
+  replace-character("a", "b", "Evžen") is "Evžen"
+  replace-character("e", "oo", "bumblebee") is "bumblooboooo"
+end
+```
+
+### Třetí úkol (boolean)
+
+U druhé a třetí úrovně se opět budou chodit funkce `string-first` a `string-rest`, viz kapitola "Druhý úkol (string)" výše.
+
+Úroveň 1
+
+```python
+fun divides(n :: Number, k :: Number) -> Boolean:
+  doc: "Returns true if [n] is divisible by [k], false otherwise. [k] is always positive (i.e. greater than 0)"
+  ...
+where:
+  divides(1, 1) is true
+  divides(2, 2) is true
+  divides(3, 2) is false
+  divides(4, 2) is true
+  divides(10, 10) is true
+  divides(10, 1) is true
+  divides(10, 5) is true
+  divides(10, 7) is false
+  divides(10, 20) is false
+end
+```
+
+Úroveň 2 (1 bod)
+
+```python
+fun string-has-character(character :: String, str :: String) -> Boolean:
+  doc: "Returns true if [character] is somewhere in [str], false otherwise. [character] is always one character"
+  ...
+where:
+  string-has-character("E", "Evžen") is true
+  string-has-character("V", "Evžen") is false
+  string-has-character("v", "Evžen") is true
+  string-has-character("v", "") is false
+  string-has-character("a", "abracadabra") is true
+end
+```
+
+Úroveň 3 (2 body)
+
+Parametry `str` budou u obou následujících funkcí stringy skládající se pouze z `f` a `t`, kde `f` má představovat `false` a `t` zase `true`.
+
+```python
+fun all(str :: String) -> Boolean:
+  doc: "Returns true if [str] doesn't have any 'f' in it, false otherwise"
+  # In other words, it is a bit like a generalization of 'and', everything has to be true
+  ...
+where:
+  all("") is true
+  all("t") is true
+  all("f") is false
+  all("tttt") is true
+  all("tttttf") is false
+end
+
+fun any(str :: String) -> Boolean:
+  doc: "Returns true if [str] has at least one 't' in it, false otherwise"
+  # In other words, it is a bit like a generalization of 'or', at least one thing has to be true
+  ...
+where:
+  any("") is false
+  any("t") is true
+  any("f") is false
+  any("tttt") is true
+  any("tttttf") is true
+end
+```
+
+### Čtrvtý úkol (image)
+
+Úroveň 1
+
+```python
+fun repeat-image-h(n :: Number, img :: Image ) -> Image:
+  doc: "Repeats the image [n] times (horizontally). [n] is always non-negative"
+  ...
+where:
+  test-img = rectangle(100, 100, "solid", "blue")
+
+  # empty-image is imported automatically with include image
+  repeat-image-h(0, test-img) is empty-image
+  repeat-image-h(1, test-img) is beside(empty-image, test-img)
+  repeat-image-h(2, test-img) is beside(test-img, test-img)
+  repeat-image-h(3, test-img) is beside(beside(test-img, test-img), test-img)
+end
+```
+
+Úroveň 2 (1 bod)
+
+```python
+fun stripe(n :: Number) -> Image:
+  doc: "Returns a striped line made from [n] 50x50 squares with alternating blue/red colors. [n] is non-negative."
+  ...
+where:
+  blue-square = rectangle(50, 50, "solid", "blue")
+  red-square = rectangle(50, 50, "solid", "red")
+
+  # empty-image is imported automatically with include image
+  stripe(0) is empty-image
+  stripe(1) is beside(blue-square, empty-image)
+  stripe(2) is beside(red-square, beside(blue-square, empty-image))
+  stripe(3) is beside(blue-square, beside(red-square, beside(blue-square, empty-image)))
+end
+```
+
+Příklady:
+
+<img className="mb-4" src="/recursion-stripe.png" />
+
+Úroveň 3 (3 body)
+
+```python
+fun rotate-n-times(n, img):
+  doc: "Overlays [n] images over themselves in such a way that the result is symetric, by rotating every image by the same angle"
+
+  # Compute the angle here and pass it to rotate-n-times-angle
+  ...
+end
+
+fun rotate-n-times-angle(n, angle, img):
+  doc: "Overlays [n] images over themselves by rotating each next image by [angle]"
+  ...
+end
+```
+
+Příklady:
+
+<img className="mb-4" src="/recursion-rotate.png" />
 
 ## Opakování z hodiny
 
@@ -379,10 +642,6 @@ fun repeat-string(str :: String, num :: Number) -> String:
     repeat-string(str, num - 1) + str
 end
 ```
-
-## Teoretická část
-
-## Praktická část
 
 ## Řešení miniúkolů z teoretické části
 
