@@ -2,7 +2,7 @@ import c from 'classnames';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Homework } from './homework';
+import { Homework } from './Homework';
 
 export type Lecture = {
   title: string;
@@ -16,7 +16,7 @@ export type LectureMeta = {
   timestamp: number;
 };
 
-export function Lecture({ className, number }: { className?: string; number: number }) {
+export function LectureLink({ className, number }: { className?: string; number: number }) {
   const router = useRouter();
   return (
     <a className={c('font-medium', className)} href={`${router.asPath}/prednasky/${number}`}>

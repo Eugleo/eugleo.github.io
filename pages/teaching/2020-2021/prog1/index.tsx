@@ -4,18 +4,11 @@ import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useEffect } from 'react';
 
-import {
-  Header,
-  HeaderBackgroundImage,
-  HomeworkBox,
-  LectureBox,
-  Paragraph,
-  Section,
-} from '../../../../src/class-page-components';
 import { getAllHomeworks, getAllLectures } from '../../../../src/content-io';
 import { Homework, HomeworkMeta } from '../../../../src/homework';
 import { Stack } from '../../../../src/layout';
 import { Lecture, LectureMeta } from '../../../../src/lecture';
+import { Section } from '../../../../src/teaching/components/Header';
 import { Test } from '../../../../src/test';
 import { comparator } from '../../../../src/utils';
 

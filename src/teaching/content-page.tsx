@@ -4,10 +4,10 @@ import React from 'react';
 import * as Icon from 'react-feather';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-import { Homework } from './homework';
-import { Stack } from './layout';
-import { Lecture } from './lecture';
-import { formatTimestampWithDay } from './utils';
+import { Homework } from './Homework';
+import { Stack } from './Layout';
+import { LectureLink } from './Lecture';
+import { formatTimestampWithDay } from './Utils';
 
 export function Navigation({ to, title }: { to: string; title: string }) {
   return (

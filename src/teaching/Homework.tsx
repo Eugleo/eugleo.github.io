@@ -28,7 +28,6 @@ export function Homework({
   number: number;
   path: string;
 }) {
-  const router = useRouter();
   return (
     <a className={c('font-medium', className)} href={`${path}/ukoly/${number}`}>
       #U{number}
