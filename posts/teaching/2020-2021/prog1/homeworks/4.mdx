@@ -267,16 +267,21 @@ Příklady:
 
 Úroveň 3 (3 body)
 
+Podívejte se na příklady níže.
+
 ```python
-fun rotate-n-times(n, img):
-  doc: "Overlays [n] images over themselves in such a way that the result is symetric, by rotating every image by the same angle"
+fun rotate-n-times(n :: Number, img :: Image) -> Image:
+  doc: """Constructs a symmetric image in [n] steps.
+  In each step, [img] is rotated by some computed angle
+  in such a way that in the end the images
+  'fill' the whole circle"""
 
   # Compute the angle here and pass it to rotate-n-times-angle
   ...
 end
 
-fun rotate-n-times-angle(n, angle, img):
-  doc: "Overlays [n] images over themselves by rotating each next image by [angle]"
+fun rotate-n-times-angle(n :: Number, angle :: Number, img :: Image):
+  doc: "Overlays [n] images over themselves by rotating each image by [angle]"
   ...
 end
 ```
@@ -284,5 +289,3 @@ end
 Příklady:
 
 <img className="mb-4" src="/recursion-rotate.png" />
-
-## Opakování z hodiny
