@@ -73,7 +73,7 @@ export default function ProgrammingI({
   });
 
   return (
-    <div className="bg-gray-200 min-h-screen pb-10">
+    <div className="min-h-screen pb-10">
       <NextSeo
         title="Programování II"
         description="Seznam přednášek a úkolů zadaných v Programování II"
@@ -141,7 +141,7 @@ export default function ProgrammingI({
               Seznam těchto plánů se objeví zde, aby žáci i vyučující mohli průběžně kontrolovat,
               jak se jim daří plány plnit.
             </Paragraph>
-            {homeworks.map((hw) => (
+            {homeworks.sort(comparator((hw) => -hw.due)).map((hw) => (
               <HomeworkBox key={hw.id} homework={hw} />
             ))}
           </Stack>
@@ -154,7 +154,7 @@ export default function ProgrammingI({
               budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích (a jejich
               praktické využití).
             </Paragraph>
-            {lectures.map((l) => (
+            {lectures.sort(comparator((l) => -l.timestamp)).map((l) => (
               <LectureBox key={l.id} lecture={l} />
             ))}
           </Stack>

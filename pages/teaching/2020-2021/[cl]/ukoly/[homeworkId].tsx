@@ -27,7 +27,7 @@ export default function HomeworkPage({
   });
 
   return (
-    <div className="mr-3 bg-gray-200 py-10 min-h-screen">
+    <div className="mr-3 py-10 min-h-screen">
       <NextSeo
         title={`Úkol #${homework.id} | ${title}`}
         description={homework.title}

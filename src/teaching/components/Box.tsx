@@ -42,7 +42,7 @@ function PointsPill({ points }: { points: number }) {
 
 type DueStatus = 'Far' | 'Near' | 'Passed';
 
-function getDueStatus(due: number): DueStatus {
+export function getDueStatus(due: number): DueStatus {
   const dayDiff = Math.ceil((due - Date.now()) / (1000 * 60 * 60 * 24));
   if (dayDiff < 0) {
     return 'Passed';
@@ -53,19 +53,22 @@ function getDueStatus(due: number): DueStatus {
   }
 }
 
+export function getDueStatusStyle(due: number) {
+  const status = getDueStatus(due);
+  if (status === 'Passed') {
+    return 'border-gray-500';
+  } else if (status === 'Near') {
+    return 'border-orange-500';
+  } else if (status === 'Far') {
+    return 'border-green-500';
+  }
+}
+
 export function HomeworkBox({ homework }: { homework: Homework }) {
   const router = useRouter();
   const path = router.asPath;
 
-  const status = getDueStatus(homework.due);
-  let accent;
-  if (status === 'Passed') {
-    accent = 'border-gray-500';
-  } else if (status === 'Near') {
-    accent = 'border-orange-500';
-  } else if (status === 'Far') {
-    accent = 'border-green-500';
-  }
+  const accent = getDueStatusStyle(homework.due);
 
   return (
     <div className={c('rounded-sm border-t-4 overflow-hidden shadow-xs', accent)}>

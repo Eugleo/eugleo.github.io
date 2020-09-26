@@ -28,7 +28,7 @@ export default function LecturePage({
   const Component = require(`../../../../../posts/teaching/2020-2021/${cl}/lectures/${lecture.id}.mdx`)
     .default;
   return (
-    <div className="bg-gray-200 py-10 min-h-screen">
+    <div className="py-10 min-h-screen">
       <NextSeo
         title={`Přednáška #${lecture.id} | ${title}`}
         description={lecture.title}

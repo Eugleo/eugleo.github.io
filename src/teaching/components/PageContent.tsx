@@ -21,16 +21,16 @@ export function Content({ children }: { children: React.ReactNode }) {
           />
         ),
         code: (props) => {
-          console.log();
-          const language = props.className.replace(/language-/, '');
+          const language = props.className?.replace(/language-/, '');
           return (
             <SyntaxHighlighter
               wrapLines={true}
-              className="rounded-lg shadow-xs mb-4 mt-4"
+              customStyle={{ padding: '@apply px-12', background: '@apply bg-gray-100' }}
+              className="rounded-lg shadow-xs mb-4 mt-4 px-4 py-2 bg-gray-100"
               codeTagProps={{
                 className: 'text-sm',
               }}
-              language={language}
+              language={language ?? 'text'}
             >
               {props.children.slice(0, -1)}
             </SyntaxHighlighter>
