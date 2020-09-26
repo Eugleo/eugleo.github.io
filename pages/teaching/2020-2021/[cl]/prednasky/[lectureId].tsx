@@ -48,7 +48,7 @@ export default function LecturePage({
         }}
       />
 
-      <div className="bg-blue-500 z-0 lg:h-xl h-64 -mb-32" />
+      <div className="bg-blue-500 z-0 lg:h-xl h-64 w-full -mb-32" />
       <article className="mx-auto max-w-xl px-4">
         <LectureHeader path={`/teaching/2020-2021/${cl}`} lecture={lecture} />
         <Navigation title={title} to={`/teaching/2020-2021/${cl}`} />

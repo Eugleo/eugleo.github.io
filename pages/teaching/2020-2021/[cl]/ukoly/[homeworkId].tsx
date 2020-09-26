@@ -29,7 +29,7 @@ export default function HomeworkPage({
   });
 
   return (
-    <div className="mr-3 pb-10 min-h-screen">
+    <div className="pb-10 min-h-screen">
       <NextSeo
         title={`Úkol #${homework.id} | ${title}`}
         description={homework.title}
@@ -50,7 +50,10 @@ export default function HomeworkPage({
       />
 
       <div
-        className={c('lg:h-xl z-0 h-64 -mb-32', colorToAccent(getDueStatusStyle(homework.due)))}
+        className={c(
+          'lg:h-xl z-0 h-64 w-full -mb-32',
+          colorToAccent(getDueStatusStyle(homework.due)),
+        )}
       />
       <article className="mx-auto max-w-xl px-4">
         <HomeworkHeader homework={homework} />
