@@ -4,22 +4,15 @@ import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useEffect } from 'react';
 
-import {
-  Header,
-  HeaderBackgroundImage,
-  HomeworkBox,
-  LectureBox,
-  Paragraph,
-  Section,
-} from '../../../../src/class-page-components';
-import { getAllHomeworks, getAllLectures } from '../../../../src/content-io';
-import { Homework, HomeworkMeta } from '../../../../src/homework';
-import { Stack } from '../../../../src/layout';
-import { Lecture, LectureMeta } from '../../../../src/lecture';
-import { Test } from '../../../../src/test';
-import { comparator } from '../../../../src/utils';
+import { HomeworkBox, LectureBox } from '../../../../src/teaching/components/Box';
+import { Header, HeaderBackgroundImage } from '../../../../src/teaching/components/Header';
+import { Paragraph, Section } from '../../../../src/teaching/components/Text';
+import { getAllHomeworks, getAllLectures } from '../../../../src/teaching/content-io';
+import { Homework, HomeworkMeta } from '../../../../src/teaching/Homework';
+import { Stack } from '../../../../src/teaching/Layout';
+import { Lecture, LectureMeta } from '../../../../src/teaching/Lecture';
+import { comparator } from '../../../../src/teaching/Utils';
 
-const TESTS: Test[] = [];
 const BG_PATH = '/python.jpg';
 
 export const getStaticProps = async () => {
@@ -104,7 +97,6 @@ export default function ProgrammingI({
         <Header
           title="Programování II "
           imagePath={BG_PATH}
-          tests={TESTS}
           homeworks={homeworks}
           nextLectureDate={new Date(2020, 9 - 1, 11)}
           lastChanged={new Date()}

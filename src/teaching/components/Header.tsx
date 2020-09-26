@@ -2,9 +2,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import * as Icon from 'react-feather';
 
-import { Homework } from '../Homework';
+import { Homework, HomeworkLink } from '../Homework';
 import { Stack } from '../Layout';
-import { Test } from '../test';
 import { formatTimestampWithDay } from '../Utils';
 
 export function HeaderBackgroundImage({ imagePath }: { imagePath: string }) {
@@ -45,14 +44,12 @@ function Description({ children }: { children: React.ReactNode }) {
 
 export function Header({
   title,
-  tests,
   homeworks,
   nextLectureDate,
   imagePath,
   lastChanged,
 }: {
   title: string;
-  tests: Test[];
   homeworks: Homework[];
   nextLectureDate: Date;
   imagePath: string;
@@ -97,7 +94,12 @@ function Homeworks({ homeworks }: { homeworks: Homework[] }) {
           Blíží se odevzdání úkolů{' '}
           {futureHomeworks
             .map<React.ReactNode>((hw) => (
-              <Homework path={path} key={hw.id} number={hw.id} className="hover:text-gray-700" />
+              <HomeworkLink
+                path={path}
+                key={hw.id}
+                number={hw.id}
+                className="hover:text-gray-700"
+              />
             ))
             .reduce((acc: React.ReactNode[], d) => [...acc, ', ', d], [])
             .slice(1)}

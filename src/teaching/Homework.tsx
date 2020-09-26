@@ -1,10 +1,10 @@
 import c from 'classnames';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 export type Homework = {
   id: number;
   title: string;
+  description: string;
   lectures: number[];
   points: number;
   due: number;
@@ -13,13 +13,14 @@ export type Homework = {
 
 export type HomeworkMeta = {
   title: string;
+  description: string;
   lectures: number[];
   points: number;
   due: number;
   timestamp: number;
 };
 
-export function Homework({
+export function HomeworkLink({
   className,
   number,
   path,
