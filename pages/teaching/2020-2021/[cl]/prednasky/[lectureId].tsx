@@ -9,7 +9,7 @@ import { LectureHeader } from '../../../../../src/teaching/components/LecturePag
 import { Navigation } from '../../../../../src/teaching/components/Navigation';
 import { Content } from '../../../../../src/teaching/components/PageContent';
 import { getAllHomeworks, getAllLectures } from '../../../../../src/teaching/content-io';
-import { HomeworkMeta } from '../../../../../src/teaching/Homework';
+import { Homework, HomeworkMeta } from '../../../../../src/teaching/Homework';
 import { Lecture, LectureMeta } from '../../../../../src/teaching/Lecture';
 import { comparator } from '../../../../../src/teaching/Utils';
 
@@ -65,7 +65,7 @@ export async function getLectureStaticProps(context: GetStaticPropsContext<Parse
   const meta: LectureMeta = require(`../../../../../posts/teaching/2020-2021/${cl}/lectures/${id}.mdx`)
     .metadata;
 
-  const homeworks: HomeworkMeta[] = (await getAllHomeworks(cl))
+  const homeworks: Homework[] = (await getAllHomeworks(cl))
     .map((hid) => {
       const homework: HomeworkMeta = require(`../../../../../posts/teaching/2020-2021/${cl}/homeworks/${hid}.mdx`)
         .metadata;
@@ -76,15 +76,14 @@ export async function getLectureStaticProps(context: GetStaticPropsContext<Parse
     })
     .sort(comparator((hw) => hw.id));
 
+  const pageTitle = cl === 'prog1' ? 'PRogramování I' : 'Programování II';
   const lecture: Lecture = {
     ...meta,
-    cl,
-    title: cl === 'prog1' ? 'PRogramování I' : 'Programování II',
     id,
     homeworks: homeworks.filter((hw) => hw.lectures.includes(id)),
   };
 
-  return { props: { lecture } };
+  return { props: { lecture, title: pageTitle, cl } };
 }
 
 export async function getStaticPaths() {

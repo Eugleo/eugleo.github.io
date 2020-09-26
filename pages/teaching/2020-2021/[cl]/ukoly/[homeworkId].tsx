@@ -81,8 +81,6 @@ export async function getStaticPaths() {
   const params1 = homeworks1.map((homeworkId) => ({ params: { cl: 'prog1', homeworkId } }));
   const params2 = homeworks2.map((homeworkId) => ({ params: { cl: 'prog2', homeworkId } }));
 
-  console.log('HEEEEEY', params1.concat(params2));
-
   return {
     paths: params1.concat(params2),
     fallback: false,
