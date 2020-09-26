@@ -162,14 +162,6 @@ function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
         .column {
           width: 100%;
         }
-
-        @media (min-width: 800px) {
-          .column {
-            width: 120%;
-            columns: 2;
-            column-gap: 1.5rem;
-          }
-        }
       `}</style>
     </Section>
   );
@@ -191,14 +183,6 @@ function LectureList({ lectures }: { lectures: Lecture[] }) {
       <style jsx>{`
         .column {
           width: 100%;
-        }
-
-        @media (min-width: 800px) {
-          .column {
-            width: 120%;
-            columns: 2;
-            column-gap: 1.5rem;
-          }
         }
       `}</style>
     </Section>
