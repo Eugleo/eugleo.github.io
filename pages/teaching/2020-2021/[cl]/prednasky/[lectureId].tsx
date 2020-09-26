@@ -58,7 +58,7 @@ export default function LecturePage({
   );
 }
 
-export async function getLectureStaticProps(context: GetStaticPropsContext<ParsedUrlQuery>) {
+export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQuery>) {
   const id = Number(context.params?.lectureId);
   const cl = context.params?.cl as string;
 
