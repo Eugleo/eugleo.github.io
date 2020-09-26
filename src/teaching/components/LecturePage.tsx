@@ -9,10 +9,10 @@ import { formatTimestampWithDay } from '../Utils';
 
 export function LectureHeader({ lecture, path }: { lecture: Lecture; path: string }) {
   return (
-    <div className="mb-10 z-10 relative">
-      <div className="bg-white rounded-lg shadow-xl mb-2 flex flex-row overflow-hidden border-t-8 border-blue-500">
+    <div className="z-10 relative">
+      <div className="bg-white rounded-lg shadow-xl mb-2 flex flex-row overflow-hidden">
         <div className="w-full">
-          <h1 className="text-black text-4xl font-bold px-8 py-6 text-center sm:text-left">
+          <h1 className="text-black text-2xl md:text-4xl font-bold px-8 py-6 text-center sm:text-left">
             {lecture.title}
           </h1>
           <Stack gap="gap-2" className="px-8 py-6 bg-gray-100 w-full">

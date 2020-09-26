@@ -28,7 +28,7 @@ export default function LecturePage({
   const Component = require(`../../../../../posts/teaching/2020-2021/${cl}/lectures/${lecture.id}.mdx`)
     .default;
   return (
-    <div className="py-10 min-h-screen">
+    <div className="pb-10 min-h-screen overflow-x-hidden">
       <NextSeo
         title={`Přednáška #${lecture.id} | ${title}`}
         description={lecture.title}
@@ -47,9 +47,11 @@ export default function LecturePage({
           ],
         }}
       />
+
+      <div className="bg-blue-500 z-0 lg:h-xl h-64 -mb-32" />
       <article className="mx-auto max-w-xl px-4">
-        <Navigation title={title} to={`/teaching/2020-2021/${cl}`} />
         <LectureHeader path={`/teaching/2020-2021/${cl}`} lecture={lecture} />
+        <Navigation title={title} to={`/teaching/2020-2021/${cl}`} />
         <Content>
           <Component />
         </Content>

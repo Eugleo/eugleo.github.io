@@ -4,11 +4,12 @@ import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useEffect } from 'react';
 
-import { HomeworkBox, LectureBox } from '../../../../src/teaching/components/Box';
+import { HomeworkCard } from '../../../../src/teaching/components/cards/HomeworkCard';
+import { LectureCard } from '../../../../src/teaching/components/cards/LectureCard';
 import { Header, HeaderBackgroundImage } from '../../../../src/teaching/components/Header';
 import { Paragraph, Section } from '../../../../src/teaching/components/Text';
 import { getAllHomeworks, getAllLectures } from '../../../../src/teaching/content-io';
-import { Homework, HomeworkMeta } from '../../../../src/teaching/Homework';
+import { Homework, HomeworkLink, HomeworkMeta } from '../../../../src/teaching/Homework';
 import { Stack } from '../../../../src/teaching/Layout';
 import { Lecture, LectureMeta } from '../../../../src/teaching/Lecture';
 import { comparator } from '../../../../src/teaching/Utils';
@@ -101,65 +102,105 @@ export default function ProgrammingI({
           nextLectureDate={new Date(2020, 9 - 1, 11)}
           lastChanged={new Date()}
         />
-
-        <Section title="Informace o předmětu">
-          <Stack gap="gap-4">
-            <Paragraph>
-              Podmínkou splnění předmětu v prvním pololetí je aktivita v hodině a úspěšné složení
-              pololetní písemné a ústní zkoušky. Rozvěž je vyžadováno, aby žáci alespoň jednou
-              prezentovali řešení nějakého z domácích úkolů, které jinak budou čistě dobrovolné.
-              teorie.
-            </Paragraph>
-
-            <Paragraph>
-              Během druhého pololetí budou žáci pracovat na vlastním projektu. Svou práci na tomto
-              projektu budou žáci minimálně jednou za pololetí prezentovat. Žáci budou rovněž na
-              konci roku ústně zkoušeni z probrané teorie.
-            </Paragraph>
-
-            <Paragraph>
-              Prezentace budou hodnoceny známkou s váhou 5 a se stejnou váhou bude hodnoceno i
-              závěrečné ústní zkoušení. Práce na projektu a písemné zkoušení bude hodnoceno s váhou
-              10. Žáci mohou navíc dostávat známky za práci v hodině.
-            </Paragraph>
-
-            <h3 className="font-bold mt-4">Podoba zkoušky</h3>
-
-            <Paragraph>
-              Zkouška v prvním pololetí se skládá z písemné a ústní části. Na začátku písemné části
-              je zadána jedna úloha, na jejíž naprogramování studenti mají 90 minut. Ústní část se
-              skládá z diskuze o studentově řešení písemné části a z několika otázek na teorii
-              probranou v hodinách.
-            </Paragraph>
-          </Stack>
-        </Section>
-
-        <Section title="Pracovní plány">
-          <Stack gap="gap-4">
-            <Paragraph>
-              Během práce na projektu si budou žáci rozvrhovat, jaké funkce daný týden implementují.
-              Seznam těchto plánů se objeví zde, aby žáci i vyučující mohli průběžně kontrolovat,
-              jak se jim daří plány plnit.
-            </Paragraph>
-            {homeworks.sort(comparator((hw) => -hw.due)).map((hw) => (
-              <HomeworkBox key={hw.id} homework={hw} />
-            ))}
-          </Stack>
-        </Section>
-
-        <Section title="Zápisky z přednášek">
-          <Stack gap="gap-4">
-            <Paragraph>
-              Zde se budou objevovat oficiální zápisky z přednášek. V závěrečném ústním zkoušení
-              budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích (a jejich
-              praktické využití).
-            </Paragraph>
-            {lectures.sort(comparator((l) => -l.timestamp)).map((l) => (
-              <LectureBox key={l.id} lecture={l} />
-            ))}
-          </Stack>
-        </Section>
+        <ClassInfo />
+        <HomeworkList homeworks={homeworks} />
+        <LectureList lectures={lectures} />
       </main>
     </div>
+  );
+}
+
+function ClassInfo() {
+  return (
+    <Section title="Informace o předmětu">
+      <Stack gap="gap-4">
+        <Paragraph>
+          Podmínkou splnění předmětu v prvním pololetí je aktivita v hodině a úspěšné složení
+          pololetní písemné a ústní zkoušky. Rozvěž je vyžadováno, aby žáci alespoň jednou
+          prezentovali řešení nějakého z domácích úkolů, které jinak budou čistě dobrovolné. teorie.
+        </Paragraph>
+
+        <Paragraph>
+          Během druhého pololetí budou žáci pracovat na vlastním projektu. Svou práci na tomto
+          projektu budou žáci minimálně jednou za pololetí prezentovat. Žáci budou rovněž na konci
+          roku ústně zkoušeni z probrané teorie.
+        </Paragraph>
+
+        <Paragraph>
+          Prezentace budou hodnoceny známkou s váhou 5 a se stejnou váhou bude hodnoceno i závěrečné
+          ústní zkoušení. Práce na projektu a písemné zkoušení bude hodnoceno s váhou 10. Žáci mohou
+          navíc dostávat známky za práci v hodině.
+        </Paragraph>
+
+        <h3 className="font-bold mt-4">Podoba zkoušky</h3>
+
+        <Paragraph>
+          Zkouška v prvním pololetí se skládá z písemné a ústní části. Na začátku písemné části je
+          zadána jedna úloha, na jejíž naprogramování studenti mají 90 minut. Ústní část se skládá z
+          diskuze o studentově řešení písemné části a z několika otázek na teorii probranou v
+          hodinách.
+        </Paragraph>
+      </Stack>
+    </Section>
+  );
+}
+
+function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
+  return (
+    <Section title="Pracovní plány">
+      <Paragraph className="mb-4">
+        Během práce na projektu si budou žáci rozvrhovat, jaké funkce daný týden implementují.
+        Seznam těchto plánů se objeví zde, aby žáci i vyučující mohli průběžně kontrolovat, jak se
+        jim daří plány plnit.
+      </Paragraph>
+      <div className="column">
+        {homeworks.sort(comparator((hw) => -hw.due)).map((hw) => (
+          <HomeworkCard key={hw.id} homework={hw} />
+        ))}
+      </div>
+      <style jsx>{`
+        .column {
+          width: 100%;
+        }
+
+        @media (min-width: 800px) {
+          .column {
+            width: 120%;
+            columns: 2;
+            column-gap: 1.5rem;
+          }
+        }
+      `}</style>
+    </Section>
+  );
+}
+
+function LectureList({ lectures }: { lectures: Lecture[] }) {
+  return (
+    <Section title="Zápisky z přednášek">
+      <Paragraph className="mb-4">
+        Zde se budou objevovat oficiální zápisky z přednášek. V závěrečném ústním zkoušení budou
+        vyžadovány pouze znalosti, které jsou zaznamenány v těchto zápiscích (a jejich praktické
+        využití).
+      </Paragraph>
+      <div className="column">
+        {lectures.sort(comparator((l) => -l.timestamp)).map((l) => (
+          <LectureCard key={l.id} lecture={l} />
+        ))}
+      </div>
+      <style jsx>{`
+        .column {
+          width: 100%;
+        }
+
+        @media (min-width: 800px) {
+          .column {
+            width: 120%;
+            columns: 2;
+            column-gap: 1.5rem;
+          }
+        }
+      `}</style>
+    </Section>
   );
 }

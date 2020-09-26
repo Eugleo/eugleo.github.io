@@ -7,7 +7,7 @@ export function Navigation({ to, title }: { to: string; title: string }) {
     <nav>
       <a
         href={to}
-        className="flex flex-row items-center mb-4 text-blue-600 font-medium uppercase text-xs hover:underline"
+        className="flex flex-row items-center mb-10 text-blue-600 font-medium uppercase text-xs hover:underline"
       >
         <Icon.ChevronLeft className="mr-2 text-blue-600 w-4 h-4" /> {title}
       </a>

@@ -3,7 +3,8 @@ import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useEffect } from 'react';
 
-import { HomeworkBox, LectureBox } from '../../../../src/teaching/components/Box';
+import { HomeworkCard } from '../../../../src/teaching/components/cards/HomeworkCard';
+import { LectureCard } from '../../../../src/teaching/components/cards/LectureCard';
 import { Header, HeaderBackgroundImage } from '../../../../src/teaching/components/Header';
 import { Paragraph, Section } from '../../../../src/teaching/components/Text';
 import { getAllHomeworks, getAllLectures } from '../../../../src/teaching/content-io';
@@ -138,19 +139,32 @@ function ClassInfo() {
 function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
   return (
     <Section title="Zadání úkolů">
-      <Stack gap="gap-6">
-        <Paragraph>
-          Všechny úkoly prosím posílejte nejpozději o půlnoci, a to přes messenger nebo přes mail.
-          Nebude-li řečeno jinak, posílejte úkoly v souboru s názvem
-          <code className="text-sm bg-green-100 px-1 rounded-sm">idUkolu_prijmeni.arr</code>,
-          například <code className="text-sm bg-green-100 px-1 rounded-sm">u1_wybitul.arr</code>.
-          Pokud je v rámci jednoho úkolů několik podůkolů, uložte je všechny do jednoho souboru a
-          oddělte je prázdným řádkem.
-        </Paragraph>
+      <Paragraph className="mb-4">
+        Všechny úkoly prosím posílejte nejpozději o půlnoci, a to přes messenger nebo přes mail.
+        Nebude-li řečeno jinak, posílejte úkoly v souboru s názvem
+        <code className="text-sm bg-green-100 px-1 rounded-sm">idUkolu_prijmeni.arr</code>,
+        například <code className="text-sm bg-green-100 px-1 rounded-sm">u1_wybitul.arr</code>.
+        Pokud je v rámci jednoho úkolů několik podůkolů, uložte je všechny do jednoho souboru a
+        oddělte je prázdným řádkem.
+      </Paragraph>
+      <div className="column">
         {homeworks.map((hw) => (
-          <HomeworkBox key={hw.id} homework={hw} />
+          <HomeworkCard key={hw.id} homework={hw} />
         ))}
-      </Stack>
+      </div>
+      <style jsx>{`
+        .column {
+          width: 100%;
+        }
+
+        @media (min-width: 800px) {
+          .column {
+            width: 120%;
+            columns: 2;
+            column-gap: 1.5rem;
+          }
+        }
+      `}</style>
     </Section>
   );
 }
@@ -158,22 +172,35 @@ function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
 function LectureList({ lectures }: { lectures: Lecture[] }) {
   return (
     <Section title="Zápisky z přednášek">
-      <Stack gap="gap-6">
-        <Paragraph>
-          V ústní části zkoušky budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto
-          zápiscích. Přednášky jsou inspirovány knihou{' '}
-          <a
-            className="border-b border-gray-500 hover:border-gray-900 bg-blue-100 px-1 hover:bg-blue-200"
-            href="https://papl.cs.brown.edu/2020/"
-          >
-            Programming and Programming Languages (PAPL)
-          </a>
-          , pokud vám tedy něco z přednášek nebude jasné, můžete se zkusit podívat i do ní.
-        </Paragraph>
+      <Paragraph className="mb-4">
+        V ústní části zkoušky budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto
+        zápiscích. Přednášky jsou inspirovány knihou{' '}
+        <a
+          className="border-b border-gray-500 hover:border-gray-900 bg-blue-100 px-1 hover:bg-blue-200"
+          href="https://papl.cs.brown.edu/2020/"
+        >
+          Programming and Programming Languages (PAPL)
+        </a>
+        , pokud vám tedy něco z přednášek nebude jasné, můžete se zkusit podívat i do ní.
+      </Paragraph>
+      <div className="column">
         {lectures.map((l) => (
-          <LectureBox key={l.id} lecture={l} />
+          <LectureCard key={l.id} lecture={l} />
         ))}
-      </Stack>
+      </div>
+      <style jsx>{`
+        .column {
+          width: 100%;
+        }
+
+        @media (min-width: 800px) {
+          .column {
+            width: 120%;
+            columns: 2;
+            column-gap: 1.5rem;
+          }
+        }
+      `}</style>
     </Section>
   );
 }

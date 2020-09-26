@@ -1,10 +1,12 @@
 /* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-var-requires */
+import c from 'classnames';
 import { GetStaticPropsContext } from 'next';
 import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect } from 'react';
 
+import { colorToAccent, getDueStatusStyle } from '../../../../../src/teaching/components/DueStatus';
 import { HomeworkHeader } from '../../../../../src/teaching/components/HomeworkPage';
 import { Navigation } from '../../../../../src/teaching/components/Navigation';
 import { Content } from '../../../../../src/teaching/components/PageContent';
@@ -27,7 +29,7 @@ export default function HomeworkPage({
   });
 
   return (
-    <div className="mr-3 py-10 min-h-screen">
+    <div className="mr-3 pb-10 min-h-screen">
       <NextSeo
         title={`Úkol #${homework.id} | ${title}`}
         description={homework.title}
@@ -46,9 +48,13 @@ export default function HomeworkPage({
           ],
         }}
       />
+
+      <div
+        className={c('lg:h-xl z-0 h-64 -mb-32', colorToAccent(getDueStatusStyle(homework.due)))}
+      />
       <article className="mx-auto max-w-xl px-4">
-        <Navigation title={title} to={`/teaching/2020-2021/${cl}`} />
         <HomeworkHeader homework={homework} />
+        <Navigation title={title} to={`/teaching/2020-2021/${cl}`} />
         <Content>
           <Component />
         </Content>
