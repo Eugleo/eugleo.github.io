@@ -184,7 +184,7 @@ where:
 end
 ```
 
-Úroveň 3 (2 body)
+Úroveň 3 (1 bod)
 
 Parametry `str` budou u obou následujících funkcí stringy skládající se pouze z `f` a `t`, kde `f` představuje `false` a `t` zase `true`.
 
@@ -201,16 +201,16 @@ where:
   all("tttttf") is false
 end
 
-fun any(str :: String) -> Boolean:
+fun some(str :: String) -> Boolean:
   doc: "Returns true if [str] has at least one 't' in it, false otherwise"
   # In other words, it is a bit like a generalization of 'or', at least one thing has to be true
   ...
 where:
-  any("") is false
-  any("t") is true
-  any("f") is false
-  any("tttt") is true
-  any("tttttf") is true
+  some("") is false
+  some("t") is true
+  some("f") is false
+  some("tttt") is true
+  some("tttttf") is true
 end
 ```
 
