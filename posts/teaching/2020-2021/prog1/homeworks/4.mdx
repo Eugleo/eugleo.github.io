@@ -203,16 +203,16 @@ where:
   all("tttttf") is false
 end
 
-fun some(str :: String) -> Boolean:
+fun at-least-one(str :: String) -> Boolean:
   doc: "Returns true if [str] has at least one 't' in it, false otherwise"
   # In other words, it is a bit like a generalization of 'or', at least one thing has to be true
   ...
 where:
-  some("") is false
-  some("t") is true
-  some("f") is false
-  some("tttt") is true
-  some("tttttf") is true
+  at-least-one("") is false
+  at-least-one("t") is true
+  at-least-one("f") is false
+  at-least-one("tttt") is true
+  at-least-one("tttttf") is true
 end
 ```
 
