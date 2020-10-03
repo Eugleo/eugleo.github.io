@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { HomeworkCard } from '../../../../src/teaching/components/cards/HomeworkCard';
 import { LectureCard } from '../../../../src/teaching/components/cards/LectureCard';
 import { Header, HeaderBackgroundImage } from '../../../../src/teaching/components/Header';
-import { Paragraph, Section } from '../../../../src/teaching/components/Text';
+import { Link, Paragraph, Section } from '../../../../src/teaching/components/Text';
 import { getAllHomeworks, getAllLectures } from '../../../../src/teaching/content-io';
 import { Homework, HomeworkMeta } from '../../../../src/teaching/Homework';
 import { Stack } from '../../../../src/teaching/Layout';
@@ -95,6 +95,7 @@ export default function ProgrammingI({
         />
 
         <ClassInfo />
+        <Resources />
         <HomeworkList homeworks={homeworks.sort(comparator((hw) => -hw.due))} />
         <LectureList lectures={lectures.sort(comparator((l) => -l.timestamp))} />
       </main>
@@ -136,6 +137,56 @@ function ClassInfo() {
   );
 }
 
+function Resources() {
+  return (
+    <Section title="Co, když něčemu nerozumím?">
+      <Stack gap="gap-4">
+        <Paragraph>
+          Co dělat, pokud máte pocit, že si tak docela nejste jistí tím, co děláte?
+        </Paragraph>
+
+        <Paragraph>
+          Především pamatujte na to, že programování je iterativní a proces plný experimentování.
+          Napsat program, který bude funkční už napoprvé, je malý zázrak — hlavní je dělat malé
+          krůčky, které zhruba směřují ke správnému řešení. Dělat chyby je vlastně skoro dobře,
+          protože těmi se toho nejví naučíte.
+        </Paragraph>
+
+        <h3 className="font-bold mt-4">Koho se zeptat?</h3>
+
+        <Paragraph>
+          Nejjednodušší je zeptat se některého ze svých spolužáků — buďto vám poradí, nebo alespoň
+          zjistíte, že nejste jediní, kdo se ztrácí. Obojí každopádně je fajn.
+        </Paragraph>
+
+        <Paragraph>
+          Taková základní záložní možnost je zeptat se mě. Oceňuji všechny otázky, a nikomu žádnou
+          otázku nevyčítám — i kdybyste se až teď osmělili zeptat na něco, co se dělalo pět
+          přednášek zpátky.
+        </Paragraph>
+
+        <h3 className="font-bold mt-4">Zdroje na internetu</h3>
+
+        <Paragraph>
+          S obecnějšími otázkami vám pomohou lidé z{' '}
+          <Link to="https://papl.cs.brown.edu/2020/">r/learnprogramming</Link> nebo na{' '}
+          <Link to="https://stackoverflow.com">Stack Overflow</Link>. Zvláště druhá zmíněná stránka
+          je takový zlatý grýl programátorů, a to i těch profesionálních.
+        </Paragraph>
+
+        <Paragraph>
+          Pokud vám ani na jednom z míst nebudou schopni pomoci, doporučuji napsat na{' '}
+          <Link to="https://groups.google.com/forum/#!forum/pyret-discuss">
+            Pyret-Discuss mailing list
+          </Link>
+          . Na otázky a nápady tam mimo jiné často reagují také přímo autoři Pyretu, takže je to asi
+          nejlepší Pyretovské místo na internetu.
+        </Paragraph>
+      </Stack>
+    </Section>
+  );
+}
+
 function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
   return (
     <Section title="Zadání úkolů">
@@ -167,12 +218,9 @@ function LectureList({ lectures }: { lectures: Lecture[] }) {
       <Paragraph className="mb-4">
         V ústní části zkoušky budou vyžadovány pouze znalosti, které jsou zaznamenány v těchto
         zápiscích. Přednášky jsou inspirovány knihou{' '}
-        <a
-          className="border-b border-gray-500 hover:border-gray-900 bg-blue-100 px-1 hover:bg-blue-200"
-          href="https://papl.cs.brown.edu/2020/"
-        >
+        <Link to="https://papl.cs.brown.edu/2020/">
           Programming and Programming Languages (PAPL)
-        </a>
+        </Link>
         , pokud vám tedy něco z přednášek nebude jasné, můžete se zkusit podívat i do ní.
       </Paragraph>
       <div className="column">
