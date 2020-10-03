@@ -139,7 +139,7 @@ function ClassInfo() {
 
 function Resources() {
   return (
-    <Section title="Co, když něčemu nerozumím?">
+    <Section title="Co dělat, když něčemu nerozumím?">
       <Stack gap="gap-4">
         <Paragraph>
           Co dělat, pokud máte pocit, že si tak docela nejste jistí tím, co děláte?
