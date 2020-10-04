@@ -4,7 +4,7 @@ import * as Icon from 'react-feather';
 
 import { Homework, HomeworkLink } from '../Homework';
 import { Stack } from '../Layout';
-import { formatTimestampWithDay } from '../Utils';
+import { comparator, formatTimestampWithDay } from '../Utils';
 
 export function HeaderBackgroundImage({ imagePath }: { imagePath: string }) {
   return (
@@ -45,16 +45,24 @@ function Description({ children }: { children: React.ReactNode }) {
 export function Header({
   title,
   homeworks,
-  nextLectureDate,
+  lectureDates,
   imagePath,
-  lastChanged,
 }: {
   title: string;
   homeworks: Homework[];
-  nextLectureDate: Date;
+  lectureDates: Date[];
   imagePath: string;
-  lastChanged: Date;
 }) {
+  console.log(lectureDates.sort(comparator((d) => d.getUTCMilliseconds())));
+
+  const nextLectureDate = lectureDates
+    .sort(comparator((d) => d.getUTCMilliseconds()))
+    .find((d) => d >= new Date());
+
+  if (!nextLectureDate) {
+    throw new Error("Can't find any valid next lecture date");
+  }
+
   return (
     <div className="mb-10 z-10 relative">
       <div className="bg-white rounded-lg shadow-xl mb-2 -mt-16 flex flex-row overflow-hidden">
@@ -72,9 +80,6 @@ export function Header({
           </Stack>
         </div>
       </div>
-      <p className="text-xs w-full text-gray-600 text-right">
-        naposledy upraveno {formatTimestampWithDay(lastChanged.valueOf())}
-      </p>
     </div>
   );
 }

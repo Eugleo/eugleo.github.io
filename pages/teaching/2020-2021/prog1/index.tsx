@@ -15,6 +15,27 @@ import { comparator } from '../../../../src/teaching/Utils';
 
 const BG_PATH = '/pyret.webp';
 
+const LECTURE_DATES = [
+  // October
+  new Date(2020, 10 - 1, 6),
+  new Date(2020, 10 - 1, 13),
+  new Date(2020, 10 - 1, 20),
+  new Date(2020, 10 - 1, 27),
+
+  // November
+  new Date(2020, 11 - 1, 3),
+  new Date(2020, 11 - 1, 6),
+  new Date(2020, 11 - 1, 10),
+  new Date(2020, 11 - 1, 17),
+  new Date(2020, 11 - 1, 24),
+
+  // December
+  new Date(2020, 12 - 1, 1),
+  new Date(2020, 12 - 1, 8),
+  new Date(2020, 12 - 1, 15),
+  new Date(2020, 12 - 1, 22),
+];
+
 export const getStaticProps = async () => {
   const lecturePaths = await getAllLectures('prog1');
   const homeworkPaths = await getAllHomeworks('prog1');
@@ -90,8 +111,7 @@ export default function ProgrammingI({
           title="Programování I"
           imagePath={BG_PATH}
           homeworks={homeworks}
-          nextLectureDate={new Date(2020, 9 - 1, 29)}
-          lastChanged={new Date()}
+          lectureDates={LECTURE_DATES}
         />
 
         <ClassInfo />

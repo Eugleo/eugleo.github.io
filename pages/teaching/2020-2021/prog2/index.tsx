@@ -9,12 +9,34 @@ import { LectureCard } from '../../../../src/teaching/components/cards/LectureCa
 import { Header, HeaderBackgroundImage } from '../../../../src/teaching/components/Header';
 import { Paragraph, Section } from '../../../../src/teaching/components/Text';
 import { getAllHomeworks, getAllLectures } from '../../../../src/teaching/content-io';
-import { Homework, HomeworkLink, HomeworkMeta } from '../../../../src/teaching/Homework';
+import { Homework, HomeworkMeta } from '../../../../src/teaching/Homework';
 import { Stack } from '../../../../src/teaching/Layout';
 import { Lecture, LectureMeta } from '../../../../src/teaching/Lecture';
 import { comparator } from '../../../../src/teaching/Utils';
 
 const BG_PATH = '/python.jpg';
+
+// TODO Fix this
+const LECTURE_DATES = [
+  // October
+  new Date(2020, 10 - 1, 6),
+  new Date(2020, 10 - 1, 13),
+  new Date(2020, 10 - 1, 20),
+  new Date(2020, 10 - 1, 27),
+
+  // November
+  new Date(2020, 11 - 1, 3),
+  new Date(2020, 11 - 1, 6),
+  new Date(2020, 11 - 1, 10),
+  new Date(2020, 11 - 1, 17),
+  new Date(2020, 11 - 1, 24),
+
+  // December
+  new Date(2020, 12 - 1, 1),
+  new Date(2020, 12 - 1, 8),
+  new Date(2020, 12 - 1, 15),
+  new Date(2020, 12 - 1, 22),
+];
 
 export const getStaticProps = async () => {
   const lecturePaths = await getAllLectures('prog2');
@@ -57,14 +79,6 @@ export const getStaticProps = async () => {
   };
 };
 
-function GradeBar({ color, children }: { color: string; children: string }) {
-  return (
-    <div className={c('flex justify-center items-center text-xs', color)}>
-      <p>{children}</p>
-    </div>
-  );
-}
-
 export default function ProgrammingI({
   lectures,
   homeworks,
@@ -99,8 +113,7 @@ export default function ProgrammingI({
           title="Programování II "
           imagePath={BG_PATH}
           homeworks={homeworks}
-          nextLectureDate={new Date(2020, 9 - 1, 11)}
-          lastChanged={new Date()}
+          lectureDates={LECTURE_DATES}
         />
         <ClassInfo />
         <HomeworkList homeworks={homeworks} />
