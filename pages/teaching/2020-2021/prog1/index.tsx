@@ -169,7 +169,7 @@ function Resources() {
 
         <Paragraph>
           S obecnějšími otázkami vám pomohou lidé z{' '}
-          <Link to="https://papl.cs.brown.edu/2020/">r/learnprogramming</Link> nebo na{' '}
+          <Link to="https://www.reddit.com/r/learnprogramming/">r/learnprogramming</Link> nebo na{' '}
           <Link to="https://stackoverflow.com">Stack Overflow</Link>. Zvláště druhá zmíněná stránka
           je takový zlatý grál programátorů, a to i těch profesionálních.
         </Paragraph>
