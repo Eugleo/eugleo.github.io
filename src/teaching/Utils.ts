@@ -1,4 +1,4 @@
-export function formatTimestampWithDay(timestamp: number) {
+export function formatTimestampWithDay(timestamp: number, showTime = false) {
   const date = new Date(timestamp);
   const dayName = (day: number) => {
     switch (day) {
@@ -21,7 +21,16 @@ export function formatTimestampWithDay(timestamp: number) {
   const d = date.getDay();
   const preposition = [3, 4].includes(d) ? 've' : 'v';
 
-  return `${preposition} ${dayName(d)} ${date.getDate()}. ${date.getMonth() + 1}.`;
+  if (showTime) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const minutes = date
+      .getMinutes()
+      .toLocaleString('cs-CZ', { minimumIntegerDigits: 2, useGrouping: false });
+    return `${preposition} ${dayName(d)} ${day}. ${month}. (${date.getHours()}:${minutes})`;
+  } else {
+    return `${preposition} ${dayName(d)} ${date.getDate()}. ${date.getMonth() + 1}.`;
+  }
 }
 
 export function formatTimestamp(timestamp: number) {

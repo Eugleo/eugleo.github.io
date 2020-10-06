@@ -17,23 +17,24 @@ const BG_PATH = '/pyret.webp';
 
 const LECTURE_DATES = [
   // October
-  new Date(2020, 10 - 1, 6),
-  new Date(2020, 10 - 1, 13),
-  new Date(2020, 10 - 1, 20),
-  new Date(2020, 10 - 1, 27),
+  new Date(2020, 10 - 1, 6, 17),
+  new Date(2020, 10 - 1, 13, 17),
+  new Date(2020, 10 - 1, 20, 17),
+  new Date(2020, 10 - 1, 27, 17),
 
   // November
-  new Date(2020, 11 - 1, 3),
-  new Date(2020, 11 - 1, 6),
-  new Date(2020, 11 - 1, 10),
-  new Date(2020, 11 - 1, 17),
-  new Date(2020, 11 - 1, 24),
+  new Date(2020, 11 - 1, 3, 17),
+  new Date(2020, 11 - 1, 6, 11, 50),
+  new Date(2020, 11 - 1, 10, 17),
+  new Date(2020, 11 - 1, 17, 17),
+  new Date(2020, 11 - 1, 24, 17),
 
   // December
-  new Date(2020, 12 - 1, 1),
-  new Date(2020, 12 - 1, 8),
-  new Date(2020, 12 - 1, 15),
-  new Date(2020, 12 - 1, 22),
+  new Date(2020, 12 - 1, 1, 17),
+  new Date(2020, 12 - 1, 4, 11, 50),
+  new Date(2020, 12 - 1, 8, 17),
+  new Date(2020, 12 - 1, 15, 17),
+  new Date(2020, 12 - 1, 22, 17),
 ];
 
 export const getStaticProps = async () => {

@@ -53,11 +53,13 @@ export function Header({
   lectureDates: Date[];
   imagePath: string;
 }) {
-  console.log(lectureDates.sort(comparator((d) => d.getUTCMilliseconds())));
+  const ignoreTime = (d: Date) => {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  };
 
   const nextLectureDate = lectureDates
-    .sort(comparator((d) => d.getUTCMilliseconds()))
-    .find((d) => d >= new Date());
+    .sort(comparator((d) => d.getTime()))
+    .find((d) => d.getTime() >= ignoreTime(new Date()).getTime());
 
   if (!nextLectureDate) {
     throw new Error("Can't find any valid next lecture date");
@@ -119,7 +121,7 @@ function Lectures({ nextLectureDate }: { nextLectureDate: Date }) {
     <DescriptionWrapper>
       <Icon.Calendar className="w-5 h-5 mr-3 text-gray-500" />
       <Description>
-        Další přednáška bude {formatTimestampWithDay(nextLectureDate.valueOf())}
+        Přednáška bude {formatTimestampWithDay(nextLectureDate.valueOf(), true)}
       </Description>
     </DescriptionWrapper>
   );
