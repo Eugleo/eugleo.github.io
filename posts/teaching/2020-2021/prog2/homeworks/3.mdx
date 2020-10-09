@@ -1,0 +1,49 @@
+export const metadata = {
+  title: 'Caesarova šifra',
+  description: 'Smyčky, seznamy a aritmetika  v praxi',
+  timestamp: new Date(2020, 10 - 1, 9).valueOf(),
+  due: new Date(2020, 10 - 1, 15).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+Dnes bude za úkol (během přednášky a pak popřípadě doma) napsat program na Caesarovu šifru, což je jednoduchý příklad substituční šifry.
+
+## Princip Caesarovy šifry
+
+Každé písmeno textu je nahrazeno písmenem o _k_ znaků dále v abecedě, kde _k_ je parametr (tzv _klíč_, celé číslo). Pokud by mělo dojít k náhradě písmenem za koncem abecedy, berou se písmena ze začátku (a obráceně). Dešifrování se provádí pomocí záporného klíče.
+
+Například `abc` se za použití klíče `k = 2` zašifruje do `cde`, a to se při použití klíče `k = -2` "odšifruje" zpět na `abc`. Písmeno `z` se s klíčem `k = 1` zašifruje na `a`.
+
+## Přesné zadání
+
+Na vstupu je jedno číslo, které udává posun v abecedě (může být i záporné) a jeden řádek textu (pouze malá písmena anglické abecedy a mezery). Na výstupu je zašifrovaný řádek textu, mezery zůstávají mezerami.
+
+Příklad vstupu:
+
+```
+3
+hello world
+```
+
+Příklad výstupu (ke vstupu výše):
+
+```
+khoor zruog
+```
+
+## Postup (čtěte pozorně)
+
+Úkol si rozdělte na tři části (které budou zhruba odpovídat třem nebo více nezávislým funkcím):
+
+1. Čtení vstupu od uživatele a převod na nějakou datovou strukturu (např. seznam slov, ale fungují i jiné)
+2. Zakódování slov pomocí zadaného klíče
+3. Vypsání zakódovaných slov
+
+Každá část by měla fungovat nezávisle na těch ostatních — například funkci z bodu 2. by mělo být jedno, jestli slova, která dostala, pocházejí ze vstupu, z textového souboru, nebo zcela odněkud jinud.
+
+**Určitě tím pádem nepište všechen kód do jedné funkce, nebo dokonce bez použití funkcí.** Pokud vám ohledně tohoto něco není jasné, klidně se ptejte :-) Případné chyby v této části vám budu vracet k opravení.
+
+## Hinty
+
+Používejte Pythonovskou dokumentaci; hodit se každopádně můžu funkce `chr`, `ord` a `%`.
