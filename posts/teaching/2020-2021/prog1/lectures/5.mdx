@@ -15,17 +15,17 @@ Syntax pro vytvoření nového seznamu je
 [list: /PRVEK 1/, /PRVEK 2/, ..., /PRVEK N/]
 ```
 
-čili jednotlivé prvky oddělujeme čárkami. Například seznam čísel od jedné do tří by byl
+Například seznam čísel od jedné do tří by byl
 
-```
+```haskell
 [list: 1, 2, 3]
 ```
 
-Prázdný seznam značíme buďto `[list: ]` nebo `empty`.
+Prázdný seznam tvoříme buďto pomocí `[list: ]` nebo `empty`.
 
 Když už nějaký seznam máme, můžeme k němu za čátek přidávat další prvky:
 
-```
+```python
 >>> link("a", [list: "h", "o", "j"])
 [list: "a", "h", "o", "j"]
 >>> link(1, empty)
@@ -34,7 +34,7 @@ Když už nějaký seznam máme, můžeme k němu za čátek přidávat další 
 
 Z toho plyne, že výše zmíněný seznam od jedné do tří (a všechny ostatní seznamy) můžeme napsat dvěma způsoby:
 
-```
+```haskell
 check:
   [list: 1, 2, 3] is link(1, link(2, link(3, empty)))
 end
@@ -44,19 +44,19 @@ end
 
 Nechť proměnná `l` je
 
-```
+```haskell
 l = [list: 1, 2, 3]
 ```
 
 poté její typ je slovy _Seznam čísel_, což se píše jako
 
-```
+```haskell
 l :: List<Number> = [list: 1, 2, 3]
 ```
 
 Pokud nám je jedno, jakého typu prvky seznamu jsou (například u funkce `length`, která dostane seznam čehokoli a jen ho změří), můžeme použít typ `Any`:
 
-```
+```haskell
 fun length(list :: List<Any>) -> Number:
   ...
 end
@@ -64,7 +64,7 @@ end
 
 ## Cases
 
-U stringů jsme používali `string-first` a `string-rest`; se seznamy se pracuje podobně, ale používá se na to speciální _jazykový konstrukt_ `cases`. Obecná syntax `cases` je:
+Obecná syntax `cases` je:
 
 ```js
 cases (List) /JMÉNO SEZNAMU/:
@@ -96,9 +96,9 @@ end
 
 ## Funkce na seznamech
 
-Seznamy se používají často a tak k nim, podobně jako k obrázkům, v Pyretu již existuje celá řada funkcí: kompletní seznam naleznete v [dokumentaci seznamů](https://www.pyret.org/docs/latest/lists.html#%28part._.List_.Functions%29). Sekce "List methods" si prosím zatím nevšímejte.
+Kompletní seznam Pyretovských funkcí o seznamech naleznete v [dokumentaci](https://www.pyret.org/docs/latest/lists.html#%28part._.List_.Functions%29). Sekce "List methods" si prosím zatím nevšímejte.
 
-Funkce na seznamech musíme nejprve naimportovat (opět podobně jako u obrázků), a to buďto pomocí `include` nebo ještě lépe jako
+Funkce na seznamech musíme nejprve naimportovat (podobně jako u obrázků), a to buďto pomocí `include` nebo ještě lépe jako
 
 ```js
 import lists as L
@@ -116,13 +116,13 @@ Tento prefix můžete nastavit libovolně, ale `L` se používá nejčastěji.
 
 ## Seznamy v paměti
 
-_Více informací (bude se hodit na zkoušku) zde: [Linked List vs Array](https://www.studytonight.com/data-structures/linked-list-vs-array)._
+_Vzpoměňte si na obrázek, popř viz zde: [Linked List vs Array](https://www.studytonight.com/data-structures/linked-list-vs-array)._
 
-Seznamy, nebo lépe **spojové** seznamy jsou v paměti uloženy jako jednotlivé prvky, které jsou pospojovány šipkami. Reálně to znamená, že u prvního prvku si pamatujeme nejen ten prvek samotný, ale také kde leží druhý prvek, u toho si zase pamatujeme, kde leží třetí atd.
+Seznamy, nebo lépe **spojové** seznamy jsou v paměti uloženy jako jednotlivé prvky, které jsou pospojovány šipkami. Reálně to znamená, že u prvního prvku si pamatujeme nejen jeho hodnotu, ale také adresu druhého prvku, u toho si zase pamatujeme adresu třetího atd.
 
 **Výhody seznamů**
 
-- rychlé připojení prvního prvku: někam ho prostě uložíme a k němu dáme šipku na původní první prvek, který je nyní druhý
+- rychlé připojení prvního prvku: někam ho prostě uložíme a k němu dáme šipku na původní první prvek
 - rychlé odpojení prvního prvku
 
 **Nevýhody seznamů**
@@ -146,9 +146,11 @@ Na rozdíl od seznamů jsou **pole** (array) uložena jako souvislý blok pamět
 
 ## Úkol
 
-Pokud si jste jistí v kramflecích, rekurzi a seznamy máte v malíku a už vás nebaví psát funkce jako `drop` potřetí, jistě uvítáte následující možnost. Počínaje úkolem `6c` (včetně) **můžete k řešení používat libovolné funkce **(ne metody)** z knihovny `lists`, pokud jste je už v minulosti alespoň jednou **(pro seznamy)** napsali**. Pokud si naopak chcete rekurzi ještě procvičit, pište si své pomocné funkce i nadále sami.
+Pokud si jste jistí v kramflecích, rekurzi a seznamy máte v malíku a už vás nebaví psát funkce jako `drop` potřetí, jistě uvítáte následující možnost.
 
-Výjimkou z tohoto pravidla jsou případy, kdy by vám daná funkce z `lists` ušetřila _až moc_ práce — například pokud máte napsat funkci `list-length`, není dovoleno k tomu použít funkci `L.length`.
+Počínaje úkolem `6c` (včetně) **můžete k řešení používat libovolné funkce **(ne metody)** z knihovny `lists`, pokud jste je už v minulosti alespoň jednou **(pro seznamy)** napsali**. Pokud si naopak chcete rekurzi ještě procvičit, pište si své pomocné funkce i nadále sami.
+
+Výjimkou z tohoto pravidla jsou případy, kdy by vám daná funkce z `lists` ušetřila _až moc_ práce — například pokud máte napsat funkci `list-length`, není dovoleno k tomu použít funkci `L.length`. Sázím na váš úsudek.
 
 Nejčastěji se vám budou hodit následující funkce (viz [dokumentace](https://www.pyret.org/docs/latest/lists.html#%28part._.List_.Functions%29)):
 
