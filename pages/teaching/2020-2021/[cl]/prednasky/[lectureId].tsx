@@ -17,10 +17,12 @@ export default function LecturePage({
   title,
   cl,
   lecture,
+  header,
 }: {
   title: string;
   cl: string;
   lecture: Lecture;
+  header: string;
 }) {
   useEffect(() => {
     document.documentElement.lang = 'cs';
@@ -39,7 +41,7 @@ export default function LecturePage({
           locale: 'cs_CZ',
           images: [
             {
-              url: 'https://www.evzen.dev/prog2-og-header.png',
+              url: header,
               width: 1200,
               height: 630,
               alt: `evzen.dev / ${title}`,
@@ -78,14 +80,18 @@ export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQue
     })
     .sort(comparator((hw) => hw.id));
 
-  const pageTitle = cl === 'prog1' ? 'PRogramování I' : 'Programování II';
+  const pageTitle = cl === 'prog1' ? 'Programování I' : 'Programování II';
+  const header =
+    cl === 'prog1'
+      ? 'https://www.evzen.dev/prog1-og-header.png'
+      : 'https://www.evzen.dev/prog2-og-header.png';
   const lecture: Lecture = {
     ...meta,
     id,
     homeworks: homeworks.filter((hw) => hw.lectures.includes(id)),
   };
 
-  return { props: { lecture, title: pageTitle, cl } };
+  return { props: { lecture, title: pageTitle, cl, header } };
 }
 
 export async function getStaticPaths() {
