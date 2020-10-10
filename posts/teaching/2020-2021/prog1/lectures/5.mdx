@@ -1,0 +1,159 @@
+export const metadata = {
+  title: '(Spojové) seznamy',
+  description:
+    'Ukázali jsme si, že můžeme jakékoli typy zabalit do seznamů, což jsou sbírky nula a více věcí',
+  timestamp: new Date(2020, 10 - 1, 6).valueOf(),
+};
+
+Doteď jsme se seznámili pouze s jednou _kolekcí_: se stringy. Pokud ale chceme pracovat se sbírkami jiných typů než jsou písmena, použijeme seznamy.
+
+## Vytváření seznamů
+
+Syntax pro vytvoření nového seznamu je
+
+```js
+[list: /PRVEK 1/, /PRVEK 2/, ..., /PRVEK N/]
+```
+
+čili jednotlivé prvky oddělujeme čárkami. Například seznam čísel od jedné do tří by byl
+
+```
+[list: 1, 2, 3]
+```
+
+Prázdný seznam značíme buďto `[list: ]` nebo `empty`.
+
+Když už nějaký seznam máme, můžeme k němu za čátek přidávat další prvky:
+
+```
+>>> link("a", [list: "h", "o", "j"])
+[list: "a", "h", "o", "j"]
+>>> link(1, empty)
+[list: 1]
+```
+
+Z toho plyne, že výše zmíněný seznam od jedné do tří (a všechny ostatní seznamy) můžeme napsat dvěma způsoby:
+
+```
+check:
+  [list: 1, 2, 3] is link(1, link(2, link(3, empty)))
+end
+```
+
+## Typ seznamů
+
+Nechť proměnná `l` je
+
+```
+l = [list: 1, 2, 3]
+```
+
+poté její typ je slovy _Seznam čísel_, což se píše jako
+
+```
+l :: List<Number> = [list: 1, 2, 3]
+```
+
+Pokud nám je jedno, jakého typu prvky seznamu jsou (například u funkce `length`, která dostane seznam čehokoli a jen ho změří), můžeme použít typ `Any`:
+
+```
+fun length(list :: List<Any>) -> Number:
+  ...
+end
+```
+
+## Cases
+
+U stringů jsme používali `string-first` a `string-rest`; se seznamy se pracuje podobně, ale používá se na to speciální _jazykový konstrukt_ `cases`. Obecná syntax `cases` je:
+
+```js
+cases (List) /JMÉNO SEZNAMU/:
+  | empty => /KDYŽ JE SEZNAM PRÁZDNÝ/
+  | link(/POJMENOVÁNÍ PRVNÍHO PRVKU/, /POJMENOVÁNÍ ZBYTKU/) =>
+    /KDYŽ SEZNAM = PRVNÍ PRVEK + ZBYTEK/
+end
+```
+
+Nechť například `list :: List<Number> = [list: 1, 2, 3]`, poté:
+
+```python
+cases (List) list:
+  | empty => # do something when list is empty
+  | link(first, rest) =>
+    # do something with first, rest
+    # first = 1, rest = [list: 2, 3]
+end
+```
+
+Někdy první a poslední prvek nepotřebujeme a `cases` používáme jen proto, abychom zjistili, zda je seznam prázdný, či ne. V tom případě si můžeme rozkládání pomocí `link(first, rest)` odpustit a místo toho psát:
+
+```python
+cases (List) list:
+  | empty => # do something when list is empty
+  | else => # do something when list is NOT empty
+end
+```
+
+## Funkce na seznamech
+
+Seznamy se používají často a tak k nim, podobně jako k obrázkům, v Pyretu již existuje celá řada funkcí: kompletní seznam naleznete v [dokumentaci seznamů](https://www.pyret.org/docs/latest/lists.html#%28part._.List_.Functions%29). Sekce "List methods" si prosím zatím nevšímejte.
+
+Funkce na seznamech musíme nejprve naimportovat (opět podobně jako u obrázků), a to buďto pomocí `include` nebo ještě lépe jako
+
+```js
+import lists as L
+```
+
+Všechny funkce z **knihovny** `lists` poté budou dostupné s prefixem `L`. Například:
+
+```
+>>> import lists as L
+>>> L.drop(2, [list: "a", "h", "o", "j"])
+[list: "o", "j"]
+```
+
+Tento prefix můžete nastavit libovolně, ale `L` se používá nejčastěji.
+
+## Seznamy v paměti
+
+_Více informací (bude se hodit na zkoušku) zde: [Linked List vs Array](https://www.studytonight.com/data-structures/linked-list-vs-array)._
+
+Seznamy, nebo lépe **spojové** seznamy jsou v paměti uloženy jako jednotlivé prvky, které jsou pospojovány šipkami. Reálně to znamená, že u prvního prvku si pamatujeme nejen ten prvek samotný, ale také kde leží druhý prvek, u toho si zase pamatujeme, kde leží třetí atd.
+
+**Výhody seznamů**
+
+- rychlé připojení prvního prvku: někam ho prostě uložíme a k němu dáme šipku na původní první prvek, který je nyní druhý
+- rychlé odpojení prvního prvku
+
+**Nevýhody seznamů**
+
+- pomalé indexování doprostřed: pokud chceme vědět, jakou hodnotu má pátý prvek, musíme nejdřív projít první čtyři)
+- pomalé měnění uprostřed a na konci
+- zabírají zbytečně moc paměti: u každého prvku musíme mít adresu následujícího prvku, a adresy zpravidla zaberou tolik místa, jako ten prvek samotný
+
+### Pole
+
+Na rozdíl od seznamů jsou **pole** (array) uložena jako souvislý blok paměti.
+
+**Výhody polí**
+
+- rychlé indexování: pokud chceme pátý prvek, rovnou se podíváme na jeho pozici (která je rovna `začátek pole + 5`)
+- rychlé přepisování prvků uprostřed
+
+**Nevýhody polí**
+
+- prodloužování a zkracování trvají dlouho: musíme celé pole vzít a překopírovat ho na jiné místo v paměti a při tom tam daný prvek smazat nebo přidat
+
+## Úkol
+
+Pokud si jste jistí v kramflecích, rekurzi a seznamy máte v malíku a už vás nebaví psát funkce jako `drop` potřetí, jistě uvítáte následující možnost. Počínaje úkolem `6c` (včetně) **můžete k řešení používat libovolné funkce **(ne metody)** z knihovny `lists`, pokud jste je už v minulosti alespoň jednou **(pro seznamy)** napsali**. Pokud si naopak chcete rekurzi ještě procvičit, pište si své pomocné funkce i nadále sami.
+
+Výjimkou z tohoto pravidla jsou případy, kdy by vám daná funkce z `lists` ušetřila _až moc_ práce — například pokud máte napsat funkci `list-length`, není dovoleno k tomu použít funkci `L.length`.
+
+Nejčastěji se vám budou hodit následující funkce (viz [dokumentace](https://www.pyret.org/docs/latest/lists.html#%28part._.List_.Functions%29)):
+
+- `link` pro přidávání prvku na začátek seznamu
+- `take` a `drop`
+- `member`
+- `append` nebo `+` pro spojování dvou seznamů
+- `split-at`
