@@ -1,0 +1,163 @@
+export const metadata = {
+  title: 'Programování s akumulátory',
+  description:
+    'Funkce se liší nejen tím, jak jednoduše jsou pochopitelné, ale taky tím, jak jsou efektivní. Akumulátory nám často pomáhají zefektivnit rekurzivní funkce',
+  timestamp: new Date(2020, 10 - 1, 12).valueOf(),
+};
+
+Běžný rekurzivní zápis funkce pracuje s nějakým malým kouskem vstupu a přidává ho k řešení zbytku, které nechá vypočítat rekurzivním zavoláním.
+Například u funkce `reverse`:
+
+```python
+fun reverse<T>(l :: List<T>) -> List<T>:
+  cases (List) l:
+    | empty => empty
+    | link(first, rest) =>
+      # Malý kousek
+      new-last = [list: first]
+      # Řešení zbytku vypočítané rekurzivním zavoláním
+      new-beginning = reverse(rest)
+      # Výsledek = smíchané řešení malého kousku a řešení zbytku
+      new-beginning + new-last
+  end
+end
+```
+
+Tato implementace `reverse` je ale velmi pomalá, protože `+` je pro seznamy implementováno dosti nefektivně (což plyne z toho, jak jsou uloženy v paměti).
+
+Lepší implementace používá takzvaný **akumulátor** — vytvoříme pomocnou funkci, která si jako jeden z parametrů bude předávat mezivýsledek. Když vyčerpáme vstupní seznam, náš mezivýsledek se stane opravdovým výsledkem a my ho vrátíme.
+
+```python
+fun reverse<T>(l :: List<T>) -> List<T>:
+  reverse-helper(l, empty)
+end
+
+fun reverse-helper<T>(l :: List<T>, acc :: List<T>) -> List<T>:
+  cases (List) l:
+    | empty =>
+      # acc(umulator), mezivýsledek, se stává výsledkem
+      acc
+    | link(f, r) =>
+      # link(f, acc) přidává f na začátek mezivýsledku
+      new-accumulator = link(f, acc)
+      # a mezivýsledek posíláme jako druhý argument do reverse-helper
+      reverse-helper(r, new-accumulator)
+  end
+end
+```
+
+Některé funkce dokonce bez tohoto použití pomocné funkce a akumulátoru ani (rozumně) napsat nejdou **(viz úkol 6d)**.
+
+## Příklady akumulátorů u běžných funkcí
+
+Ne u všech těchto funkcí povede akumulátor k efektivnější implementaci (na rozdíl od `reverse`), ale **u žádné nepovede k něčemu pomalejšímu**. Zda použít akumulátor nebo ne je pak často otázkou stylu — nebude to s akumulátorem čitelnější?
+
+### Sum
+
+Běžná rekurzivní implementace.
+
+```haskell
+fun sum(numbers :: List<Number>) -> Number:
+  cases (List) numbers:
+    | empty => 0
+    | link(first, rest) => first + sum(rest)
+  end
+end
+```
+
+Implementace pomocí akumulátoru.
+
+```haskell
+fun sum(numbers :: List<Number>) -> Number:
+  sum-helper(numbers, 0)
+end
+
+fun sum-helper(numbers :: List<Number>, acc :: Number) -> Number:
+  cases (List) numbers:
+    | empty => acc
+    | link(first, rest) => sum-helper(rest, acc + first)
+  end
+end
+```
+
+### Maximum
+
+Běžná rekurzivní implementace.
+
+```haskell
+fun maximum(numbers :: List<Number>) -> Number:
+  cases (List) numbers:
+    | empty => raise("List must me non-empty")
+    | link(first, rest) =>
+      num-max(first, maximum(rest))
+  end
+end
+```
+
+Implementace pomocí akumulátoru.
+
+```haskell
+fun maximum(numbers :: List<Number>) -> Number:
+  cases (List) numbers:
+    | empty => raise("List must me non-empty")
+    | link(first, rest) =>
+      maximum-helper(rest, first)
+  end
+end
+
+fun maximum-helper(numbers :: List<Number>, current-max :: Number) -> Number:
+  cases (List) numbers:
+    | empty => current-max
+    | link(first, rest) =>
+      maximum-helper(rest, num-max(current-max, first))
+  end
+end
+```
+
+### Průběžné součty
+
+Funkce, která vrátí seznam součtů prvního čísla, prvních dvou čísel, prvních třech čísel, atd.
+
+```haskell
+>>> running-sum([list: 1, 2, 3, 4])
+[list: 1, 3, 6, 10]
+>>> running-sum([list: -1, 0, 1])
+[list: -1, -1, 0]
+```
+
+Běžná rekurzivní implementace. Je dost neefektivní, protože v každém zavolání `running-sum` voláme jak `sum` tak seznamové `+`. A navíc musíme tu funkci `sum` sami definovat.
+
+```haskell
+fun running-sum(numbers :: List<Number>) -> List<Number>:
+  cases (List) numbers:
+    | empty => empty
+    | else =>
+      dropped-last = L.take(L.length(numbers) - 1, numbers)
+      running-sum(dropped-last) + [list: sum(numbers)]
+  end
+end
+
+fun sum(numbers :: List<Number>) -> Number:
+  cases (List) numbers:
+    | empty => 0
+    | link(first, rest) => first + sum(rest)
+  end
+end
+```
+
+Implementace pomocí akumulátoru. Všimněte si, že sice používáme akumulátor, ale že v něm nemáme všechno — konkrétně výsledný seznam sbíráme v `running-sum-helper` normálně rekurzivně.
+
+```haskell
+fun running-sum(numbers :: List<Number>) -> Number:
+  running-sum-helper(numbers, 0)
+end
+
+fun running-sum-helper(numbers :: List<Number>, current-sum :: number) -> List<Number>:
+  cases (List) numbers:
+    | empty => [list: current-sum]
+    | link(first, rest) =>
+      new-sum = first + current-sum
+      link(current-sum, running-sum-helper(rest, new-sum))
+  end
+end
+```

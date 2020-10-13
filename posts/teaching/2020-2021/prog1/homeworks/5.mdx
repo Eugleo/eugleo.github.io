@@ -1,0 +1,110 @@
+export const metadata = {
+  title: 'Rekurze a akumulátory (functions are fun, part 2)',
+  description: 'Procvičování rekurzivního přemýšlení na složitějších příkladech o seznamech',
+  timestamp: new Date(2020, 10 - 1, 12).valueOf(),
+  due: new Date(2020, 10 - 1, 19).valueOf(),
+  lectures: [6],
+  points: 3,
+};
+
+Za úkol je do příštího týdne vypracovat úkol 6b. Zadání je [tomto odkazu](https://code.pyret.org/editor#share=1Zc0sPmFakxt7RX1g10-MXYyUssklOEAI&v=8c4da7d) (tam bude poslední verze se všemi opravami), popřípadě níže.
+
+Doporučuji řešit i další úkoly, například [úkoly 6c](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1knNUgZWEHU5tgPIzCyZF4k06LGLW1ZND%26amp%3Bv%3D8c4da7d&signature=h5_OC4cEPfi_UHQ9c7bzevKsHuxnO163MIzg55z04Xo%3D) a [úkoly 6d](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1KNs5F8yLQfNgMl-PsroYEA5wADmc66dK%26amp%3Bv%3D8c4da7d&signature=zTMuS2AGRLMbiqWNXcoIL7ucpqphxPkw6uAxRmTsdng%3D) a pro odvážné [úkoly 6e](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1tc4ysgV9ejVPMDnzojZMHFKgwtD5hH3O%26amp%3Bv%3D8c4da7d&signature=jBNWr93cmg0h1spFdb9ZtQ_-s0F-g1UtKf_agfZzwdE%3D) a [úkoly 6f](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1vXMu1F8SOj-VYeQr-xr3gcf4pSCBajtU%26amp%3Bv%3D8c4da7d&signature=NqY_tRTGfmyHwQ_BEXIUttPy02fuRTZik5Fk512Kbpc%3D). Samozřejmě za ty všechny dostanete příslušný počet bodů.
+
+## Na co při úkolu myslet
+
+- když pracujeme se seznamy, používáme `cases`
+- seznamny jsou dvojího druhu, buďto `empty` nebo `link(first, rest)`, kde `first :: T` je první prvek, nějakého typu `T`, a `rest :: List<T>` je zbytek seznamu, a je to tedy seznam
+- `cases` umí tyto dva druhy rozpoznat
+
+## Zadání
+
+Funkci `slice` jsme psali již na hodině, ale zkuste si ji napsat i sami, aniž byste koukali na řešení. U všech funkcí můžete použít jakékoli funkce z `lists` (typu `take`, `drop`, `reverse` atp), pokud jste si je již alespoň jednou napsali.
+
+### 6b3
+
+```
+fun slice<T>(left :: Number, right :: Number, l :: List<T>) -> List<T>:
+  doc: "Returns a list of elements at indices from [left] (inclusive) to [right] (exclusive),"
+
+  ...
+where:
+  # Notice that right - left is the length of the resulting list
+
+  slice(0, 1, [list: "a", "h", "o", "j"]) is [list: "a"]
+  slice(0, 3, [list: "a", "h", "o", "j"]) is [list: "a", "h", "o"]
+
+  slice(3, 1, [list: 10, 18, 40, 50]) is [list: ]
+  slice(2, 5, [list: 10, 18, 40, 50]) is [list: 40, 50]
+end
+```
+
+### 6b4
+
+```
+fun is-palindrome(l :: List<Any>) -> Boolean:
+  doc: "Returns true if [l] is palindrome, false otherwise"
+
+  l == l
+where:
+  is-palindrome([list: 1, 2, 3, 2, 1]) is true
+  [list: 1, 2, 3, 2, 1] satisfies is-palindrome
+
+  [list: "a", "b", "b", "d" ]
+    satisfies lam(s): not(is-palindrome(s)) end
+  [list: "a", "b", "b", "a" ] satisfies is-palindrome
+
+  string-explode("kobylamamalybok") satisfies is-palindrome
+  string-explode("jelenovipivonelej") satisfies is-palindrome
+  string-explode("jelenovilejjägra")
+    satisfies lam(s): not(is-palindrome(s)) end
+end
+```
+
+### 6b5
+
+Tuple /tjůpl/ je k-tice: skupina k-prvků, zde konkrétně používáme tuple velikosti 2 (tedy dvojici). Tuple slouží k "zabalování" více věcí do jedné, většinou v případech, kdy chceme vrátit z funkce více než jednu hodnotu.
+
+Například kdybychom chtěli mít funkci `current-position`, která by vracela naši pozici na zeměkouli jako zeměpisnou délku a šířku, vracela by tuple `{Number; Number}` (dvě čísla, první odpovídá z.d., druhá z.š.).
+
+Odkazy:
+
+- [více informací ke tvoření tuplů](https://bit.ly/3cXLyUk)
+- [více informací o tom, jak se dostat k jednotlivým prvkům](https://bit.ly/2F0AGbH)
+
+```
+fun list-split-at<T>(i :: Number, l :: List<T>) -> {List<T>; List<T>}:
+  doc: "Return a tuple {x; y} where x are all the elements with indices < [i] and y is the rest of [l]."
+  list-split-at-helper(i, l, empty)
+where:
+  list-split-at(1, [list: 1, 2, 3]) is {[list: 1]; [list: 2, 3]}
+  list-split-at(3, [list: 1, 2, 3]) is {[list: 1, 2, 3]; [list: ]}
+  list-split-at(0, [list: 1, 2, 3]) is {[list: ]; [list: 1, 2, 3]}
+end
+
+fun list-split-at-helper<T>(i, l, l1 :: List<T>) -> {List<T>; List<T>}:
+  if i == 0:
+    {l1; l}
+  else:
+    cases (List) l:
+      | empty => {l1; empty} # nebo error
+      | link(f, r) => list-split-at-helper(i - 1, r, l1 + [list: f])
+    end
+  end
+end
+```
+
+### 6b6
+
+```
+fun rotate<T>(n :: Number, l :: List<T>) -> List<T>:
+  doc: "Rotate the list by [n] to the right (see the examples)"
+
+  ...
+where:
+  rotate(0, [list: 1, 2, 3, 4]) is [list: 1, 2, 3, 4]
+  rotate(1, [list: 1, 2, 3, 4]) is [list: 4, 1, 2, 3]
+  rotate(-2, [list: 1, 2, 3, 4]) is [list: 3, 4, 1, 2]
+  rotate(9, [list: 1, 2, 3, 4]) is [list: 4, 1, 2, 3]
+end
+```
