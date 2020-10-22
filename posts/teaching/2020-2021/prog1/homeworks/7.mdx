@@ -1,0 +1,95 @@
+export const metadata = {
+  title: 'Vigenèrova šifra',
+  description: 'Váš první projekt',
+  timestamp: new Date(2020, 10 - 1, 20).valueOf(),
+  due: new Date(2020, 11 - 1, 2).valueOf(),
+  lectures: [6],
+  points: 15,
+};
+
+První z řady projektových domácích úkolů.
+
+## Zadání
+
+Napište program pro zašifrování a dešifrování textu pomocí Vigenèrovy šifry. Měl by obsahovat funkce `cipher` a `deciper`, které dostanou text a klíč, pomocí kterého daný text buďto zašifrují, nebo v případě `decipher` odšifrují. Tyto dvě funkce by měly být řádně otestovány a zdokumentovány. Stejně tak prosím okomentujte komplikovanější části vašeho kódu tak, aby šly dobře pochopit.
+
+Používat můžete jakékoli funkce z `lists`, jakožto i funkce, které jsou v Pyretu běžně dostupné, například `string-to-code-point` a `string-from-code-point`.
+
+Klíč je vždy nějaké slovo (posloupnost malých písmen anglické abecedy), vstupní text se skládá z malých a velkých písmen anglické abecedy, mezer, znaků značících odřádkování `\n` a z interpunkčních znamének: `,:.'"!?()-`.
+
+## Princip funkce Vigenèrovy šifry
+
+Každé písmeno vstupu je šifrováno pomocí příslušného písmena klíče (pro přesný mechanismus viz níže). Pokud je klíč kratší než vstupní text (což bývá většinou), je několikrát zopakován tak, aby pokryl celý vstup.
+
+### Jak funguje šifrování
+
+_Jako vždy, pokud vám něco nebude jasné, nemůže uškodit [mrknout na wiki](https://cs.wikipedia.org/wiki/Vigenèrova*šifra)._
+
+Chceme-li šifrovat například text `evzen wybitul` pomocí klíče `omg`, postupujeme následovně:
+
+1. Pokryjeme celý text klíčem tak, že klíč zopakujeme.
+
+   ```
+   evzen wybitul
+   omgom gomgomg
+   ```
+
+2. Každé písmeno textu zašifrujeme pomocí příslušného písmena z klíče tak, že obě písmena "sečteme". Například `e` je čvrté písmeno v abecedě (`a` je totiž nulté, jsme přeci programátoři), `o` je čtrnácté, čili `e` + `o` bude osmnácté písmeno abecedy, tedy `s`.
+
+   Pokud bychom se při tomto sčítání dostali za konec abecedy (tedy za 25. písmeno, `z`), začínáme zase od jejího začátku: např. `v` (21.) + `m` (12.) by dalo 33. písmeno, reálně tedy písmeno osmé — `h`.
+
+   ```
+   evzen wybitul
+   omgom gomgomg
+
+   shfsz cmnohgr
+   ```
+
+3. Vrátíme `shfsz cmnohgr` jako zašifrovaný výstup.
+
+### Mezery, interpunkce a velká písmena
+
+Mezery ani znaky nových řádků nešifrujeme, stejně tak nešifrujeme interpunkci (viz příklady). Velká a malá písmena šifrujeme zvlášť, tj malá písmena vždy zůstanou malými a velká velkými, nezávisle na klíči.
+
+## Příklady
+
+Běžné vstupy:
+
+```haskell
+>>> cipher("ahoj", "a")
+"ahoj"
+>>> cipher("ahoj", "b")
+"bipk"
+>>> cipher("hastala vista", "baby")
+"iatrblb tjsuy"
+```
+
+Vstupy s interpunkcí, více řádky a velkými písmeny:
+
+```haskell
+>>> text = """
+Keys were typically single words or short phrases, known to both parties in advance, or transmitted 'out of band' along with the message.
+
+Bellaso's method thus required strong security for only the key. As it is relatively easy to secure a short key phrase, such as by a previous private conversation, Bellaso's system was considerably more secure!
+"""
+>>> cipher(text, "youdontknowthiskey")
+"""
+Issv krko gmlbjidvc qgbaos jhbqg kk zpgbx nffuvsf, dxbkj mv jgdl nyfnlsf bx nrrtukw, yv rpohvavmdrr 'kna wx lelb' ofrbt psgv pal uwcwyes.
+
+Vhzytcb'g ixapgn xfsg lhehbbrr omywfq wcaillhl yye cjef bzo ocw. Om lh vl brzwmpdwvc cygs wc fxmhfa t zpgbx icm jkfnlo, fiya ha ti e npsplchl zewrtam uyrtcfmdhvhx, Oshehag'c wwqhyp knl mbbobkmjkfjw aius fxmhfa!
+"""
+```
+
+Dešifrování
+
+```haskell
+>>> decipher("iatrblb tjsuy", "baby")
+"hastala vista"
+```
+
+Vyhození chyby pro nepodporované znaky (tj znaky mimo ty popsané v sekci Zadání):
+
+```haskell
+>>> cipher("evžen wybitul", "omg")
+(vyhozená chyba) Error: Encountered forbidden character 'ž'.
+```
