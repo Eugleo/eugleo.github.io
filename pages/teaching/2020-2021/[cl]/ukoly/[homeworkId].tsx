@@ -16,10 +16,12 @@ import { Homework } from '../../../../../src/teaching/Homework';
 export default function HomeworkPage({
   cl,
   title,
+  imgUrl,
   homework,
 }: {
   cl: string;
   title: string;
+  imgUrl: string;
   homework: Homework;
 }) {
   const Component = require(`../../../../../posts/teaching/2020-2021/${cl}/homeworks/${homework.id}.mdx`)
@@ -40,7 +42,7 @@ export default function HomeworkPage({
           locale: 'cs_CZ',
           images: [
             {
-              url: 'https://www.evzen.dev/prog2-og-header.png',
+              url: imgUrl,
               width: 1200,
               height: 630,
               alt: `evzen.dev / ${title}`,
@@ -75,6 +77,10 @@ export async function getStaticProps(context: GetStaticPropsContext<ParsedUrlQue
     props: {
       cl,
       title: cl === 'prog1' ? 'Programování I' : 'Programování II',
+      imgUrl:
+        cl === 'prog1'
+          ? 'https://www.evzen.dev/prog1-og-header.png'
+          : 'https://www.evzen.dev/prog2-og-header.png',
       homework: {
         ...meta,
         id,
