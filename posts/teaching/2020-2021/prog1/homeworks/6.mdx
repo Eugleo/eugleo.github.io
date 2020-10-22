@@ -1,0 +1,67 @@
+export const metadata = {
+  title: 'Rekurze a akumulátory (functions are fun, part 3)',
+  description:
+    'Procvičování rekurzivního přemýšlení na složitějších příkladech o seznamech. Použití akumulátorů je vřele doporučeno',
+  timestamp: new Date(2020, 10 - 1, 20).valueOf(),
+  due: new Date(2020, 10 - 1, 26).valueOf(),
+  lectures: [6],
+  points: 3,
+};
+
+Za úkol je do příštího týdne vypracovat úkol 6c. Zadání je [tomto odkazu](https://code.pyret.org/editor#share=1knNUgZWEHU5tgPIzCyZF4k06LGLW1ZND&v=8c4da7d) (tam bude poslední verze se všemi opravami), popřípadě níže.
+
+Doporučuji řešit i další úkoly, například [úkoly 6d](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1KNs5F8yLQfNgMl-PsroYEA5wADmc66dK%26amp%3Bv%3D8c4da7d&signature=zTMuS2AGRLMbiqWNXcoIL7ucpqphxPkw6uAxRmTsdng%3D), které jsou vyloženě na akumulátory, [úkoly 6g](https://code.pyret.org/editor#program=1D-M0oHvzCrxWPy91LMfqGi_kAezpeKmu), a pro odvážné [úkoly 6e](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1tc4ysgV9ejVPMDnzojZMHFKgwtD5hH3O%26amp%3Bv%3D8c4da7d&signature=jBNWr93cmg0h1spFdb9ZtQ_-s0F-g1UtKf_agfZzwdE%3D) a [úkoly 6f](https://app.conceptboard.com/__/exit?url=https%3A%2F%2Fcode.pyret.org%2Feditor%23share%3D1vXMu1F8SOj-VYeQr-xr3gcf4pSCBajtU%26amp%3Bv%3D8c4da7d&signature=NqY_tRTGfmyHwQ_BEXIUttPy02fuRTZik5Fk512Kbpc%3D). Samozřejmě za ty všechny dostanete příslušný počet bodů.
+
+## Na co při úkolu myslet
+
+- někdy je výhodné použít [akumulátory](/teaching/2020-2021/prog1/prednasky/6), jindy zase ne
+- pro práci se seznamy používáme `cases`
+
+## Zadání
+
+### 6c1
+
+Může se hodit funkce `string-explode`. Vhodné pro procvičení akumulátorů.
+
+```
+fun encode(source :: String) -> List<{String; Number}>:
+  doc: "Do a run-length-enconding of the string [source]."
+  ...
+where:
+  encode("arr") is [list: {"a"; 1}, {"r"; 2}]
+  encode("000101") is [list: {"0"; 3}, {"1"; 1}, {"0"; 1}, {"1"; 1}]
+  encode("haaaaalooo") is [list: {"h"; 1}, {"a"; 5}, {"l"; 1}, {"o"; 3}]
+end
+```
+
+Zajímavost: Podobně fungují některé komprimační algoritmy.
+
+### 6c2
+
+Vhodné pro procvičení akumulátorů.
+
+```
+fun group<T>(l :: List<Any>) -> List<List<T>>:
+  doc: "Group consecutive items which are equal to each other into sublists"
+  ...
+where:
+  group([list: "a", "a", "b"]) is [list: [list: "a", "a"], [list: "b"]]
+  group(string-explode("aab")) is [list: [list: "a", "a"], [list: "b"]]
+  group([list: 1, 1, 1, 2, 3, 1, 1])
+    is [list: [list: 1, 1, 1], [list: 2], [list: 3], [list: 1, 1]]
+end
+```
+
+### 6c3
+
+```
+fun flatten(l :: List<Any>) -> List<Any>:
+  doc: "Merge all sublists in [l] into one 'flat' list (see the examples)"
+
+  ...
+where:
+  flatten([list: 1, 2, 3]) is [list: 1, 2, 3]
+  flatten([list: 1, 2, 3, [list: 1, 2, 3]]) is [list: 1, 2, 3, 1, 2, 3]
+  flatten([list: 1, [list: 2, 2, 2, [list: 2.5, 2.9]], 3]) is [list: 1, 2, 2, 2, 2.5, 2.9, 3]
+end
+```
