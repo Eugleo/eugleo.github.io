@@ -15,9 +15,22 @@ Vstup programu obsahuje nejdříve šířku a výšku a potom mapu bludiště. J
 
 Program načte popis bludiště a potom **dvacetkrát** pohne příšerou a po každém pohybu vytiskne mapu bludiště ve stejném tvaru, jako ji načetl. Výpis mapy bude vždy ukončen prázdným řádkem.
 
+## Postup (čtěte pozorně)
+
+Úkol si rozdělte na čtyři části (které budou zhruba odpovídat čtyřem nebo více nezávislým funkcím):
+
+1. Čtení vstupu od uživatele a převod tohoto tzv. **počátečního stavu** na nějakou datovou strukturu (např. seznam seznamů nebo tak)
+2. Funkce, která dostane nějaký stav a vrátí stav následující (tj. v podstatě simuluje jeden jeden krok monstra)
+3. Funkce, která funkci číslo dva zavolá dvacetkrát
+4. Vypsání současného stavu (tahle funkce se bude volat po každém kroku funkce 2.)
+
+Každá část by měla fungovat nezávisle na těch ostatních — například funkci z bodu 2. by mělo být jedno, jestli stav bludiště, který dostala, pochází ze vstupu, z textového souboru, nebo zcela odněkud jinud.
+
+**Určitě tím pádem nepište všechen kód do jedné funkce, nebo dokonce bez použití funkcí.** Pokud vám ohledně tohoto něco není jasné, klidně se ptejte :-) Případné chyby v této části vám budu vracet k opravení.
+
 ## Příklady vstupů a výstupů
 
-Vstup:
+Od uživatele dostanete vstup:
 
 ```
 10
@@ -30,7 +43,7 @@ X.X.>..X.X
 XXXXXXXXXX
 ```
 
-Výstup:
+Vypíšete následující výstup:
 
 ```
 XXXXXXXXXX
@@ -174,16 +187,3 @@ X.X....X.X
 XXXXXXXXXX
 
 ```
-
-## Postup (čtěte pozorně)
-
-Úkol si rozdělte na čtyři části (které budou zhruba odpovídat čtyřem nebo více nezávislým funkcím):
-
-1. Čtení vstupu od uživatele a převod na nějakou datovou strukturu
-2. Funkce, která umít monstrem z dané polohy pohnout jednou (jakoby simuluje jeden "krok")
-3. Funkce, která funkci 2. zavolá dvacetkrát
-4. Vypsání současného stavu
-
-Každá část by měla fungovat nezávisle na těch ostatních — například funkci z bodu 2. by mělo být jedno, jestli stav bludiště, který dostala, pochází ze vstupu, z textového souboru, nebo zcela odněkud jinud.
-
-**Určitě tím pádem nepište všechen kód do jedné funkce, nebo dokonce bez použití funkcí.** Pokud vám ohledně tohoto něco není jasné, klidně se ptejte :-) Případné chyby v této části vám budu vracet k opravení.
