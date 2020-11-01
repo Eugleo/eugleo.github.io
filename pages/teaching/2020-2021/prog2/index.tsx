@@ -76,6 +76,7 @@ export const getStaticProps = async () => {
       lectures,
       homeworks,
     },
+    revalidate: 43200,
   };
 };
 
