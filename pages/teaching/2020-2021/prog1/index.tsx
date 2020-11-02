@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import c from 'classnames';
 import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useEffect } from 'react';
@@ -35,6 +36,19 @@ const LECTURE_DATES = [
   new Date(2020, 12 - 1, 8, 17),
   new Date(2020, 12 - 1, 15, 17),
   new Date(2020, 12 - 1, 22, 17),
+];
+
+const POINTS = [
+  { name: 'Error', points: 50 },
+  { name: 'H', points: 45 },
+  { name: 'Honza', points: 48 },
+  { name: 'Junefell', points: 69 },
+  { name: 'Kudla', points: 50 },
+  { name: 'Nugget', points: 45 },
+  { name: 'Pomněnka', points: 97 },
+  { name: 'Zac', points: 51 },
+  { name: 'Zelená větev', points: 50 },
+  { name: '刘志远', points: 77 },
 ];
 
 export const getStaticProps = async () => {
@@ -116,6 +130,7 @@ export default function ProgrammingI({
           lectureDates={LECTURE_DATES}
         />
 
+        <Points />
         <ClassInfo />
         <Resources />
         <HomeworkList homeworks={homeworks.sort(comparator((hw) => -hw.due))} />
@@ -123,6 +138,43 @@ export default function ProgrammingI({
       </main>
     </div>
   );
+}
+
+function Points() {
+  return (
+    <Section title="Body za úkoly">
+      <Paragraph>Do získaných bodů se počítají i ty bonusové.</Paragraph>
+      <table className="bg-white shadow-xs rounded-lg p-4 w-full mt-4">
+        <thead className="py-1 px-4">
+          <TableHeader>Přezdívka</TableHeader>
+          <TableHeader>Získané body</TableHeader>
+          <TableHeader>Do 100 bodů chybí</TableHeader>
+        </thead>
+        <tbody className="py-4">
+          {POINTS.sort(comparator(({ name }) => name)).map(({ name, points }) => (
+            <PointRow key={name} name={name} points={points} />
+          ))}
+        </tbody>
+      </table>
+    </Section>
+  );
+}
+
+function PointRow({ name, points }: { name: string; points: number }) {
+  const pointsLeft = Math.max(100 - points, 0);
+  const cellClasses = c('py-2 px-8', pointsLeft == 0 && 'text-green-900');
+
+  return (
+    <tr className={c('text-sm', pointsLeft == 0 ? 'bg-green-200' : 'bg-gray-100 ')}>
+      <td className={cellClasses}>{name}</td>
+      <td className={cellClasses}>{points}</td>
+      <td className={cellClasses}>{pointsLeft}</td>
+    </tr>
+  );
+}
+
+function TableHeader({ children }: { children: React.ReactNode }) {
+  return <th className="py-3 px-8 text-left text-sm bg-gray-200">{children}</th>;
 }
 
 function ClassInfo() {
