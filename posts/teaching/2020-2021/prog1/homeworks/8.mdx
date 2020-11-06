@@ -1,0 +1,61 @@
+export const metadata = {
+  title: 'Data!',
+  description: 'Ta da!',
+  timestamp: new Date(2020, 11 - 1, 6).valueOf(),
+  due: new Date(2020, 11 - 1, 9).valueOf(),
+  lectures: [7],
+  points: 10,
+};
+
+Tento úkol se z větší části skládá z teoretických otázek. Odpověď na každou z otázek mi prosím napište **i s otázkou samotnou** do nějakého textového souboru, který označíte (již tradičně) `u8_příjmení.arr`.
+
+## Otázky
+
+Píšete hru, ve které se monstrum pohybuje na konečné 2D mapě a snaží se dohonit a zabít hráče. Samotná mapa se skládá ze čtvercových políček, které jsou vyplněny neprůchodnou zdí, neprůchodnou vodou, nebo průchozí trávou.
+
+1. Napište definici typu `Tile` (políčko), která bude odpovídat možnostem popsaným výše.
+
+2. Napište, jak by mohl vypadat typ `GameMap` (doporučuji použít váš typ `Tile`).
+
+3. Napište definice typů `Player` a `Monster`. Tyto typy by v sobě měli mít alespoň tolik informací, abychom věděli, kde na mapě je máme nakreslit.
+
+(konec úkolů týkajících se hry)
+
+4. Doplňte do kódu níže pravděpodobnou definici pyretovského typu `List`. Do případných struktuních definicí **nezapomeňte dopsat typy**.
+
+   ```
+   data List:
+     ...
+   end
+   ```
+
+5. Napište definici typu `NonEmptyList`, který se od normálního seznamu liší tím, že má vždy alespoň jeden prvek. Inspirujte se definicí normálního listu, kterou jste doplnili výše.
+
+(konec úkolů týkajících se seznamů)
+
+6. Kondicionálním typům se častěji říká "sum types" (součtové typy), strukturním typům zase "product types" (násobné typy). Dokázali byste odhadnout, proč?
+
+7. Kolika různých hodnot nabývá typ `Boolean`?
+
+8. Kolika různých hodnot (teoreticky) nabývá typ `Number`?
+
+9. Kolika různých hodnot nabývá typ `OrganismState`, který je definovaný níže?
+
+   ```
+   data OrganismState:
+      | Living
+      | Dying
+      | Dead
+      | Multiplying
+   end
+   ```
+
+10. Kolika různých hodnot nabývá typ `EscherichiaColi`, definovaný níže?
+
+    ```
+    data EscherichiaColi:
+      | ecoli(state :: OrganismState, is-eating :: Boolean)
+    end
+    ```
+
+    Při hledání všech různých hodnot nezapomeňte vzít v úvahu, zdali `ecoli(Living, true) == ecoli(Dying, true)`.
