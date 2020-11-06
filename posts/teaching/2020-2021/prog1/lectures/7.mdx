@@ -1,0 +1,132 @@
+export const metadata = {
+  title: 'Vlastní datové typy',
+  description:
+    'Ne vše jde pohodlně namodelovat pomocí seznamů, čísel, stringů a booleanů. A přesně pro tyto nám Pyret umožňuje definovat si vlastní typy, které přesně odpovídají našim potřebám',
+  timestamp: new Date(2020, 11 - 1, 3).valueOf(),
+};
+
+Vlastní datové typy budeme od teď používat prakticky v každé hodině, je proto dobré si s nimi rychle potykat.
+
+## Definice typů
+
+Typy se v Pyretu (a nejen v něm) dělí na **kondicionální** (podmíněné) a **strukturální**. Kondicionální typy používám ve chvíli, kdy jeden typ může nabývat jedné z několika různých hodnot. Strukturální použijeme, pokud má popisovaný objekt nějaké vlastnosti, neboli **atributy**, které o něm chceme uložit.
+
+Název typu podle konvence začíná velkým písmenem a používá `CamelCase`. Dobře se pak odlišuje od jmen funkcí a proměnných.
+
+### Strukturální typy
+
+Například: Pokud stavíme databázi zaměstnanců naší firmy, abychom je mohli kontaktovat, když pracují z domu, potřebujeme u každého zaměstnance znát jeho jméno, telefon domů a také jeho přímého nadřízeného (abychom mohli odlišit stejnojmenné zaměstnance z různých týmů).
+
+```bash
+data Employee:  # <--- název typu
+    #        vvvv  field (pole)
+    employee(name :: String, tel :: String, supervisor-name :: String)
+    # ^^^^^^  data constructor
+end
+```
+
+Celá databáze by pak mohla být prostě `List<Employee>`.
+
+**Data constructor** je v podstatě obyčejná funkce, která po dodání potřebných parametrů vytvoří objekt typu, který jsme zrovna definovali. Například v případě typu `Employee` má datový konstruktor `employee` následující typ:
+
+```
+employee :: (String, String, String) -> Employee
+```
+
+Poznámky:
+
+1. Protože je data constructor prostě jen funkce, její pojmenovávání se řídí pravidly pro pojmenování funkce (tj. malá písmena a `kebab-case`)
+
+### Kondicionální typy
+
+Typickým příkladem je typ `Boolean`, který by mohl být definován následujícím způsobem:
+
+```bash
+data Boolean:  # <--- název typu
+  | True  # <--- případy, neboli větve
+  | False
+end
+```
+
+(reálně tak ale v Pyretu definován není, naopak v Haskellu ano).
+
+Další příklad: Na semaforu je zelená NEBO červená NEBO žlutá.
+
+```bash
+data TrafficLightColor:
+    | Green
+    | Yellow
+    | Red
+end
+```
+
+a poté můžeme psát
+
+```bash
+tlc = Green  # <--- proměnná tlc bude mít typ TrafficLightColor
+```
+
+V jednotlivých větvích můžeme také používat strukturální typy. Zde napříkald zvíře je buďto pes (se jménem a rokem narození) NEBO kočka (se jménem a rokem narození).
+
+```
+data Animal:
+    | dog(name :: String, year :: Number)
+    | cat(name :: String, year :: Number)
+end
+```
+
+Poznámky:
+
+1. Na pořadí případů nezáleží
+2. Název typu podle konvence začíná velkým písmenem a používá `CamelCase`
+3. Název případu, pokud není strukturální, také začítá velkým písmenem a používá `CamelCase`
+4. Pokud je název případu strukturální, řídí se konvencemi pro pojmenovávání funkcí (tj vše malým a `kebab-case`)
+
+## Práce s definovanými typy
+
+Jednolivé případy kondicionálních typů můžeme rozlišit pomocí `cases` (case = případ).
+
+```
+cases (<JMENO TYPU>) <PROMENNA DANEHO TYPU>:
+  | <PRIPAD 1> => <VYSLEDEK PRO P1>
+  | <PRIPAD 2> => <VYSLEDEK PRO P2>
+  ...
+  | <PRIPAD N> => <VYSLEDEK PRO PN>
+end
+```
+
+Například:
+
+```
+fun tl-color-to-string(tlc :: TrafficLightColor):
+  cases (TrafficLightColor) tlc:
+    | Red => "red"
+    | Green => "green"
+    | Yellow => "yellow"
+  end
+where:
+  tl-color-to-string(Red) is "red"
+end
+```
+
+Když jsou dané větve zároveň strukturální, můžeme je rovnou "rozbalit" a vytvořit proměnné odpovídající jejich jednotlivým fieldům.
+
+```bash
+animal = cat("Micka", 2015)
+result =
+  cases (Animal) animal:
+    | dog(name, _) => "There you go, " + name
+    | cat(_, year) =>  # <--- jméno kočky nás nezajímá
+      if 2020 - year < 18:
+        "We don't serve cats under 18"
+      else:
+        "Actually, we don't serve any cats"
+      end
+  end
+
+check:  # <--- jak psát testy mimo where ve funkci
+  result is "We don't serve cats under 20"
+end
+```
+
+Všimněte si podrtžítek `_` značících, že v daném případě nás daný field nezajímá. Na jméno `animal` se můžeme také podívat pomocí `animal.name` (tzv **field accessor**), ale je to potenciálně nebezpečné — například ve chvíli, když ne každý případ v `Animal` bude mít field `name`.
