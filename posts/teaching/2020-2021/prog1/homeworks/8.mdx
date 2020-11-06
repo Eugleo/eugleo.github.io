@@ -35,11 +35,11 @@ Píšete hru, ve které se monstrum pohybuje na konečné 2D mapě a snaží se 
 
 6. Kondicionálním typům se častěji říká "sum types" (součtové typy), strukturním typům zase "product types" (násobné typy). Dokázali byste odhadnout, proč?
 
-7. Kolika různých hodnot nabývá typ `Boolean`?
+7. Kolik různých hodnot je v typu `Boolean`? Tj. kdybychom měli nějakou proměnnou `x :: Boolean = ...`, kolik různých věcí bychom mohli doplnit místo `...`, aby ten kód byl platný?
 
-8. Kolika různých hodnot (teoreticky) nabývá typ `Number`?
+8. Kolik různých hodnot je (teoreticky) v typu `Number`?
 
-9. Kolika různých hodnot nabývá typ `OrganismState`, který je definovaný níže?
+9. Kolik různých hodnot je v typu `OrganismState`, který je definovaný níže?
 
    ```
    data OrganismState:
@@ -50,7 +50,7 @@ Píšete hru, ve které se monstrum pohybuje na konečné 2D mapě a snaží se 
    end
    ```
 
-10. Kolika různých hodnot nabývá typ `EscherichiaColi`, definovaný níže?
+10. Kolik různých hodnot je v typu `EscherichiaColi`, který je definovaný níže?
 
     ```
     data EscherichiaColi:
@@ -59,3 +59,5 @@ Píšete hru, ve které se monstrum pohybuje na konečné 2D mapě a snaží se 
     ```
 
     Při hledání všech různých hodnot nezapomeňte vzít v úvahu, zdali `ecoli(Living, true) == ecoli(Dying, true)`.
+
+(konec úkolu o velikosti typů. vraťte se k otázce 6 a zkuste ji znovu zodpovědět)
