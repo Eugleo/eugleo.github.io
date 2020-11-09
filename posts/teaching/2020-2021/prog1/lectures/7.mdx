@@ -43,27 +43,35 @@ Typickým příkladem je typ `Boolean`, který by mohl být definován následuj
 
 ```bash
 data Boolean:  # <--- název typu
-  | True  # <--- případy, neboli větve
-  | False
+  | true  # <--- případy, neboli větve
+  | false  # <--- zároveň také data constructor
 end
 ```
-
-(reálně tak ale v Pyretu definován není, naopak v Haskellu ano).
 
 Další příklad: Na semaforu je zelená NEBO červená NEBO žlutá.
 
 ```bash
 data TrafficLightColor:
-    | Green
-    | Yellow
-    | Red
+    | green
+    | yellow
+    | red
 end
 ```
 
 a poté můžeme psát
 
 ```bash
-tlc = Green  # <--- proměnná tlc bude mít typ TrafficLightColor
+tlc = green  # <--- proměnná tlc bude mít typ TrafficLightColor
+```
+
+I zde se na jednotlivé data constructory můžeme dívat jako na funkce, které vrací `TrafficLightColor`, avšak na rozdíl od strukturálních typů tyto funkce-konstruktory neberou žádné argumenty. Platí tedy
+
+```bash
+#         vv žádné argumenty
+green :: (() -> TrafficLightColor)
+#               ^^^^^^^^^^^^^^^^^ vracíme TrafficLightColor
+yellow :: (() -> TrafficLightColor)
+red :: (() -> TrafficLightColor)
 ```
 
 V jednotlivých větvích můžeme také používat strukturální typy. Zde napříkald zvíře je buďto pes (se jménem a rokem narození) NEBO kočka (se jménem a rokem narození).
@@ -79,8 +87,7 @@ Poznámky:
 
 1. Na pořadí případů nezáleží
 2. Název typu podle konvence začíná velkým písmenem a používá `CamelCase`
-3. Název případu, pokud není strukturální, také začítá velkým písmenem a používá `CamelCase`
-4. Pokud je název případu strukturální, řídí se konvencemi pro pojmenovávání funkcí (tj vše malým a `kebab-case`)
+3. Název případu se řídí konvencemi pro pojmenovávání funkcí (tj vše malým a `kebab-case`)
 
 ## Práce s definovanými typy
 
