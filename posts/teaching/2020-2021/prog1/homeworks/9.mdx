@@ -11,4 +11,138 @@ Na hodině jsme rozpracovali implementaci Conwayovy hry života. Za úkol je tut
 
 Některý tým (popř. týmy) opět vyberu, aby své řešení odprezentovaly.
 
-Zde je [odkaz na naši rozpracovanou a okomentovanou verzi](https://code.pyret.org/editor#share=1XG4XC3HgXB6ZE1G7rtlI032w_S4AT_xD&v=8c4da7d). Hodně štěstí!
+Zde je [odkaz na naši rozpracovanou a okomentovanou verzi](https://code.pyret.org/editor#share=1XG4XC3HgXB6ZE1G7rtlI032w_S4AT_xD&v=8c4da7d), navíc jsem ji překopíroval níže. Hodně štěstí!
+
+## Současný kód
+
+```bash
+# stejný jako image, ale barvy, fill-mode atp nejsou stringy
+include image-typed
+import lists as L
+import interact from reactors  # nic jiného z reactors nepotřebujeme
+
+
+## PRAVIDLA
+
+# Pokud je teď ALIVE
+# 1. Pokud má 2 nebo 3 ALIVE sousedy -> zůstane ALIVE
+# 2. Pokud má <2 nebo >3 -> DEAD
+#
+# Pokud je teď DEAD
+# 1. Pokud má přesně 3 ALIVE sousedy -> ALIVE
+# 2. Jinak -> zůstane DEAD
+
+
+## Základní datové typy
+
+data Cell:
+  | alive
+  | dead
+end
+
+# Grid je pouze alias pro List<List<Cell>>
+# Fungují na něj tím pádem všechny seznamové funkce
+type Grid = List<List<Cell>>
+
+
+## Základ: naše hra je reactor (případně viz dokumentace)
+
+game =
+  reactor:
+    # počáteční stav
+    # v našem konkrétním případě je Stav reprezentován jako Grid
+    init: GRID,
+    # funkce, která bere současný stav a vrátí nový stav
+    # neboli on-tick je funkce (Stav -> Stav)
+    on-tick: step,
+    # funkce, která umí stav nakreslit
+    # neboli to-draw je funkce (Stav -> Image)
+    to-draw: draw-grid,
+    # jak často se volá funkce on-tick
+    seconds-per-tick: 0.01
+  end
+
+interact(game)  # toto spustí reactor
+
+
+## Počáteční stav
+
+GRID :: Grid = [list:
+  [list: alive, alive, dead],
+  [list: alive, dead, dead],
+  [list: dead, alive, alive]
+]
+
+
+## Funkce on-tick, tedy (Stav -> Stav)
+
+fun step(current-grid :: Grid) -> Grid:
+  fun go(acc :: Grid, x :: Number, y :: Number):
+    if out-of-bounds(current-grid, y):
+      acc
+    else:
+      n-count = count-alive-neighbours(current-grid, x, y)
+
+      new-acc =
+        if is-alive-at(current-grid, x, y):
+          if (n-count == 2) or (n-count == 3):
+            acc
+          else:
+            set-cell(acc, x, y, dead)
+          end
+        else:
+          if (n-count == 3):
+            set-cell(acc, x, y, alive)
+          else:
+            acc
+          end
+        end
+
+      new-x = num-modulo(x + 1, width(current-grid))
+      new-y = ...
+      go(new-acc, new-x, new-y)
+    end
+  end
+
+  go(current-grid, 0, 0)
+end
+
+fun is-alive-at(g :: Grid, x :: Number, y :: Number) -> Boolean:
+  ...
+end
+
+
+fun count-alive-neighbours(g :: Grid, x :: Number, y :: Number) -> Number:
+  ...
+end
+
+# ...zde budou další pomocné funkce
+
+
+## Funkce to-draw, tedy (Stav -> Image)
+
+fun draw-grid(g :: Grid) -> Image:
+  L.foldr(
+    lam(r, acc): align-above(x-center, acc, r) end,
+    empty-image,
+    L.map(draw-row, g))
+end
+
+# Alternativní implementace, ekvivalentní té s foldrem
+# Ta s foldrem je sice správnější, ale ve vašem prvním
+# roce programování to je nejspíš jedno :-)
+
+# fun draw-grid(g :: Grid) -> Image:
+#   cases (List) g:
+#     | empty => empty-image
+#     | link(r, rs) =>
+#       align-above(x-center, draw-grid(rs), r)
+#   end
+# end
+
+fun draw-row(r :: List<Cell>) -> Image:
+  ...
+end
+
+# ...zde budou další pomocné funkce
+```
