@@ -1,0 +1,113 @@
+export const metadata = {
+  title: 'Seznam in-house knihoven',
+  description:
+    'V průběhu přenášek a úkolů jsem dal dohromady několik pomocných knihoven, zde je jejich úplný seznam',
+  timestamp: new Date(2020, 11 - 1, 24).valueOf(),
+};
+
+U každé knihovny je i odkaz na její implementaci, abyste se mohli podívat, jak vypadá.
+
+## Game of Life utility
+
+Zjednodušuje některé otravné operace s gridy.
+
+### Použití
+
+```
+import
+  shared-gdrive("gol-helpers", "1husISXaN1FiZy8S7RJrdX5lt_XVAoxuW")
+  as G
+
+...
+
+G.draw-grid(...)
+G.generate-grid(...)
+```
+
+### Implementace
+
+[Implementace je zde](https://code.pyret.org/editor#share=1husISXaN1FiZy8S7RJrdX5lt_XVAoxuW&v=8c4da7d).
+
+### Dokumentace
+
+Typ `Grid<T>` zde označuje `List<List<T>>`. Všimněte si, že tyto funkce nejsou specializované na náš typ buňky (tj. `dead` nebo `alive(born)`), ale pracují prostě s nějakým obecným `T`.
+
+Na konkrétním typu buňky jim prostě vůbec nezáleží — je pro ně hlavně důležité, že pokud mám `Grid<T>`, mám i příslušnou funkci `draw-cell :: (T -> Image)` (v případě `draw-grid`).
+
+- `draw-grid<T>(g :: Grid<T>, draw-cell :: (T -> Image)) -> Image` pomocí funkce `draw-cell` nakreslí všechny buňky z `g` a výsledné obrázky slepí dohromady do jednoho velkého obrázku celého `g`
+- `generate-grid<T>(gen :: (Number, Number -> T), w :: Number, h :: Number) -> Grid<T>` vytvoří `Grid` velikosti `w x h`, každou buňku v něm udělá pomocí `gen`. Funkci `gen` dáme u každého místa jeho souřadnice, a `gen` nám na základě těchto souřadnic vrátí nějakou buňku. Většinou ale v `gen` tyto souřadnice ignorujeme a prostě vrátíme nějakou náhodnou buňku.
+
+## Timing
+
+Knihovna sloužící k měření rychlosti funkcí.
+
+### Použití
+
+```
+import
+  shared-gdrive("timing", "1hcSxH1zW9wxRu1IgcLVmFstMg1oqoi4q")
+  as T
+
+...
+
+T.time(...)
+T.time-avg(...)
+```
+
+### Implementace
+
+[Implementace je zde](https://code.pyret.org/editor#share=1hcSxH1zW9wxRu1IgcLVmFstMg1oqoi4q&v=8c4da7d).
+
+### Dokumentace
+
+- `time<T>(f :: (T -> Any), arg :: T) -> Number` měří, jak dlouho trvá spuštění `f(arg)`, a vrátí tento čas v milisekundách
+- `time-avg<T>(f :: (T -> Any), arg :: T, n :: Number) -> Number` průměru délku spuštění `f(arg)` přes `n` pokusů, a tento průměrný čas vrátí v milisekundách
+
+## Převod HSV na RGB
+
+Tato knihovna doplňuje tradiční RGB vytváření barev možností použít [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV).
+
+## Použití
+
+```
+include
+  shared-gdrive("color-utils", "1mpw4clgkijjYJGrMGvAIrQG7m_Vv_Xx3")
+
+...
+
+hsv(...)
+```
+
+## Implementace
+
+[Implementace je zde](https://code.pyret.org/editor#share=1mpw4clgkijjYJGrMGvAIrQG7m_Vv_Xx3&v=8c4da7d).
+
+## Dokumentace
+
+- `hsv(hue :: Number, saturation :: Number, value :: Number) -> Color` vrátí Pyretovkou barvu (tj typ `Color` z knihovny `colors`) s danými parametry; všechna čísla musí být v intervalu od 0 do 1, jinak je chování `hsv` nedefinované
+
+## Stringové utility
+
+Doporučuji tuto knihovnu příliš nepoužívat, je totiž neefektivní. Sloužila jen k představení rekurze ještě v dobách, kdy jsme neznali seznamy.
+
+### Použití
+
+```
+import
+  shared-gdrive("string-utils", "1QChebN-p7mUEmccxwsn-3Xz6X-4k9gFd")
+  as S
+
+...
+
+S.string-first(...)
+S.string-rest(...)
+```
+
+### Implementace
+
+[Implementace je zde](https://code.pyret.org/editor#share=1QChebN-p7mUEmccxwsn-3Xz6X-4k9gFd&v=8c4da7d).
+
+### Dokumentace
+
+- `string-first(s :: String) -> String` vrací první písmeno z `s`, popř. `""` pokud je `s` prázdný
+- `string-rest(s :: String) -> String` vrací všechna písmena z `s` _kromě_ toho prvního, popř. `""` pokud je `s` prázdný

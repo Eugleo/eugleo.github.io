@@ -272,6 +272,10 @@ function HomeworkList({ homeworks }: { homeworks: Homework[] }) {
         Pokud je v rámci jednoho úkolů několik podůkolů, uložte je všechny do jednoho souboru a
         oddělte je prázdným řádkem.
       </Paragraph>
+      <Paragraph className="mb-4">
+        Seznam použitých knihoven{' '}
+        <Link to="/teaching/2020-2021/prog1/prednasky/0">můžete nalézt zde</Link>.
+      </Paragraph>
       <div className="column">
         {homeworks.map((hw) => (
           <HomeworkCard key={hw.id} homework={hw} />

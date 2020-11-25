@@ -1,0 +1,43 @@
+export const metadata = {
+  title: 'Analýza efektivity kódu',
+  description:
+    'Snaha zrychlit náš současný game of life začíná u analýzy toho, které části vlastně zrychlení nejvíce potřebují',
+  timestamp: new Date(2020, 11 - 1, 24).valueOf(),
+  due: new Date(2020, 11 - 1, 30).valueOf(),
+  lectures: [7, 8],
+  points: 10,
+};
+
+Použijte funkce `time` a (preferovaně) `time-avg` k analýze všech částí naší game of life — pracujte s poslední, tj. barevnou, verzí. Tuto analýzu v následujích týdnech použijete k informovaném zlepšování nejproblematičtějších částí vašeho kódu.
+
+- kód viz [P8](/teaching/2020-2021/prog1/prednasky/8), ale lepší by bylo pracovat na vaši vlastní verzí s doplněnými barvami
+- knihovna `timing` viz [seznam použitých knihoven](/teaching/2020-2021/prog1/prednasky/0)
+
+Zhruba je tedy nutno zodpovědět následující otázky, ale klidně si přidávejte i své:
+
+1. Které funkce jsou ve vašem kódu nejpomalejší? (co nejkonkrétněji)
+2. Které jejich konkrétní části jsou (asi) problémové?
+3. Jak bychom mohli tyto části opravit?
+
+Své odpovědi na 1. a 2. si ověřte tak, že budete dané funkce měřit na několika různě "velkých" vstupech (např. v případě `step` na gridu 10x10, 100x100, 200x200 atd.). Někdy se totiž stane, že funkce je sice v porovnání s ostatními pomalá, ale je pomalá pořád stejně, nehledě na velikost vstupu. To pak vede k tomu, že ji ostatní funkce při dostatečně velkém vstupu "přerostou" a jsou větším problémem, než ona.
+
+Berte v úvahu také to, jak často danou funkci používáme — pokud je například pomalý `generate-grid`, moc nám to nevadí, protože ho voláme jen jednou na samém začátku celé simulace.
+
+## Jak tento úkol odevzdat
+
+Pošlete mi krátký (1–2 odstavce) souvislý text, kde popíšete co jste zkusili, co jste naměřili a jaké závěry z toho vyvozujete. Nebojte se (hlavně v části "jak to opravit") hodit několik různých nápadů, jde hlavně o to ukázat, že jste nad problémem přemýšleli — 5 nápadů, u kterých je vidět snaha, ale nebudou fungovat, je lepších než 0 skvěle funkčních nápadů.
+
+## Jak používat funkci `time`
+
+Funkce `time` má následující kontrakt
+
+```haskell
+time(func :: (T -> Any), input :: T) -> Number
+```
+
+Říká, jak dlouho trvalo `func(input)` (v milisekundách).
+
+```
+>>> time(step, GRID)
+991
+```

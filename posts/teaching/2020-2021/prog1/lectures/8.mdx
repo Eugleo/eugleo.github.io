@@ -1,0 +1,43 @@
+export const metadata = {
+  title: "Conway's Game of Life",
+  description: 'Záznam o tom, jak probíhá náš GoL projekt',
+  timestamp: new Date(2020, 11 - 1, 24).valueOf(),
+};
+
+Zde bude krátký zápis práce, kterou jsme udělali na [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+
+Co nás (velice přibližně) čeká:
+
+- [OK] Zprovoznit základní GoL
+- [OK] Přidat ke GoL nějaké barvy, podle stáří nebo podle historie
+- Analyzovat efektivitu jednotlivých částí a zrychlit celou simulaci
+- Přidat možnost měnit pravidla z tradičních GoL na nějaká jiná
+- Přidat jednoduché UI
+- Přidat možnost vytvářet nové buňky kliknutím myši
+- Udělat nějaký samostatný projekt založený na celulárních automatech
+
+## První úroveň (začátek)
+
+**Finální kód**: [dostupný na tomto odkazu](https://code.pyret.org/editor#share=1XG4XC3HgXB6ZE1G7rtlI032w_S4AT_xD&v=8c4da7d)
+
+### Co jsme udělali
+
+1. Vytvořili jsme vlastní datový typ `Cell`, kterým jsme modelovali jednu buňku se stavy `alive` a `dead`
+2. Vytvořili jsme typ `Grid<T>`, který obsahoval celý stav naší hry (tj. polohy všech buněk a jejich stavy)
+3. Pomocí reaktoru jsme rozdělili naši hru do třech částí
+   - generování prvního gridu
+   - funkce `step :: (Grid -> Grid)`, která umí dělat jeden krok podle zadaných pravidel
+   - vykreslování současného stavu
+
+Reaktor má vnitřní hodiny, podle kterých pravidelně volá naši funkci `step` a vykresluje její výsledek.
+
+## Druhá úroveň (barvy)
+
+**Finální kód** [dostupný na tomto odkazu](https://code.pyret.org/editor#share=1FhEWB7zCV3ldJut8oppYD_8_83E4Zore&v=8c4da7d)
+
+### Co jsme udělali
+
+1. Pozměnili jsme typ `Cell` tak, aby každá živá buňka věděla, kdy se narodila
+2. Vytvořili jsme nový typ `State`, který kromě samotné mřížky s buňkami obsahuje také informaci o tom, kolik tiků uběhlo od začátku simulace
+3. V rámci `step` jsme pak novým buňkám připsali, kdy se narodily, a každý krok jsme zvětšili počet ubehnuvších tiků
+4. Podle stáří buňky (resp. podle toho, v kolikátém tiku se narodila) jsme jí v `draw-cell` přiřadili barvu. K tomu jsme využili vytváření barev pomocí specifikace čísly v systému `hsv`
