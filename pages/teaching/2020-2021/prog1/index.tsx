@@ -44,7 +44,7 @@ const POINTS = [
   { name: 'Honza', points: 81 },
   { name: 'Junefell', points: 122 },
   { name: 'Kudla', points: 72 },
-  { name: 'Nugget', points: 625 },
+  { name: 'Nugget', points: 62 },
   { name: 'Pomněnka', points: 146 },
   { name: 'Zac', points: 72 },
   { name: 'Zelená větev', points: 82 },
