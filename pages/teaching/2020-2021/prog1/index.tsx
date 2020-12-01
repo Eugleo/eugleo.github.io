@@ -39,16 +39,16 @@ const LECTURE_DATES = [
 ];
 
 const POINTS = [
-  { name: 'Error', points: 98 },
+  { name: 'Error', points: 103 },
   { name: 'H', points: 61 },
-  { name: 'Honza', points: 81 },
+  { name: 'Honza', points: 96 },
   { name: 'Junefell', points: 122 },
   { name: 'Kudla', points: 72 },
   { name: 'Nugget', points: 62 },
-  { name: 'Pomněnka', points: 146 },
+  { name: 'Pomněnka', points: 151 },
   { name: 'Zac', points: 72 },
-  { name: 'Zelená větev', points: 82 },
-  { name: '刘志远', points: 118 },
+  { name: 'Zelená větev', points: 97 },
+  { name: '刘志远', points: 126 },
 ];
 
 export const getStaticProps = async () => {
