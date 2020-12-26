@@ -36,6 +36,12 @@ const LECTURE_DATES = [
   new Date(2020, 12 - 1, 8, 17),
   new Date(2020, 12 - 1, 15, 17),
   new Date(2020, 12 - 1, 22, 17),
+
+  // January
+  new Date(2021, 1 - 1, 5, 17),
+  new Date(2021, 1 - 1, 12, 17),
+  new Date(2021, 1 - 1, 19, 17),
+  new Date(2021, 1 - 1, 26, 17),
 ];
 
 const POINTS = [

@@ -36,6 +36,12 @@ const LECTURE_DATES = [
   new Date(2020, 12 - 1, 8),
   new Date(2020, 12 - 1, 15),
   new Date(2020, 12 - 1, 22),
+
+  // January
+  new Date(2021, 1 - 1, 8),
+  new Date(2021, 1 - 1, 15),
+  new Date(2021, 1 - 1, 22),
+  new Date(2021, 1 - 1, 29),
 ];
 
 export const getStaticProps = async () => {
