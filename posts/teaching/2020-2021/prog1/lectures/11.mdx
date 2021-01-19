@@ -1,0 +1,74 @@
+export const metadata = {
+  title: 'Zkouška: Pixel Art',
+  description: 'Zadání písemné části zkoušky',
+  timestamp: new Date(2021, 1 - 1, 19).valueOf(),
+};
+
+## Pravidla
+
+- Na vypracování je 90 minut (vysvětlování zadání do toho nepočítám), po uplynutí času mi pošlete svůj kód v textovém souboru
+- Mějte zapnuté kamery a sdílení _celé_ obrazovky (nejen jednoho okna)
+- Při práci můžete používat pouze Pyretovskou dokumentaci
+- Hinty: Každý z vás se mě v průběhu zkoušky může zeptat na dvě jakékoli otázky. Za dva takové hinty ale dohromady odečtu počet bodů ekvivalentní půl stupni známky
+
+Zadání je rozděleno do třech úrovní, které zhruba odpovídají jednotlivým známkám. Vaši konečnou známku nicméně ovlivní i vaše práce během roku a váš výkon u ústní části zkoušky.
+
+Úrovně na sebe volně navazují, začněte proto všichni tou nejjednodušší a pokračujte v pořadí dále.
+
+## Zadání
+
+Máte za úkol napsat jednoduchý editor pixel artových obrazků. Tyto obrázky jsou vždy obdélníkové a skládají se z `šířka x výška` polí ("pixelů"), z nichž každé má vlastní barvu (uvažujme barvy typu `Color` z Pyretovské knihovny `image-typed`).
+
+### První úroveň (trojka)
+
+- Navrhněte datový typ `PixelArt`, pomocí kterého budete pixelartové obrázky reprezentovat
+- Napište funkci `empty-art(w :: Number, h :: Number) -> PixelArt`, která vygeneruje `PixelArt` složený z `w x h` bílých polí
+- Napište funkci `draw(art :: PixelArt) -> Image`, která dostane hodnotu typu `PixelArt` a každý její "pixel" vykreslí jako černě ohraničený čtverec příslušné barvy o délce hrany 30
+
+Pro ohraničení se může hodit mrknout na dokumentaci `image-typed`.
+
+### Druhá úroveň (dvojka)
+
+Napište funkci `line(art :: PixelArt, x :: Number, y :: Number, len :: Number, dir :: String , c :: Color) -> PixelArt`, která do pixelartu přidá buďto vertikální (pro `dir = "vertical"`) nebo horizontální (pro `dir = "horizontal"`) čáru o šířce jednoho pole a délce `len`.
+
+- Barva této čáry je dána jako `c`
+- Souřadnice `x` a `y` udávají polohu horního levého "rohu" naší čáry
+- Číslo `len` bude vždy kladné
+- Pokud čáry přesahuje hranici pixelartu, nakreslete ji pouze do této hranice (tj. neměňte velikost pixelartu)
+- Pokud se `dir` rovná něčemu jinému než `"horizontal"` či `"vertical"` vyhoďte chybu `"Error: Invalid direction: [ZDE BUDE HODNOTA dir]"`
+
+### Třetí úroveň (jednička)
+
+Napište funkci `flood-fill(art :: PixelArt, x :: Number, y :: Number, c :: Color)`, která podobně jako "plechovka" z MS Malování vyplní souvislou barevnou plochu barvou `c` (počínaje místem `x, y`).
+
+Pokud například máme `art :: PixelArt`, který po vykreslení vypadá takto:
+
+```
+>>> draw(art)
+```
+
+<img className="mx-auto w-1/2 my-4" src="/art-beg.png" />
+
+Můžeme obarvit celý vnitřek na červeno (počínaje bodem na souřadnicích `1, 1`) zavoláním
+
+```
+>>> art-red = flood-fill(art, 1, 1, red)
+```
+
+A když tento `art-red` vykreslíme, dostaneme
+
+```
+>>> draw(art-red)
+```
+
+<img className="mx-auto w-1/2 my-4" src="/art-red.png" />
+
+Okraje pak můžeme obdobně obarvit třeba na růžovo
+
+```
+>>> draw(flood-fill(art-red, 0, 0, pink))
+```
+
+<img className="mx-auto w-1/2 my-4" src="/art-pink.png" />
+
+(`red` a `pink` jsou barvy importované z `image-typed`)
