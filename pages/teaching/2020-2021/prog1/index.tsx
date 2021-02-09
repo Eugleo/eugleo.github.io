@@ -136,7 +136,7 @@ export default function ProgrammingI({
           lectureDates={LECTURE_DATES}
         />
 
-        <Points />
+        {/* <Points /> */}
         <ClassInfo />
         <Resources />
         <HomeworkList homeworks={homeworks.sort(comparator((hw) => -hw.due))} />

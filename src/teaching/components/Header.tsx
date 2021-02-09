@@ -61,10 +61,6 @@ export function Header({
     .sort(comparator((d) => d.getTime()))
     .find((d) => d.getTime() >= ignoreTime(new Date()).getTime());
 
-  if (!nextLectureDate) {
-    throw new Error("Can't find any valid next lecture date");
-  }
-
   return (
     <div className="mb-10 z-10 relative">
       <div className="bg-white rounded-lg shadow-xl mb-2 -mt-16 flex flex-row overflow-hidden">
@@ -116,12 +112,16 @@ function Homeworks({ homeworks }: { homeworks: Homework[] }) {
   );
 }
 
-function Lectures({ nextLectureDate }: { nextLectureDate: Date }) {
+function Lectures({ nextLectureDate }: { nextLectureDate: Date | null | undefined }) {
   return (
     <DescriptionWrapper>
       <Icon.Calendar className="w-5 h-5 mr-3 text-gray-500" />
       <Description>
-        Přednáška bude {formatTimestampWithDay(nextLectureDate.valueOf(), true)}
+        {nextLectureDate ? (
+          <p>Přednáška bude {formatTimestampWithDay(nextLectureDate.valueOf(), true)}</p>
+        ) : (
+          <p>Datum následující přednášky prozatím nebylo stanoveno</p>
+        )}
       </Description>
     </DescriptionWrapper>
   );

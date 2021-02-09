@@ -1,0 +1,58 @@
+export const metadata = {
+  title: 'Příprava programovacího prostředí pro Purescript',
+  description: 'Ide, build systém, package manager, compiler',
+  timestamp: new Date(2021, 2 - 1, 9).valueOf(),
+  due: new Date(2021, 2 - 1, 16).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+Nevím, kdy přesně s Purescriptem začneme pracovat, je ale dobré být připraven. Následujte pokyny v jednotlivých sekcích, postupujte seshora; nejprve si ale celou danou sekci přečtěte.
+
+## Windows Terminal
+
+Stáhněte z Windows Store jejich [Windows Terminal](https://aka.ms/terminal). Terminál (někdy také "command line") je něco jako Pyretovský REPL — píšete do toho příkazy a ono to něco dělá. Na rozdíl od Pyretu můžete ale v terminálu instalovat příkazy od ostatních lidí; příkazy typu "spusť purescript" a "zkompiluj mi tenhle program". Otravnější alternativou k windows terminálu je příkazová řádka `cmd.exe`, která je na všech vašich počítačích by default.
+
+## NVM + NPM
+
+Node package manager (`npm`) je package manager pro javascript, tj. nástroj, pomocí kterého můžete stahovat javascriptové balíky a knihovny od ostatních programátorů — jeden z těchto balíků je i Purescript. `npm` je nejlepší instalovat pomocí `nvm`, to jest node version manageru. Pokud máte Windows, doporučuji následovat [tento návod](https://github.com/coreybutler/nvm-windows), který vás navede k instalaci `nvm-windows`.
+
+Pomocí `nvm-windows` nainstalujte poslední stabilní verzi `npm` — kdybyste nevěděli, která to je, dejte vědět.
+
+Otestujte, že máte funkční `npm`, tím, že v terminálu bez potíží spustíte `nvm list` a `npm --version`.
+
+## Purescript + spago
+
+Podle [tohoto návodu](https://github.com/purescript/documentation/blob/master/guides/Getting-Started.md) nainstalujte Purescript a _jeho_ package manager `spago`. V tomto doumentu udělejte vše až po sekci "Working in PSCI", včetně. Tím ověříte, že všechny propriety fungují.
+
+_Pozn.:_ Věci jako
+
+```
+mkdir my-project
+cd my-project
+spago init
+```
+
+jsou příkazy, které máte spustit v terminálu.
+
+## Halogen
+
+Stáhněte purescriptový balík `halogen` pomocí
+
+```
+spago install halogen
+```
+
+S halogenem budeme během roku často pracovat. Myslete na to, že `spago` stahuje balíky do vašeho současného projektu, a který projekt je ten "současný" pozná podle toho, v jaké složce se zrovna v terminálu nacházíte, když `spago` voláte. Pokud jste v nesprávné složce, do správné se můžete přesunout pomoí příkazu `cd`, jako jste to viděli v minulém kroku.
+
+## VS Code
+
+Nainstalujte si [Visual Studio Code](https://code.visualstudio.com). VS Code je tzv. IDE, integrované vývojové prostředí, tj. vylepšený textový editor, který umí syntax highlighting (obarvování kódu), má v sobě zabudovaný terminál, a umí ve vašem kódu například skočit na definici dané proměnné, ukázat dokumentaci dané funkce atp. VS Code má oproti běžnému Visual Studiu tu výhodu, že je menší a rychlejší a že do něj existují pluginy prakticky pro všechny existující jazyky.
+
+Ve VS Code nainstalujte rozšíření [PureScript IDE](https://marketplace.visualstudio.com/items?itemName=nwolverson.ide-purescript). Může se hodit [tento cheatsheet](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf), který obsahuje běžně používané klávesové zkratky.
+
+Otevřete ve VS Code **složku** s projektem, do kterého jste nainstalovali halogen. Otevřete integrovaný VS Code terminál a spusťte `spago run`. Pokud je vše ok, do terminálu se vypíše nějaké emoji (u mě to bylo "🍝"). Otevřete (stále ve VS Code) soubor `Main.purs`, např. pomocí vyhledávání soborů `Ctrl+P`, a upravte jej tak, aby se při následném `spago run` vypsalo "Hello World!".
+
+## GitHub
+
+GitHub je něco jako Google Drive pro kód — můžete zde uploadovat své projekty, koukat se na cizí a také na nich s ostatními vývojáři spolupracovat. Založte si zatím pouze [účet](https://github.com), nic víc dělat nemusíte. GitHubu se budeme podrobně věnovat na jedné z přednášek.
