@@ -1,0 +1,16 @@
+export const metadata = {
+  title: 'První Purescriptový úkol: Adress Book',
+  description: 'Haló?',
+  timestamp: new Date(2021, 3 - 1, 9).valueOf(),
+  due: new Date(2021, 3 - 1, 25).valueOf(),
+  lectures: [12],
+  points: 15,
+};
+
+Jedná se o úkoly inspirované [třetí kapitolou Purescript book](https://book.purescript.org/chapter3.html). Každý je za pět bodů. Funkčnost svých funkcí ověřte v replu, který spustíte pomocí `spago repl`. **U všech funkcí mějte napsané typy**.
+
+1. Napište funkci `findPeopleByCity`, která pro dané město vypíše všechny lidi, kteří v něm mají adresu.
+2. Napište funkci `isInBook`, která pro dané jméno rozhodne, zda se člověk toho jména nachází v address booku.
+3. Napište funkci `removeDuplicates`, která v daném address booku ponechá pro každou kombinaci jména a přijímení pouze jednoho člověka. Může se hodit funkce `Data.List.nubByEq` (viz dokumentace), pokud ale chcete, můžete si vše napsat sami.
+
+Řešení mi posílejte v jednom Purescriptovém souboru, který bude označený vaším přijímením.
