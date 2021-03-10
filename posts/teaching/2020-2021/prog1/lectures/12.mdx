@@ -1,0 +1,177 @@
+export const metadata = {
+  title: 'Základy Purescriptu',
+  description: 'Funkce, typy a currying',
+  timestamp: new Date(2021, 3 - 1, 10).valueOf(),
+};
+
+## Odkazy
+
+- [Dokumentace všechn knihoven](https://pursuit.purescript.org), i té standartní, tzv. Prelude
+- [Kniha](https://book.purescript.org/index.html)
+- Pokud daný koncept nepochopíte ani z knihy, ani z dokumentace, můžete si jej zkusit najít v Haskellu, který má s Purescriptem mnoho společného
+
+## Komentáře
+
+```haskell
+-- Toto je řádkový komentář
+
+{-
+Toto je blokový komentář
+-}
+```
+
+## Typy a druhy
+
+Typy můžeme v Purescriptu definovat dvojím způsobem. Buďto jako aliasy už existujících typů
+
+```haskell
+type Weight = Number
+```
+
+nebo jako zcela nové typy (budeme dělat v budoucnu)
+
+```haskell
+data List a = Nil | Cons a (List a)
+```
+
+`List` sám o sobě není typ, tak, jak ho známe; je to "typová" funkce `Type -> Type` (musí nějaký typ dostat, na místo `a`, aby se z něj stal úplný typ). Říkáme, že `List` má **druh** `Type -> Type`. Podobně například `Int` má druh `Type`.
+
+## Records
+
+Záznam (record) je datový typ, který slouží k ukládání strukturovaných dat.
+
+```haskell
+h = { name: "Evžen", age: 21 }
+```
+
+Typ `h` je pak `h :: { name: String, age: Int }`. Purescript tento typ odvodí sám.
+
+## Funkce a lambdy (anonymní funkce)
+
+Funkce se definují pomocí `=`, stejně jako proměnné, a argumenty se oddělují pouze mezerou.
+
+```haskell
+add a b = a + b
+```
+
+Pokud chceme ve funkci definovat pomocné proměnné (či funkce), použijeme `where`
+
+```haskell
+add a b = result
+  where
+    result = a + b
+```
+
+...nebo (v nejhorším) let
+
+```haskell
+add a b =
+  let
+    result = a + b
+  in
+    result
+```
+
+Anonymní funkci můžeme vytvořit pomocí `\ <ARGUMENTY> -> <TĚLO>`, například `add` výše lze napsat také jako
+
+```haskell
+add = \ a b -> a + b
+```
+
+## Currying a partial application
+
+Vše v Purescriptu má nějaký typ. Všechny top-level deklarace by měly mít typ, jinak bude kompilátor házet varování.
+
+```haskell
+add :: Int -> Int -> Int
+add a b = a + b
+```
+
+Všechny funkce berou jeden argument; funkce, které jich naoko berou více (jako zde `add`) reálně berou jen jeden a vrací další funkci, která opět bere jeden argument, a tak dále. Tomu se říká **currying**.
+
+```haskell
+-- Toto:
+add a b = a + b
+
+-- Je syntax sugar pro
+
+add a = \ b -> a + b
+
+-- (a to je syntax sugar pro)
+
+add = \a -> (\ b -> a + b)
+```
+
+Pokud tedy napříkald chceme vytvořit novou funkci `plus1 :: Int -> Int`, která bude vždy přidávat k danému číslu jedničku, můžeme jí definovat pomocí `add` takto:
+
+```haskell
+plus1 = add 1
+```
+
+Tomu že jsme `add` zavolali pouze na část jejích argumentů se říká **partial application**. Funguje to díky curryingu, neboť
+
+```haskell
+add = \a -> (\ b -> a + b)
+```
+
+a tedy
+
+```haskell
+plus1 = add 1 = (\a -> (\ b -> a + b)) 1 = \ b -> 1 + b
+```
+
+a `plus1 = \ b -> 1 + b` je to samé jako
+
+```haskell
+plus1 b = 1 + b
+```
+
+což je to, co chceme.
+
+## Eta redukce
+
+Eta redukce říká, že pokud
+
+```haskell
+g = \x -> f x
+```
+
+poté platí
+
+```
+g = f.
+```
+
+Například nechť
+
+```haskell
+add a b = (+) a b
+```
+
+poté díky curryingu
+
+```haskell
+add a = \b -> (+) a b
+```
+
+a z eta redukce poté
+
+```haskell
+add a = (+) a
+```
+
+Více například [zde](https://sookocheff.com/post/fp/eta-conversion/), nebo jinde na netu. Jen se zkuste vyhnout lambda-kalkulu.
+
+## Map & friends
+
+V Purescriptu existují naše staré známé funkce `map`, `filter` a `fold` (levá i pravá verze). Fungují na listech, arraích, a mnoha dalších datových strukturách — zde uvádím typy specializované na `Array`.
+
+```haskell
+map :: (a -> b) -> Array a -> Array b
+
+filter :: (a -> Boolean) -> Array a -> Array a
+
+-- foldovací funkce vv
+foldr :: (a -> b -> b) -> b -> Array a -> b
+--                  zero ^^              ^^ výsledek
+```
