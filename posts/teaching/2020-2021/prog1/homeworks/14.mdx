@@ -1,0 +1,132 @@
+export const metadata = {
+  title: 'Další purescriptové úkoly',
+  description: 'Haló?',
+  timestamp: new Date(2021, 3 - 1, 30).valueOf(),
+  due: new Date(2021, 4 - 1, 21).valueOf(),
+  lectures: [12],
+  points: 15,
+};
+
+## Úvod pro všechny
+
+- **typ** je pojmenovaná skupina **hodnot**
+- **druh** je pojmenovaná skupina **typů**
+
+Jinými slovy, každá hodnota má nějaký typ, a každý typ má nějaký druh.
+
+Když se budu ptát na **určení detailů** nějakého `x` chci, abyste mi napsali:
+
+1. zda `x` je hodnota nebo typ
+2. jaký přesně má `x` typ či druh
+
+Neúplné určení nebudu uznávat. Například tedy, pokud bych se ptal na určení detailů `f` definovaného jako `f x = x + 1` tak chci odpověď: `f` je hodnota, `f :: Int -> Int` (neboli `f` má typ `Int -> Int`). Dejte **pozor** na detaily: například výraz `f 10` je také hodnota, jako `f`, ale má už jiný typ — `Int`.
+
+## Maybe (5 bodů)
+
+`Maybe a` je typ s následující definicí:
+
+```haskell
+data Maybe a = Nothing | Just a
+```
+
+Jeho konkrétním příkladem je třeba typ `Maybe Number`. Tento typ bychom mohli použít například ve funkci `read :: String -> Maybe Number`, která se pokusí z daného stringu vyčíst nějaké číslo; v případě, že tam žádné číslo není, bychom vrátili `Nothing`, jinak `Just <naparsované číslo>`.
+
+1. Určete detaily `Maybe`.
+2. Určete detaily `Maybe Number`
+3. Určete detaily `Nothing`
+4. Určete detaily `Just`
+5. Vypište z definice výše jména typových(-ého) konstruktorů(-u)
+
+## Either (5 bodů)
+
+`Either a b` je definovaný následovně:
+
+```haskell
+data Either a b = Left a | Right b
+```
+
+Používá se v podobných případech jako `Maybe a` — chceme signalizovat, že se nám výpočet nepovedl, a že nemůžeme vrátit normální hodnotu. Místo nicneříkajícího `Nothing` však použijeme `Left a`, tedy případ, do kterého můžeme uložit nějakou informaci, většinou chybovou hlášku, která popisuje _co_ přesně se nepovedlo. Případ `Right b` se používá podobně jako `Just a`.
+
+1. Určete detaily `Either`
+2. Vypište z definice výše jména datových(-ého) konstruktorů(-u).
+3. Představte si, že máme funkci `read :: String -> Either String Number`, která se pokusí načíst ze stringu číslo. Pokud se jí to povede, vrátí `Right <to načtené číslo>`, pokud se jí to nepovede, vrátí `Left <chybová hláška>`, například:
+
+   ```haskell
+   > read "10.5"
+   Right 10.5
+   > read "slovo"
+   Left "Error: Can't parse a number from 'slovo'"
+   ```
+
+   Napište funkci `addOneToParsed :: Either String Number -> Either String Number`, která k naparsovanému číslo přidá jedničku, nebo — pokud žádné naparsované číslo nemáme — prostě pošle dál chybovou hlášku z `Left`u. **Použijte pattern matching**.
+
+   ```haskell
+   > addOneToParsed (read "10.5")
+   Right 11.5
+   > addOneToParsed (read "slovo")
+   Left "Error: Can't parse a number from 'slovo'"
+   ```
+
+## List (5 bodů)
+
+Spojové seznamy jsou definovány následovně:
+
+```haskell
+data List a = Nil | Cons a (List a)
+```
+
+1. Vypište z definice všechny datové a typové konstruktory (a označte, který je který)
+2. Určete detaily věcí z bodu jedna
+3. Určete detaily výrazu `Cons 1 Nil`
+
+## ??? (5 bodů)
+
+Podívejte se na následující definici:
+
+```haskell
+data D a b = D a b
+```
+
+1. Vypište datové a typové konstruktory
+2. Určete detaily věcí z bodu jedna
+3. K čemu by mohl sloužit typ `D a b`? Vymyslete pro typ `D a b` lepší název
+4. Definujte typový alias `Point` označující bod v rovině, který bude používat výše definovaný typ
+5. Definujte bod `a` na souřadnicích `1, -14`
+
+## Semafor (5 bodů)
+
+Podívejte se na funkci `:` a funkci `cons` v Pursuit. Zkuste napsat funkci z bodu 2 pomocí `:`.
+
+1. Definujte typ `TrafficLight`, který bude mít všeho všudy pouze tři hodnoty `Red`, `Green`, a `Yellow`.
+2. Napište funkci `switchLights :: List TrafficLight -> Maybe (List TrafficLight)`, která dostane 'historii' změn barvy semaforu (poslední barva je první v seznamu, předposlední druhá atp) a vrátí novou 'historii' s novou současnou barvou. Například:
+   ```haskell
+   > switchLights (Cons Yellow (Cons Green))
+   Cons Red (Cons Yellow (Cons Green))
+   > switchLights (Cons Red (Cons Yellow (Cons Green)))
+   Cons Yellow (Cons Red (Cons Yellow (Cons Green)))
+   ```
+
+## Nonempty (30 bodů)
+
+Tento oddíl je nejsložitější, v případě potřeby mi pište své dotazy.
+
+Typ `NonemptyList a`, který můžete naimportovat z `Data.List.Types` je definován jako
+
+```
+data NonEmptyList a = NonEmptyList (NonEmpty List a)
+```
+
+přičemž typ `NonEmpty f a` je definován jako
+
+```
+data NonEmpty f a = NonEmpty a (f a)
+```
+
+1. Vypište z definice `NonEmptyList a` typový a datový konstruktor a určete jejich detaily.
+2. Určete detaily výrazu `NonEmpty List a` v definici `NonEmptyList a`
+3. Určete detaily `a` v definici typu `NonEmpty f a`? Liší se tyto detaily pro `a` na levé a na pravé straně definice?
+4. Určete detaily `(f a)` vyskytující se v `NonEmpty a (f a)`
+5. Určete detaily `f` v definici typu `NonEmpty f a`? Pomohou nám k tomu nějak detaily `a` a `(f a)` z otázky výše?
+6. Vytvořte pro zkoušku `NonEmptyList` obsahující čísla 1, 2, 3.
+7. Podívejte se do dokumentace, co dělá funkce `insert` z `Data.List` (pozor, funkcí `insert` je několik). Implementujte tuto funkci pro `NonemptyList a`.
+8. Podívejte se do dokumentace, co dělá funkce `insertBy` z `Data.List` (pozor, funkcí `insertBy` je několik). Implementujte tuto funkci pro `NonemptyList a`.
