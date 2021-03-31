@@ -19,9 +19,16 @@ Když se budu ptát na **určení detailů** nějakého `x` chci, abyste mi naps
 1. zda `x` je hodnota nebo typ
 2. jaký přesně má `x` typ či druh
 
-Neúplné určení nebudu uznávat. Například tedy, pokud bych se ptal na určení detailů `f` definovaného jako `f x = x + 1` tak chci odpověď: `f` je hodnota, `f :: Int -> Int` (neboli `f` má typ `Int -> Int`). Dejte **pozor** na detaily: například výraz `f 10` je také hodnota, jako `f`, ale má už jiný typ — `Int`.
+Neúplné určení nebudu uznávat.
 
-## Maybe (5 bodů)
+Například tedy, pokud bych se ptal na určení detailů `f` definovaného jako `f x = x + 1` tak chci odpověď:
+
+1. `f` je hodnota,
+2. `f :: Int -> Int` (neboli `f` má typ `Int -> Int`).
+
+Dejte **pozor** na detaily: například výraz `f 10` je také hodnota, jako `f`, ale má už jiný typ — `Int`.
+
+## Maybe (10 bodů)
 
 `Maybe a` je typ s následující definicí:
 
@@ -36,6 +43,17 @@ Jeho konkrétním příkladem je třeba typ `Maybe Number`. Tento typ bychom moh
 3. Určete detaily `Nothing`
 4. Určete detaily `Just`
 5. Vypište z definice výše jména typových(-ého) konstruktorů(-u)
+6. Napište funkci `intToNatural :: Int -> Maybe Int`, která převede celé číslo na (možná) přirozené.
+7. Napište funkci `verifyAndAddPassword`, která dosatne nové heslo a nějaký record obsahující údaje o uživateli, ověří platnost nového hesla (pravidla nechám na vás) a pokud je ok, přidá toto heslo jako atribut `pwd` ke vstupnímu recordu, který jinak nechá nezměněný. Nezapomeňte uvést typ vaší funkce.
+
+   ```haskell
+   > verifyAndAddPassword "kratke" {username: "Evžen", age: 21}
+   Nothing
+   > verifyAndAddPassword "superb3zp3cnehesl0" {username: "Evžen", age: 21}
+   Just {username: "Evžen", age: 21, pwd: "superb3zp3cnehesl0"}
+   ```
+
+   Pro vkládání do existujícího recordu použijte funkci [insert z Data.Record](https://stackoverflow.com/questions/59105110/how-to-add-the-new-field-to-object-in-purescript).
 
 ## Either (5 bodů)
 
@@ -78,8 +96,10 @@ data List a = Nil | Cons a (List a)
 1. Vypište z definice všechny datové a typové konstruktory (a označte, který je který)
 2. Určete detaily věcí z bodu jedna
 3. Určete detaily výrazu `Cons 1 Nil`
+4. Napište funkci `length`, která vrátí délku seznamu. Nezapomeňte správně určit typ této funkce.
+5. Napište funkci `max`, která ze seznamu čísel vrátí to největší. Bonus: Nahraďte čísla v typu funkce vhodně tak, aby `max` fungovala i na jiné typy seznamů.
 
-## ??? (5 bodů)
+## ??? (7 bodů)
 
 Podívejte se na následující definici:
 
@@ -92,6 +112,7 @@ data D a b = D a b
 3. K čemu by mohl sloužit typ `D a b`? Vymyslete pro typ `D a b` lepší název
 4. Definujte typový alias `Point` označující bod v rovině, který bude používat výše definovaný typ
 5. Definujte bod `a` na souřadnicích `1, -14`
+6. Definujte typ `Line`, který bude pomocí dvou `Point`ů určovat polohu úsečky.
 
 ## Semafor (5 bodů)
 
