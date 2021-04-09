@@ -1,0 +1,65 @@
+export const metadata = {
+  title: 'Pubcrawl',
+  description: 'Hospodský maraton po matfyzácku',
+  timestamp: new Date(2021, 4 - 1, 6).valueOf(),
+  due: new Date(2021, 4 - 1, 12).valueOf(),
+  lectures: [12],
+  points: 25,
+};
+
+Žijete v jednorozměrném městě, které leží na úsečce. V městě je několik podniků, kde se čepuje pivo; každý podnik čepuje jen nednu značku. Tomu odpovídá první řádek ve vstupním souboru, například ze vstupu:
+
+```
+ABCDBC
+```
+
+lze vyčíst, že ve městě máte šest hospod, z nichž první točí značku `A`, druhá značku `B`, třetí značku `C` a tak dále.
+
+Kromě tohoto seznamu podniků, respektive jimi točených piv, máte ve vstupním souboru také seznam piv, nak které máte dnes večer chuť. A jelikož jste labužník, chcete si je vychutnat v zadaném pořadí — je vám však jedno, z kterého podniku dané pivo pochází, hlavně, když je to správná značka.
+
+Vaším cílem bude hledat cesty mezi hospodami, které naplní váš večerní plán. Například pro výše uvedené město a seznam piv
+
+```
+CA
+```
+
+existuje jen jedna taková cesta: navštívit třetí hospodu, a po ní hospodu první.
+
+## Detaily zadání
+
+O vstup se stará mnou napsaná funkce `Main.main`. Vaším úkolem bude napsat funkci `solve`, a vhodně ji zavolat z `main`, a také doplnit definice typů, které jsou naznačeny v zadání. Funkci i typy si můžete pojmenovat jakkoli, museli byste však změnit importy v `test/Main.purs`.
+
+V testech jsou zatím jen dva příklady, a to na základní úroveň. Pokud budete dělat další úrovně, napište si na ně další `solve`-y a v testech si k nim doplňte vhodné testy.
+
+Úrovně řešte v zadaném pořadí. **První tři byste měli stihnout do tohoto úterý**. Řešení čtvrté si budeme ukazovat na hodině. Všechny ostatní jsou dobrovolné a bez pevného termínu.
+
+## Úroveň 1 (15 bodů)
+
+Vypište délku některé validní cesty (popřípadě `Nothing` v případě, že žádná taková neexistuje).
+
+## Úroveň 2 (10 bodů)
+
+Vypište délky všech validních cest.
+
+## Úroveň 3 (5 bodů)
+
+Vypište délku nejkratší cesty.
+
+## Úroveň 4 (15 bodů)
+
+Odpovězte na následující otázky:
+
+1. Nakreslete strom rekurzivních volání funkce `solve` ze třetí úrovně. Tj začněte tím, že voláte funkci `solve` s nějakými namátkovými hodnotami; pod to nakreslete jednotlivá volání `solve`, opět spolu s jejich hodnotami. A pod každé z těchto volání opět vypište, s jakými parametry se volá `solve` z něj. Pokud máte parametry hodně veliké, nemusíte to kreslit "až na dno".
+2. Čím je řešení třetí úrovně neefektivní?
+3. Jak by šlo teoreticky zlepšit?
+4. Jak byste to udělal konkrétně v Purescriptu, za pomocí věcí, které už známe?
+
+## Úroveň 5 (15 bodů)
+
+Rozšiřte zadání na dvojrozměrná města (tj místo hospodo-pivové úsečky dostanete tabulku). Druhá část vstupu zůstane stejná — seznam piv, které chcete vypít. Vypište pouze délku nejkratší cesty; použijte optimalizaci z úrovně 4.
+
+## Úroveň 6 (? bodů)
+
+Zamyslete se, jestli by se nějak nedalo vyextraktovat z vašich řešení nějakou obecno část, které bychom jen něco málo dodali a ona by uměla řešit problém v n-rozměrných městech. Popřemýšlejte, jak by vypadal takový obecný typ `Pubs`.
+
+Pozor: Toto jsem nezkoušel řešit, vůbec nevím, jak to dopadne.
