@@ -1,0 +1,306 @@
+export const metadata = {
+  title: 'Purescript from the ground up',
+  description: 'Výrazy, funkce, závorky, jednoduché funkce, List, Maybe, Either',
+  timestamp: new Date(2021, 4 - 1, 6).valueOf(),
+  due: new Date(2021, 4 - 1, 12).valueOf(),
+  lectures: [12],
+  points: 30,
+};
+
+Setup:
+
+1. Založte novou prázdnou složku
+2. Otevřete ji ve VSCode (File > Open Folder)
+3. V termiálu spusťte `spago init`, poté `spago build`, a pak `spago install lists arrays tuples maybe`
+4. Opět spusťte `spago build`
+5. Otevřete repl pomocí `spago repl`
+6. Naimportujte postupně `Data.Array as A`, `Data.Tuple as T`, `Data.List as L`, `Data.Maybe as M`, `Data.Either as E`.
+
+## Jednoduché výrazy
+
+Which of the following pairs of expressions will return the same result when evaluated? Try to reason them out by reading the code and then enter them into the REPL to check your work:
+
+1. `1+1`
+
+   `2`
+
+2. `400 - 37`
+
+   `(-) 400 37`
+
+3. `mod 100 3`
+
+   `` 3 `mod` 100 ``
+
+4. `6 * 7 + 5`
+
+   `6 * (7 + 5)`
+
+5. `6 * (7 + 5)`
+
+   `(6 * _) (7 + 5)`
+
+6. `(6 * _) (7 + 5)`
+
+   `(\x -> 6 * x) (7 + 5)`
+
+7. `(6 * _) (7 + 5)`
+
+   `(\x -> 6 * x) (7 + 3 + 2 + 1)`
+
+8. `(\x -> 6 * x) (7 + 3 + 2 + 1)`
+
+   `(\x -> 6 * x) $ 7 + 3 + 2 + 1`
+
+9. `(\x -> 6 * x) (7 + 3 + 2 + 1)`
+
+   `\x -> 6 * x $ 7 + 3 + 2 + 1`
+
+## Funkce
+
+Máte následující soubor, nahraný v REPL.
+
+```haskell
+import Prelude
+
+z = 7
+x = y * y
+waxOn = x * 5
+y = z + 8
+```
+
+1. Now you have a value called waxOn in your REPL. What do you think will happen if you enter:
+
+   ```haskell
+   10 + waxOn
+
+   -- or
+
+   (+10) waxOn
+
+   -- or
+
+   (-) 15 waxOn
+
+   -- or
+
+   (-) waxOn 15
+   ```
+
+2. Představte si, že jste do REPLu dále zadali `triple x = x * 3`. Co se stane, když zavoláte `triple waxOn`? Jakou roli `waxOn` ve volání hraje?
+
+3. Přepište funkci `triple` tak, abyste při její definici použili klauzuli `where`.
+
+4. Co dělá funkce `something = (3 * _)`? Vyzkoušejte.
+
+5. Co dělá funkce `something' = \p -> 3 * p`? Vyzkoušejte.
+
+6. Co dělá funkce `something'' x = something' (something x)`? Vyzkoušejte.
+
+7. Co dělá funkce `something''' x = something' $ something x`? Vyzkoušejte.
+
+8. Co dělá funkce `something'''' x = something' <<< something $ x`? Vyzkoušejte.
+
+9. Přepište `something'''' x = something' <<< something $ x` tak, abyste nepoužili `$`.
+
+## Základní typy a syntax
+
+Typy ověřujte v REPLu pomocí `:type _____`.
+
+1. Jaký typ má `awesome = ["Papuchon", "curry", ":)"]`?
+2. Jaký typ má `also = ["Quake", "The Simons"]`?
+3. Jaký typ má `allAwesome = [awesome, also]`?
+
+`A.length` is a function that takes an array and returns a result that tells how many items are in it.
+
+1. Given the definition of `length` above, what would the type signature be? How many arguments, of what type does it take? What is the type of the result it evaluates to?
+
+2. What are the results of the following expressions?
+
+   - `length [1, 2, 3, 4, 5]`
+   - `length also`
+   - `length $ A.concat [also, awesome]`
+
+3. What is the type and expected result value of the following: `x = 5`, `x + 3 == 5`
+
+4. Below are some bits of code. Which will work? Why or why not? If they will work, what value would these reduce to?
+
+   ```haskell
+   A.length allAwesome == 2
+   A.length [1, 'a', 3, 'b']
+   L.length allAwesome + L.length awesome
+   (8 == 8) && ('b' < 'a')
+   (8 == 8) && 9
+   ```
+
+5. Which of the following types is the type of `(==)`?
+
+   - a -> a -> Bool
+   - Eq a => a -> a -> Bool
+   - Eq a -> a -> a -> Bool
+   - Eq a => A -> Bool
+
+6. Opravte následující kód. We want a function that adds 1 to the length of a list argument and returns that result.
+
+   ```haskell
+   x = (+)
+   F xs = w 'x' 1
+     where w = L.length xs
+   ```
+
+## Datové typy
+
+1. A value of type `L.List a` is
+
+   - a list of alphabetic characters
+   - a list of lists
+   - a list whose elements are all of some type `a`
+   - a list whose elements are all of diﬀerent types
+
+2. A function of type `A.Array (A.Array a) -> A.Array a` could
+
+   - take an array of strings as an argument
+   - transform a character into a string
+   - transform a string into an array of strings
+   - take two arguments
+
+3. A function of type `L.List a -> Int -> a`
+
+   - takes one argument
+   - returns one element of type `a` from a list
+   - must return an Int value
+   - is completely fictional (tj. sice by šla naimplementovat, ale v žádném jazyce není by default, protože nedává smysl)
+
+4. A function of type `T.Tuple a b -> a`
+
+   - takes a list argument and returns a Char value
+   - has zero arguments
+   - takes two arguments
+   - requires that `a` and `a` be of diﬀerent types
+
+All function applications return a value. Determine the value returned by these function applications and the type of that value.
+
+1.  `(_ * 9) 6`
+
+2.  `head [T.Tuple 0.0 "doge", T.Tuple 1.0 "kitteh"]`
+
+3.  `head [T.Tuple (0 :: Number) "doge", T.Tuple 1 "kitteh"]`. Vysvětlete výsledek tohoto volání.
+
+4.  `if False then True else False`
+
+5.  `L.length [1, 2, 3, 4, 5]`
+
+6.  `(A.length [1, 2, 3, 4]) > (A.length "TACOCAT")`
+
+For the following expressions, please add a type signature. You should be able to rely on REPL type inference to check your work, although you might not have precisely the same answer as REPL gives (due to polymorphism, etc).
+
+1.  ```haskell
+    functionH ::
+    functionH (L.Cons x _) = x
+    ```
+
+1.  ```haskell
+    functionH ::
+    functionH (x L.: _) = x
+    ```
+
+1.  ```haskell
+    functionH ::
+    functionH [x, _] = x
+    ```
+
+1.  ```haskell
+    functionC ::
+    functionC x y = if (x > y) then True else False
+    ```
+
+1.  ```haskell
+    functionS ::
+    functionS (x, y) = y
+    ```
+
+Doplňte následující funkce podle jejich typu.
+
+1. ```haskell
+   i :: a -> a
+   i =
+   ```
+1. ```haskell
+   c :: a -> b -> a
+   c =
+   ```
+
+1. ```haskell
+   co :: (b -> c) -> (a -> b) -> a -> c
+   co =
+   ```
+
+1. ```haskell
+   a :: (a -> c) -> a -> a
+   a =
+   ```
+
+1. ```
+   a' :: (a -> b) -> a -> b
+   a' = undefined
+   ```
+
+   Co je toto za funkci? Existuje už v Purescriptu? K čemu slouží?
+
+## Seznamy a rekurze
+
+Below are the outlines of some standard functions. The goal here is to write your own versions of these to gain a deeper understanding of recursion over lists and how to make functions flexible enough to accept a variety of inputs. You could figure out how to look up the answers, but you won’t do that because you know you’d only be cheating yourself out of the knowledge. Right?
+
+Připomeňte si pattern matching na seznamech, pomocí `Cons first rest, Nil`, nebo `(x:xs), Nil`.
+
+```haskell
+-- myOr returns True if any Bool in the list is True.
+myOr :: L.List Bool -> Bool
+myOr = undefined
+```
+
+```haskell
+-- myAny returns True if a -> Bool applied to any of the values in the list returns True
+myAny :: (a -> Bool) -> L.List a -> Bool
+myAny = undefined
+
+-- example
+myAny (\x -> x `mod` 2 == 0) (1 L.: 2 L.: 3 L.: 4 L.: L.Nil)
+-- returns True
+```
+
+```haskell
+-- myElem returns true if the given item is in the given list
+-- write this one by using recursion on lists
+myElem :: Eq a => a -> L.List a -> Bool
+
+-- Write this one by using myAny
+myElem' :: Eq a => a -> L.List a -> Bool
+```
+
+```haskell
+myReverse :: L.List a -> L.List a
+myReverse =
+```
+
+```haskell
+-- squish spojí všechny podseznamy, tj. "zploští" vstup
+squish :: L.List (L.List a) -> L.List a
+squish =
+```
+
+```haskell
+-- squishMap maps a function over a list and concatenates the results.
+squishMap :: (a -> List b) -> L.List a -> L.List b
+squishMap =
+
+-- example
+squishMap (\x -> (1 L.: x L.: 3 L.: L.Nil)) (2 L.: L.Nil)
+-- returns (1 L.: 2 L.: 3 L.: L.Nil)
+```
+
+```haskell
+-- rewrite squish using squishmap
+squishAgain :: L.List (L.List a) -> L.List a
+squishAgain = undefined
+```
