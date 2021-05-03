@@ -1,0 +1,71 @@
+export const metadata = {
+  title: 'Cesta, krok 1',
+  description: 'Kapitola 2',
+  timestamp: new Date(2021, 5 - 1, 3).valueOf(),
+  due: new Date(2021, 5 - 1, 9).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+Tyto úlohy jsou pouze pro poutníky na cestě. Co dělá jaká funkce můžete rychle najít v knize, nebo na [Hoogle](https://hoogle.haskell.org).
+
+1. Napište funkci `enumerate`, která dostane seznam a vrátí stejně dlouhý seznam, kde každý původní prvek bude ve dvojici se svým indexem.
+
+```hs
+> enumerate ["A", "B", "C"]
+[(0, "A"), (1, "B"), (2, "C")]
+```
+
+2. Napište funkci `getEven`, která dostane seznam a vrátí pouze ty jeho prvky, které jsou na sudém indexu. Využijte list comprehension a funkci `enumerate`. Pokud si věříte, zkuste si najít, co v Haskellu dělá `filter` a použijte jej místo list comprehension.
+
+```hs
+> getEven ["A", "B", "C", "D", "E"]
+["A", "C", "E"]
+```
+
+3. Napište funkci `vowelSum`, která dostane seznam písmen a vrátí součet indexů samohlásek. Zkuste na ověření "samohláskovosti" napsat speciální funkci `isVowel` a _nepoužívat_ v ní 10 ifů. Bude se hodit funkce `elem`.
+
+```hs
+> vowelSum ['A', 'B', 'C', 'D', 'E']
+4
+> vowelSum "ABCDE"
+4
+```
+
+4. Napište funkci `filterMask`, která dostane seznam nějakých prvků a stejně dlouhý seznam booleanů, a vrátí jen ty prvky, u kterých byl odpovídající boolean true.
+
+```hs
+> filterMask [1, 2, 3, 4, 5] [True, True, False, False, True]
+[1, 2, 5]
+```
+
+5. Napište funkci `getMask`, která dostane seznam nějakých prvků a funkci, která bere jeden takový prvek a vrátí True nebo False. Celá `getMask` by pak měla vrátit odpovídající seznam booelanů.
+
+```hs
+> getMask (/= 3) [1, 2, 3, 4, 5]
+[True, True, False, True, True]
+```
+
+Funkcím, které vracejí booleany, se někdy říká _predikáty_.
+
+6. Napište funkci `myFilter`, která dostane seznam a predikát, a vrátí jen ty prvky, pro které je predikát true. Použijte své funkce z (4) a (5)
+
+```hs
+> myFilter (/= 3) [1, 2, 3, 4, 5]
+[1, 2, 4, 5]
+```
+
+7. Napište funkci `isTriangle`, která dostane tři celá čísla a má rozhodnout, zda může existovat trojúhelník s takto dlouhými stranami. Podobná funkce se někdy dává v praktické části u maturity z IVT. Chytřeji než s `if`-y to nejde.
+
+```hs
+> isTriangle 3 4 5
+True
+> isTriangle -10 4 5
+False
+> isTriangle 1 1 1
+True
+> isTriangle 3 4 5
+True
+> isTriangle 5 5 11
+False
+```
