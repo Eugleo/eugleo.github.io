@@ -1,22 +1,22 @@
 export const metadata = {
   title: 'String edit distance',
-  description: 'Dynamické programování',
+  description: 'Dynamické programování podruhé',
   timestamp: new Date(2021, 5 - 1, 4).valueOf(),
   due: new Date(2021, 5 - 1, 4).valueOf(),
   lectures: [],
-  points: 30,
+  points: 40,
 };
 
-Máte zadány dva seznamy porovnatelných prvků, a máte zjistit jejich _edit distance_. Edit distance vyjadřuje, jak různé tyto dva seznamy jsou — kolik kroků musíme udělat, abychom z jenoho udělali druhý. Je nutné poznamenat, že při této změně si povolíme jen tři operace:
+Máte zadány dva seznamy porovnatelných prvků a chcete zjistit, v kolika krocích budete umět z toho prvního vyrobit ten druhý — tzv. _edit distance_. V každém kroku buďto
 
-1. Přidat jeden prvek do seznamu (Add)
-2. Vymazat jeden prvek se seznamu (Del)
-3. Změnit jeden prvek seznamu na jiný (Mod)
+1. Přidáme jeden prvek (Add)
+2. Vymažeme jeden prvek (Del)
+3. Změníme jeden prvek na jiný (Mod)
 
-Pokud tedy například budeme chtít změřit edit distance mezi seznamy `[1, 2, 3]` a `[3, -10]`, ptáme se vlastně, kolik nejméně výše zmíněných kroků musíme udělat, abychom z `[1, 2, 3]` vyrobili `[-10, 3]`. V tomto případě:
+Pokud tedy například budeme chtít změřit edit distance mezi seznamy `[1, 2, 3]` a `[-10, 3]`, ptáme se vlastně, kolik nejméně výše zmíněných kroků musíme udělat, abychom z `[1, 2, 3]` vyrobili `[-10, 3]`. V tomto případě nám stačí dva kroky:
 
-1. Vymažeme z prvního seznamu `1` (`Del 1`)
-2. Změníme v prvním seznamu `2` na `-10` (`Mod 2 -10`)
+1. `Del` (vymaže jedničku, implicitně nás tedy "posune" na další prvek a koukáme teď na 2)
+2. `Mod -10` (změní 2 na -10)
 
 Edit distance těchto seznamů je tedy 2.
 
@@ -36,18 +36,23 @@ Spočítejte edit distance dvou zadaných seznamů. Neřešte zatím efektivitu.
 
 ```hs
 > import Data.List
-> editDistance (1:2:3:Nil) (-10:3)
+> editDistance (1:2:3:Nil) (-10:3:Nil)
 2
 > :type editDistance
 forall a. Eq a =>  List a -> List a -> Int
 ```
 
-## Úroveň 2 (20 bodů)
+## Úroveň 2 (15 + 15 bodů)
 
-Napište novou funkci, která bude kromě edit distance vracet i posloupnost operací, pomocí kterých lze z prvního seznamu vyrobit druhý, tzv. _edit script_. Na operace si udělejte vhodný datový typ pojmenovaný `Operation`.
+Napište novou funkci, která bude kromě edit distance vracet i posloupnost operací, pomocí kterých lze z prvního seznamu vyrobit druhý, tzv. _edit script_. Na operace si udělejte vhodný datový typ `Operation`, který kromě výše zmíněných operací bude podporovat i `None`, tj. operaci značící "zde byla mezi seznamy shoda, nedělej nic". Tento `None` se nepočítá do celkové edit distance.
 
-Celá funkce bude mít typ `editScript :: forall a. Eq a => List a -> List a -> Tuple Int (List Operation)`
+Celá funkce bude mít typ `editScript :: forall a. Eq a => List a -> List a -> Tuple Int (List (Operation a))`
 
-# Bonusová úroveň 3 (15 bodů)
+```hs
+> editScript (1:2:3:Nil) (-10:3:Nil)
+Tuple 2 (Del : Mod -10 : None)
+> editScript (1:10:Nil) (1:1:1:1:Nil)
+Tuple 3 (None : Mod : Add 1 : Add 1 )
+```
 
-Napište dvě verze úrovně 2, jednu, která bude používat akumulátory a TCO, a druhou, která nebude. Napište je tak, aby se daly spustit pomocí `spago run` — poté totiž můžete využít [tento postup](https://unix.stackexchange.com/questions/52313/how-to-get-execution-time-of-a-script-effectively), abyste rudimentárně odhadli, která je rychlejší.
+Zkuste také napsat funkci `runScript :: forall a. Eq a => List a -> List (Operation a) -> Maybe (List a)`, která dostane skript, "supstí ho" a vrátí výsledný seznam. Případy, kdy vám uživatel dá nesprávný skript (tj. skript, který na vstupním seznamu nefunguje), řeště tím, že vrátíte `Nothing`.
