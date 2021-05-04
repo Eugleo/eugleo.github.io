@@ -1,0 +1,53 @@
+export const metadata = {
+  title: 'String edit distance',
+  description: 'Dynamické programování',
+  timestamp: new Date(2021, 5 - 1, 4).valueOf(),
+  due: new Date(2021, 5 - 1, 4).valueOf(),
+  lectures: [],
+  points: 30,
+};
+
+Máte zadány dva seznamy porovnatelných prvků, a máte zjistit jejich _edit distance_. Edit distance vyjadřuje, jak různé tyto dva seznamy jsou — kolik kroků musíme udělat, abychom z jenoho udělali druhý. Je nutné poznamenat, že při této změně si povolíme jen tři operace:
+
+1. Přidat jeden prvek do seznamu (Add)
+2. Vymazat jeden prvek se seznamu (Del)
+3. Změnit jeden prvek seznamu na jiný (Mod)
+
+Pokud tedy například budeme chtít změřit edit distance mezi seznamy `[1, 2, 3]` a `[3, -10]`, ptáme se vlastně, kolik nejméně výše zmíněných kroků musíme udělat, abychom z `[1, 2, 3]` vyrobili `[-10, 3]`. V tomto případě:
+
+1. Vymažeme z prvního seznamu `1` (`Del 1`)
+2. Změníme v prvním seznamu `2` na `-10` (`Mod 2 -10`)
+
+Edit distance těchto seznamů je tedy 2.
+
+## Založení projektu (opakování)
+
+1. Nová složka
+2. Otevřít složku ve VS Code
+3. Spustit `spago init`
+4. Spustit `spago build`
+   - (případně) Nainstalovat potřebné balíčky pomocí `spago install`
+   - Vždy po `spago install` spustit ručně opět `spago build`
+5. Hrát si s kódem ve `spago repl`
+
+## Úroveň 1 (10 bodů)
+
+Spočítejte edit distance dvou zadaných seznamů. Neřešte zatím efektivitu.
+
+```hs
+> import Data.List
+> editDistance (1:2:3:Nil) (-10:3)
+2
+> :type editDistance
+forall a. Eq a =>  List a -> List a -> Int
+```
+
+## Úroveň 2 (20 bodů)
+
+Napište novou funkci, která bude kromě edit distance vracet i posloupnost operací, pomocí kterých lze z prvního seznamu vyrobit druhý, tzv. _edit script_. Na operace si udělejte vhodný datový typ pojmenovaný `Operation`.
+
+Celá funkce bude mít typ `editScript :: forall a. Eq a => List a -> List a -> Tuple Int (List Operation)`
+
+# Bonusová úroveň 3 (15 bodů)
+
+Napište dvě verze úrovně 2, jednu, která bude používat akumulátory a TCO, a druhou, která nebude. Napište je tak, aby se daly spustit pomocí `spago run` — poté totiž můžete využít [tento postup](https://unix.stackexchange.com/questions/52313/how-to-get-execution-time-of-a-script-effectively), abyste rudimentárně odhadli, která je rychlejší.
