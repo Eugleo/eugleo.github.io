@@ -13,6 +13,7 @@ Zkouška je rozdělená na několik částí, které zhruba odpovídají známk�
 - můžete používat [dokumentaci](https://docs.python.org/3/)
 - VSTUP [NAČÍTEJTE Z TEXTOVÉHO SOUBORU](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files), ten si můžete pojmenovat, jak uznáte za vhodné
 - řešení odevzdávejte jako `.py` soubor
+- dodržujte formát vstupu a výstupu
 
 ## Informace u vstupu
 
@@ -24,12 +25,12 @@ V souboru je zadána částečně vyplněná tabulka sudoku. Tabulka má násled
 
 ## Úroveň 1
 
-Doplňte do tabulky na jedno z prázdných `_` míst číslo tak, abyste dodrželi následující dvě pravidla Sudoku:
+Najděte číslo, které můžete doplnit na jedno z prázdných `_` míst, tak, abyste dodrželi následující dvě pravidla Sudoku:
 
 1. Na jednom řádku musí být všechna čísla různá
 2. V jednom sloupci musí být všechna čísla různá
 
-ALE POZOR — ne na jakékoli takové místo, ale na místo, kde je **pouze jedna** možnost, jaké číslo tam podle pravidel výše doplnit. Ve výstupu napište `Inserted <NUM> at position <X>, <Y>, the new table is <NEW TABLE>`.
+ALE POZOR — ne na _ledajaké_ takové místo, ale na místo, kde je **pouze jedna** možnost, jaké číslo tam podle pravidel výše doplnit. Ve výstupu napište `Inserted <NUM> at position <X>, <Y>, the new table is <NEW TABLE>`.
 
 Pokud tam žádné takové místo nebude, místo nové tabulky vypište do konzole `"Sorry, there's no obvious next step"`.
 
@@ -37,13 +38,13 @@ Například pro vstup
 
 ```
 1 2 3 _ 5 6 7 8 9
-_ _ _ 3 _ _ _ _ _
-_ _ _ 2 _ _ _ _ _
+_ _ _ 3 _ _ 4 6 _
+_ _ 7 2 _ _ _ _ _
 _ _ _ 1 _ _ _ _ _
 _ _ _ 9 _ _ _ _ _
-_ _ _ 8 _ _ _ _ _
-_ _ _ 7 _ _ _ _ _
-_ _ _ 6 _ _ _ _ _
+_ 1 _ 8 _ _ _ 4 2
+_ _ _ 7 _ _ 5 _ _
+_ _ _ 6 _ _ _ 3 _
 _ _ _ 5 _ _ _ _ _
 ```
 
@@ -53,15 +54,17 @@ By výstup byl
 Inserted 4 at position (4, 1), the new table is
 
 1 2 3 4 5 6 7 8 9
-_ _ _ 3 _ _ _ _ _
-_ _ _ 2 _ _ _ _ _
+_ _ _ 3 _ _ 4 6 _
+_ _ 7 2 _ _ _ _ _
 _ _ _ 1 _ _ _ _ _
 _ _ _ 9 _ _ _ _ _
-_ _ _ 8 _ _ _ _ _
-_ _ _ 7 _ _ _ _ _
-_ _ _ 6 _ _ _ _ _
+_ 1 _ 8 _ _ _ 4 2
+_ _ _ 7 _ _ 5 _ _
+_ _ _ 6 _ _ _ 3 _
 _ _ _ 5 _ _ _ _ _
 ```
+
+Pokud míst vhodných na doplnění bude více, vyberte to, které má nejnižší souřadnici Y, popř. při rovnosti nejnižší souřadnici X. Bod 1,1 je levý horní roh tabulky.
 
 ## Úroveň 2
 
