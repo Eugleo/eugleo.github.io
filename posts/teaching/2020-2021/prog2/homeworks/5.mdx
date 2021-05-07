@@ -1,0 +1,156 @@
+export const metadata = {
+  title: 'Zkoušková úloha: Sudoku',
+  description: 'Věděli jste, že tato hra původně vznikla v USA, a do Japonska se dostala až poté?',
+  timestamp: new Date(2021, 5 - 1, 7).valueOf(),
+  due: new Date(2021, 5 - 1, 7).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+Zkouška je rozdělená na několik částí, které zhruba odpovídají známkám, které za ni dostanete.
+
+- části na sebe navazují, dělejte je tedy popořadě
+- můžete používat [dokumentaci](https://docs.python.org/3/)
+- VSTUP [NAČÍTEJTE Z TEXTOVÉHO SOUBORU](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files), ten si můžete pojmenovat, jak uznáte za vhodné
+- řešení odevzdávejte jako `.py` soubor
+
+## Informace u vstupu
+
+V souboru je zadána částečně vyplněná tabulka sudoku. Tabulka má následující strukturu:
+
+- 9 řádků
+- na každém řádku je 9 čísel 1–9 nebo značek `_`, oddělených mezerami
+- `_` značí nevyplněnou buňku
+
+## Úroveň 1
+
+Doplňte do tabulky na jedno z prázdných `_` míst číslo tak, abyste dodrželi následující dvě pravidla Sudoku:
+
+1. Na jednom řádku musí být všechna čísla různá
+2. V jednom sloupci musí být všechna čísla různá
+
+ALE POZOR — ne na jakékoli takové místo, ale na místo, kde je **pouze jedna** možnost, jaké číslo tam podle pravidel výše doplnit. Ve výstupu napište `Inserted <NUM> at position <X>, <Y>, the new table is <NEW TABLE>`.
+
+Pokud tam žádné takové místo nebude, místo nové tabulky vypište do konzole `"Sorry, there's no obvious next step"`.
+
+Například pro vstup
+
+```
+1 2 3 _ 5 6 7 8 9
+_ _ _ 3 _ _ _ _ _
+_ _ _ 2 _ _ _ _ _
+_ _ _ 1 _ _ _ _ _
+_ _ _ 9 _ _ _ _ _
+_ _ _ 8 _ _ _ _ _
+_ _ _ 7 _ _ _ _ _
+_ _ _ 6 _ _ _ _ _
+_ _ _ 5 _ _ _ _ _
+```
+
+By výstup byl
+
+```
+Inserted 4 at position (4, 1), the new table is
+
+1 2 3 4 5 6 7 8 9
+_ _ _ 3 _ _ _ _ _
+_ _ _ 2 _ _ _ _ _
+_ _ _ 1 _ _ _ _ _
+_ _ _ 9 _ _ _ _ _
+_ _ _ 8 _ _ _ _ _
+_ _ _ 7 _ _ _ _ _
+_ _ _ 6 _ _ _ _ _
+_ _ _ 5 _ _ _ _ _
+```
+
+## Úroveň 2
+
+Stejné zadání, jako úroveň jedna, ale berte v úvahu i poslední pravidlo Sudoku:
+
+3. V buňce 3x3 musí být všechna čísla různá
+
+Například pro vstup
+
+```
+1 2 3 _ _ _ _ _ _
+4 5 6 _ _ _ _ _ _
+7 8 _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+```
+
+který by v úrovni jedna nefungoval, získáte výstup
+
+```
+Inserted 9 at position (3, 3), the new table is
+
+1 2 3 _ _ _ _ _ _
+4 5 6 _ _ _ _ _ _
+7 8 9 _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+```
+
+## Úroveň 3
+
+Rozšiřte svůj kód tak, aby umožnil uživateli ptát se na to, jaká čísla může napsat na nějakou konkrétní pozici v tabulce.
+
+1. Uživatel spustí program
+2. Program načte tabuku ze souboru
+3. Program se zeptá uživatele na dvojici souřadnic, které ho zajímají
+4. Uživatel určí souřadnici
+5. Program vypíše všechna čísla, která je možno za současného stavu na dané místo v tabulce napsat
+
+Například tedy pro tabuku
+
+```
+1 2 3 _ _ _ _ _ _
+4 5 6 _ _ _ _ _ _
+7 8 _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+```
+
+A uživatelský vstup
+
+```
+4, 1
+```
+
+Vypíše program
+
+```
+The following numbers
+
+4, 5, 6, 7, 8, 9
+
+are valid at position
+
+1 2 3 X _ _ _ _ _
+4 5 6 _ _ _ _ _ _
+7 8 _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _
+```
+
+Povšimněte si `X`, které značí pozici v tabulce, na kterou se uživatel zeptal.
+
+## Úroveň 4 (jen kdybyste se někdo nudili)
+
+Napište program, který bude umět lehká sudoku vyřešit. Neřešte efektivitu.
