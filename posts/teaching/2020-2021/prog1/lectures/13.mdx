@@ -38,7 +38,72 @@ Některé datové struktury mají i další varianty, například:
 
 ## Užitečné typeclassy
 
+- [Data.Ord](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Ord), [Data.Eq](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Eq) a [Data.Show](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Show)
 - Pro mapování funkcí přes věci slouží Functory, definice v [Data.Functor](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Functor#t:Functor)
+- Collections (tj. datové struktury typu seznam, array, které obsahují několik prvků) jsou skoro vždy [Data.Traversable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/5.0.1/docs/Data.Traversable) a většinou také [Data.Foldable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/5.0.1/docs/Data.Foldable)
 - Ke kombinování dvou věcí (čísel, stringů, seznamů) slouží Monoidy, definice v [Data.Monoid](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Monoid#t:Monoid)
 - Pro kontrolovanou mutaci máme `ST` z modulu [Control.Monad.ST](https://pursuit.purescript.org/packages/purescript-st/5.0.1), z balíčku `st`
-- Pro obecný control flow máme Monády z modulu [Control.Monad](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Monad#t:Monad) a Applicative z modulu [Control.Applicative](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Applicative)
+- Pro obecný control flow (věci typu "dělej tohle dokud něco, pak udělej něco") máme Monády z modulu [Control.Monad](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Monad#t:Monad) a Applicative z modulu [Control.Applicative](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Applicative)
+
+## Užitečné funkce
+
+Funkce jsou rozdělené podle modulů. Většina datových struktur podporuje podobný interface (tj podobnou sadu funkcí), jako `length`, `push` a podobně; pokud máte oblíbenou funkcí v `Data.List`, nejspíše ji najdete i v `Data.Array`.
+
+## Prelude
+
+- `<>` pro sčítání stringů a ostatních monoidů
+- `show` pro převádění typů, které implementují typeclassu `Show`, na string
+- `unit`, jediný obyvatel typu `Unit`, což je Purescriptový ekvivalent `void` z C, tj. je to explicitně napsané "nic"
+  - neplést s `Void`, který má Purescript také, ale znamená něco jiného
+- `top` a `bottom`, které vezmou nějaký [Bounded](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Bounded) typ (tj typ, která má hranice, např. Int) a vrátí jeho maximální či minimální hodnotu
+- `const`, funkce, která bere dva argumenty a vždy vrátí ten první z nich (druhý ignoruje)
+
+Functor, Applicative, Monad
+
+- `map` a její infixní alias `<$>` pro mapování funkcí přes Functory (seznamy, stringy, arraye, maybe, ...)
+- `apply` a její infixní alias `<*>` pro applicative efekty (bude užitečné hlavně časem)
+- `bind` a její infixní alias `>>=`, potažmo `do`-notation (bude užitečné časem), `pure` pro "vracení" věcí z monád
+
+Triky s funkcemi
+
+- `<<<` a `>>>`, funkce skládající jiné funkce: `(a -> b) -> (b -> c) -> (a -> c)`
+- `flip`, který z `a -> b` funcke udělá `b -> a` funkci
+- `$` a `#`, které vám dovolí nepoužívat závorky, pokud budete chtít
+- někdy se hodí `on`, která se dá nejlépe vysvětlit typem: `(b -> b -> c) -> (a -> b) -> a -> a -> c` - tedy, máte nějaký binární operátor `(b -> b -> c)`, a chcete jej aplikovat na dvě věci typu `a`; vezmete tedy funkci `a -> b`, aplikujete jí na obě `a` a ty pak zpracujete svým operátorem
+
+Základní operace a definice
+
+- `otherwise` jako alias `true` v guardech
+- logické operace `||`, `&&`, `not`, `==`, `/=`
+- aritmetické operace
+  - `+`, `-`, `/`, `*`
+  - `mod` a `div` (celočíselné dělení)
+  - `abs` (absolutní hodnota)
+  - `negate`, změní znaménko u čísla
+  - `lcm` a `gcd`, které vrátí největší společný násobek, popř. největší společný dělitel
+- porovnávací operace,
+  - `<`, `>`, verze `<=` a `>=`
+  - funkce `min`, `max`
+  - funkce `signum` (vrací -1/0/1)
+  - funkce `between a b`, tedy funkce `a <= x <= b`
+  - funkce `clamp`, která omezí nějakou věc mezi vámi zadané hranice, např. `(clamp 0 10) -5 == 0`
+
+## Seznamy a pole
+
+## Maybe
+
+Z `Data.Maybe` z balíčku `maybe`.
+
+`fromMaybe :: forall a. a -> Maybe a -> a`
+
+- Takes a default value, and a Maybe value. If the Maybe value is Nothing the default value is returned, otherwise the value inside the Just is returned.
+
+`maybe :: forall a b. b -> (a -> b) -> Maybe a -> b`
+
+- Takes a default value, a function, and a Maybe value. If the Maybe value is Nothing the default value is returned, otherwise the function is applied to the value inside the Just and the result is returned.
+
+## Either
+
+## Tuple
+
+## (Hash)Map
