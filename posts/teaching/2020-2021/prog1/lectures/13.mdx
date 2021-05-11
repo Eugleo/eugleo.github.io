@@ -1,0 +1,44 @@
+export const metadata = {
+  title: 'Seznam užitečných funkcí v Purescriptu',
+  description: 'Kromě funkcí též typové třídy a nejběžnější balíčky',
+  timestamp: new Date(2021, 5 - 1, 11).valueOf(),
+};
+
+## Užitečné balíčky
+
+Balíček můžete do projektu přidat jednoduše pomocí
+
+```
+> spago install <jméno balíčku bez předpony purescript->
+> spago build
+```
+
+### Datové struktury
+
+- Pole v [Data.Array](https://pursuit.purescript.org/packages/purescript-arrays/6.0.1) z `arrays`
+- Spojový seznam v [Data.List](https://pursuit.purescript.org/packages/purescript-lists/6.0.1/docs/Data.List) z `lists`
+- Tuple v [Data.Tuple](https://pursuit.purescript.org/packages/purescript-tuples/6.0.1/docs/Data.Tuple#t:Tuple) z `tuples`
+- Pro slovníky máme [Data.HashMap](https://pursuit.purescript.org/packages/purescript-ordered-collections/2.0.1/docs/Data.Map) z `unordered-collections`
+  - Tento přístup, jak napovídá název, používá metodu hashování
+  - Pokud jsou vaše klíče setřiditelné, můžete preferovat metodu stromovou, pro kterou je [Data.Map](https://pursuit.purescript.org/packages/purescript-ordered-collections/2.0.1/docs/Data.Map) z `ordered-collections`
+
+Hlavní modul s nejběžnější variantou dané datové struktury je vždy ten "topl-level", např. `Data.Array`.
+
+Některé datové struktury mají i další varianty, například:
+
+- Lazy modul, např. `Data.Array.Lazy`, který umožňuje dané stuktuře, aby byla nekonečná
+- ST modul, např. `Data.Array.ST`, který z dané struktury dělá _mutable_ datovou strukturu, za pomocí monády `ST`
+- NonEmpty modul, např. `Data.Array.NonEmpty`, kde je datová struktura upravená tak, že je garantováno, že má alespoň jeden prvek
+
+### Zbytek
+
+- V [Prelude](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0) je většina běžně použivaných funkcí (viz níže)
+- [Data.Maybe](https://pursuit.purescript.org/packages/purescript-maybe/5.0.0) a [Data.Either](https://pursuit.purescript.org/packages/purescript-either/5.0.0) ze stejnojmenných balíčků pro jednoduchou validaci
+- Pro práci se soubory [Node.FS](https://pursuit.purescript.org/packages/purescript-node-fs/5.0.1/docs/Node.FS) z `node-fs`
+
+## Užitečné typeclassy
+
+- Pro mapování funkcí přes věci slouží Functory, definice v [Data.Functor](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Functor#t:Functor)
+- Ke kombinování dvou věcí (čísel, stringů, seznamů) slouží Monoidy, definice v [Data.Monoid](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Monoid#t:Monoid)
+- Pro kontrolovanou mutaci máme `ST` z modulu [Control.Monad.ST](https://pursuit.purescript.org/packages/purescript-st/5.0.1), z balíčku `st`
+- Pro obecný control flow máme Monády z modulu [Control.Monad](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Monad#t:Monad) a Applicative z modulu [Control.Applicative](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Control.Applicative)
