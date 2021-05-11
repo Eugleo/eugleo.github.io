@@ -111,6 +111,7 @@ Rozkládání seznamů
 Map & friends
 
 - mapy
+  - `map :: forall a b. (a -> b) -> f a -> f b`
   - `mapWithIndex :: forall a b. (Int -> a -> b) -> List a -> List b`
   - `mapMaybe :: forall a b. (a -> Maybe b) -> List a -> List b` si nechá jen `Just`y, je to tedy `map` následovaný `catMaybes`
   - `concatMap :: forall a b. (a -> List b) -> List a -> List b` je `map` následovaný `concat`
