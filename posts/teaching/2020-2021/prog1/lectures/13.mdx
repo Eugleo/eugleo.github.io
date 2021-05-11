@@ -90,7 +90,98 @@ Základní operace a definice
 
 ## Seznamy a pole
 
-Seznamy z [Data.List](https://pursuit.purescript.org/packages/purescript-lists/6.0.1/docs/Data.List) z `lists` a pole z [Data.Array](https://pursuit.purescript.org/packages/purescript-arrays/6.0.1) z `arrays`.
+Seznamy z [Data.List](https://pursuit.purescript.org/packages/purescript-lists/6.0.1/docs/Data.List) z `lists` a pole z [Data.Array](https://pursuit.purescript.org/packages/purescript-arrays/6.0.1) z `arrays`. Sdílí mnoho funkcí, já zde budu vypisovat jen ty seznamové.
+
+**Většina funkcí má i -By variantu (`sort` -> `sortBy`), která vám umožňuje dodat vlastní porovnávací funkci. Například u `sortBy` tak můžete dodat funkci, která bude rozhodovat, který ze dvou prvků je větší — běžný `sort` používá obyčejné porovnání.**
+
+Vytváření seznamů
+
+- `Cons` a `Nil`, popř. infixní alias pro `Cons` je `:`
+  - Seznamy se většinou píší jako `1:2:3:4:Nil`
+  - `:` můžete použít i k pattern matchingu: `f (x1:x2:_) = ...` je funkce, která očekává seznam jako první argument a vytáhne si z něj první a druhý prvek a pojmenuje je `x1` a `x2`
+- `singleton :: forall a. a -> List a`, seznam s jedním prvkem
+- `range :: Int -> Int -> List Int`, čísla od-do, popř. infixní alias `..`
+  - `range 1 5 = 1..5 = 1:2:3:4:5:Nil`
+
+Rozkládání seznamů
+
+- `head :: List ~> Maybe` a `tail :: forall a. List a -> Maybe (List a)`
+- `last :: List ~> Maybe` a `init :: forall a. List a -> Maybe (List a)`, pozor, obojí u seznamů `O(N)`
+
+Map & friends
+
+- mapy
+  - `mapWithIndex :: forall a b. (Int -> a -> b) -> List a -> List b`
+  - `mapMaybe :: forall a b. (a -> Maybe b) -> List a -> List b` si nechá jen `Just`y, je to tedy `map` následovaný `catMaybes`
+  - `concatMap :: forall a b. (a -> List b) -> List a -> List b` je `map` následovaný `concat`
+- `filter :: forall a. (a -> Boolean) -> List a -> List a`
+- `zip :: forall a b. List a -> List b -> List (Tuple a b)`
+- `zipWith :: forall a b c. (a -> b -> c) -> List a -> List b -> List c`, obecnější verze `zip`, která dvojice prvků kombinuje vaš vlastní funkcí
+  - platí vlastně `zip = zipWith Tuple`
+- `foldl :: forall f a b. Foldable f => (b -> a -> b) -> b -> f a -> b`
+
+Přidávání a mazání prvků
+
+- `snoc :: forall a. List a -> a -> List a` přidá prvek na konec seznamu, pozor, pro seznamy běží v `O(N)`
+- `insert :: forall a. Ord a => a -> List a -> List a` vloží prvek do _setřízeného_ seznamu, tak, aby zůstal setřízený
+- změna na indexu
+  - `insertAt :: forall a. Int -> a -> List a -> Maybe (List a)`
+  - `deleteAt :: forall a. Int -> List a -> Maybe (List a)`
+  - `updateAt :: forall a. Int -> a -> List a -> Maybe (List a)`
+  - popř. pro modifikaci současného pomocí funkce existuje `modifyAt :: forall a. Int -> (a -> a) -> List a -> Maybe (List a)`
+  - pro spojení delete/insert/update existuje `alterAt :: forall a. Int -> (a -> Maybe a) -> List a -> Maybe (List a)
+
+Hledání prvků
+
+- hledání jednoho prvku
+  - `l !! i` vytáhne `i`-tý prvek z `l` (infixní alias pro `index l i`)
+  - `elemIndex :: forall a. Eq a => a -> List a -> Maybe Int` vrátí index prvního prvku, který se rovná tomu hledanému
+  - `find :: forall a f. Foldable f => (a -> Boolean) -> f a -> Maybe a`
+  - `elem :: forall a f. Foldable f => Eq a => a -> f a -> Boolean`
+  - `any :: forall a b f. Foldable f => HeytingAlgebra b => (a -> b) -> f a -> b`
+  - `all :: forall a b f. Foldable f => HeytingAlgebra b => (a -> b) -> f a -> b`
+  - `findIndex :: forall a. (a -> Boolean) -> List a -> Maybe Int` vrátí index prvního prvku, pro který je predikát true
+- vybírání několika prvků
+  - `slice :: Int -> Int -> List ~> List` vyřízne podseznam
+  - `take :: forall a. Int -> List a -> List a` (bere několik ze začátku) a `drop :: forall a. Int -> List a -> List a` (vynechá několik ze začátku)
+  - `takeWhile :: forall a. (a -> Boolean) -> List a -> List a` a `dropWhile :: forall a. (a -> Boolean) -> List a -> List a`, který berou/vynechávají, dokud je něco pravda
+
+Běžné funkce fungující s celými seznamy
+
+- `intercalate :: forall f m. Foldable f => Monoid m => m -> f m -> m`
+
+  - Vloží mezi prvky seznamu nějaký prvek, a všechny tyto prvky nakonec zkombinuje pomocí `<>`
+  - Hodí se pro práci se stringy
+
+    ```
+    > intercalate ", " ["Lorem", "ipsum", "dolor"]
+    "Lorem, ipsum, dolor"
+    > intercalate [1] [[2, 3], [4, 5], [6, 7]]
+    [2, 3, 1, 4, 5, 1, 6, 7]
+    ```
+
+- `null :: forall a. List a -> Boolean`, kontroluje, zda je zenam prázdný
+- `length :: forall a. List a -> Int`
+- `reverse :: List ~> List`
+- `sort :: forall a. Ord a => List a -> List a` a `sortBy :: forall a. (a -> a -> Ordering) -> List a -> List a`
+- `nub :: forall a. Ord a => List a -> List a`, který vymaže duplikáty
+
+- `concat :: forall a. List (List a) -> List a` "zploští" seznamy
+- `catMaybes :: forall a. List (Maybe a) -> List a` si nechá jen `Just`y
+  - ordering je typ, který obsahuje `LT` (less than), `EQ` (equal), `GT` (greater than), podle toho pak `sortBy` pozná, které elementy jsou menší než jiné
+
+Seskupování prvků
+
+- `group :: forall a. Eq a => List a -> List (NonEmptyList a)`
+  - Group equal, consecutive elements of a list into lists.
+- také `groupAll :: forall a. Ord a => List a -> List (NonEmptyList a)`, který grupuje i elementy, které nejsou přímo za sebou v původním seznamu
+- také `groupBy :: forall a. (a -> a -> Boolean) -> List a -> List (NonEmptyList a)`
+
+Množinové operace
+
+- `difference :: forall a. Eq a => List a -> List a -> List a`, popř. infixní alias `\\`
+- `intersect :: forall a. Eq a => List a -> List a -> List a`
+- `union :: forall a. Eq a => List a -> List a -> List a`
 
 ## Práce se soubory
 
@@ -155,3 +246,37 @@ Semtam se hodí i funkce `uncurry :: forall a b c. (a -> b -> c) -> Tuple a b ->
 - Turn a function of two arguments into a function that expects a tuple.
 
 ## (Hash)Map
+
+Pro hashmapu budou operace stejné, jen nebudou vyžadovat `Ord k`.
+
+Běžné operace
+
+- `empty :: forall k v. Map k v`, založí novou prázdnou Map, popř. `singleton :: forall k v. k -> v -> Map k v`, který vyrobí Map s jedním párem
+- `lookup :: forall k v. Ord k => k -> Map k v -> Maybe v`
+- `member :: forall k v. Ord k => k -> Map k v -> Boolean`
+- `insert :: forall k v. Ord k => k -> v -> Map k v -> Map k v`
+- `delete :: forall k v. Ord k => k -> Map k v -> Map k v`
+- `size :: forall k v. Map k v -> Int`
+
+Mohou se hodit
+
+- `showTree :: forall k v. Show k => Show v => Map k v -> String`, funkce k zobrazení Map
+- `update :: forall k v. Ord k => (v -> Maybe v) -> k -> Map k v -> Map k v`
+- `alter :: forall k v. Ord k => (Maybe v -> Maybe v) -> k -> Map k v -> Map k v`
+  - Funkce, které udělá insert/delete/update, podle toho, zda daný klíč už v Map je, a zda vaše updatovací funkce `(Maybe v -> Maybe v)` vrací Just nebo Nothing
+
+Funkce známé ze seznamů
+
+- `catMaybes :: forall k v. Ord k => Map k (Maybe v) -> Map k v`
+- `filter :: forall k v. Ord k => (v -> Boolean) -> Map k v -> Map k v`
+  - Filter out those key/value pairs of a map for which a predicate on the value fails to hold
+  - podobně `filterWithKey :: forall k v. Ord k => (k -> v -> Boolean) -> Map k v -> Map k v`
+- `mapMaybe :: forall k a b. Ord k => (a -> Maybe b) -> Map k a -> Map k b`
+  - Applies a function to each value in a map, discarding entries where the function returns Nothing.
+  - podobně `mapMaybeWithKey :: forall k a b. Ord k => (k -> a -> Maybe b) -> Map k a -> Map k b`
+
+Množinové operace
+
+- sjednocení `union :: forall k v. Ord k => Map k v -> Map k v -> Map k v`
+- průnik `intersection :: forall k a b. Ord k => Map k a -> Map k b -> Map k a`
+- rozdíl `difference :: forall k v w. Ord k => Map k v -> Map k w -> Map k v`
