@@ -90,9 +90,29 @@ Základní operace a definice
 
 ## Seznamy a pole
 
+Seznamy z [Data.List](https://pursuit.purescript.org/packages/purescript-lists/6.0.1/docs/Data.List) z `lists` a pole z [Data.Array](https://pursuit.purescript.org/packages/purescript-arrays/6.0.1) z `arrays`.
+
+## Práce se soubory
+
+Funkce z [Node.FS.Sync](https://pursuit.purescript.org/packages/purescript-node-fs/5.0.1/docs/Node.FS.Sync).
+
+`FilePath` je jen alias pro `String`, `Encoding` je kódování souboru (např. Unicode, ASCII, ...), většinou chcete použít `UTF8` z [Node.Encoding](https://pursuit.purescript.org/packages/purescript-node-buffer/6.0.0/docs/Node.Encoding#t:Encoding).
+
+- `readTextFile :: Encoding -> FilePath -> Effect String`
+- `writeTextFile :: Encoding -> FilePath -> String -> Effect Unit` (přepíše soubor, pokud existuje)
+- `appendTextFile :: Encoding -> FilePath -> String -> Effect Unit` (nepřepíše soubor, ale na konec přidá zadaný text)
+- `exists :: FilePath -> Effect Boolean`
+
+Práce s adresáři
+
+- `mkdir :: FilePath -> Effect Unit` (vytvoří adresář)
+- `readdir :: FilePath -> Effect (Array FilePath)` (vrátí seznam souborů v adresáři)
+
 ## Maybe
 
-Z `Data.Maybe` z balíčku `maybe`.
+Z [Data.Maybe](https://pursuit.purescript.org/packages/purescript-maybe/5.0.0/docs/Data.Maybe) z balíčku `maybe`.
+
+Konstruktory `Just a` a `Nothing`.
 
 `fromMaybe :: forall a. a -> Maybe a -> a`
 
@@ -102,8 +122,36 @@ Z `Data.Maybe` z balíčku `maybe`.
 
 - Takes a default value, a function, and a Maybe value. If the Maybe value is Nothing the default value is returned, otherwise the function is applied to the value inside the Just and the result is returned.
 
+Většinou je nejlepší použít pattern matching, existují však i predikáty `isNothing` a `isJust`.
+
 ## Either
 
+Z [Data.Either](https://pursuit.purescript.org/packages/purescript-either/5.0.0/docs/Data.Either) z balíčku `either`.
+
+Konstruktory `Left a` a `Right b`.
+
+Pro konvertování mezi `Maybe` a `Either` existují funkce `hush` a `note`.
+
+`note :: forall a b. a -> Maybe b -> Either a b`
+
+- Takes a default and a Maybe value, if the value is a Just, turn it into a Right, if the value is a Nothing use the provided default as a Left
+
+`hush :: forall a b. Either a b -> Maybe b`
+
+- Turns an Either into a Maybe, by throwing eventual Left values away and converting them into Nothing. Right values get turned into Justs.
+
+Většinou je nejlepší použít pattern matching, existují však i predikáty `isLeft` a `isRight`.
+
 ## Tuple
+
+Z [Data.Tuple](https://pursuit.purescript.org/packages/purescript-tuples/6.0.1/docs/Data.Tuple#t:Tuple) z balíčku `tuples`.
+
+K vytažení prvního (resp. druhého) prvku tuplu slouží funkce `fst :: forall a b. Tuple a b -> a` a `snd :: forall a b. Tuple a b -> b`.
+
+Pro prohození hodnot je `swap :: forall a b. Tuple a b -> Tuple b a`.
+
+Semtam se hodí i funkce `uncurry :: forall a b c. (a -> b -> c) -> Tuple a b -> c`.
+
+- Turn a function of two arguments into a function that expects a tuple.
 
 ## (Hash)Map
