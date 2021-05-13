@@ -1,0 +1,70 @@
+export const metadata = {
+  title: 'Cesta, krok 2',
+  description: 'Kapitola 3 + 4 (pouze pro poutníky na cestě)',
+  timestamp: new Date(2021, 5 - 1, 16).valueOf(),
+  due: new Date(2021, 5 - 1, 13).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+Tyto úlohy jsou pouze pro poutníky na cestě. Co dělá jaká funkce můžete rychle najít v knize, nebo na [Hoogle](https://hoogle.haskell.org).
+
+Od teď pište typy ke všem funkcím, v tomto kroce i ve všech budoucích.
+
+Vysvětlete vlastními slovy (klidně až naživo v úterý):
+
+1. Jaký je rozdíl mezi `Int` a `Integer`?
+2. Jaký je rozdíl mezi `Float` a `Double`?
+3. Co je to typová třída?
+4. Proč potřebujeme mít v jazyce typy?
+
+Praktické úlohy; **nepoužívejte if**, pokud budete mít nutkání jej použít, sáhněte k patter matchingu, `case-of` nebo guardům (to jsou ty věci s `|`).
+
+5. Dopište typy ke všem funkcím z minulého týdne. Od nynějška už ke všem funkcím typy pište.
+6. Napište funkci `myProduct`, která vrátí součin všech čísel v seznamu. Použijte pattern-matching a rekurzi, **nepoužívejte** list comprehension. Můžete se inspirovat implementací funkce `sum` v kapitole 4.
+
+```hs
+> myProduct [1, 2, 3, 4]
+24
+> myProduct [0, 1, 2, 3, 4]
+0
+```
+
+7. Napište funkci `myProduct'`, která dělá to samé jako `myProduct`, ale ignoruje nuly. Opět použíjte pattern matching.
+
+```hs
+> myProduct' [1, 2, 3, 4]
+24
+> myProduct' [0, 1, 2, 3, 4]
+24
+```
+
+8. Napište funkci `sortInto`, která vezme setřízený seznam věcí, které jdou porovnávat, a jeden další prvek, a vrátí index, na který by se měl daný prvek dát, aby seznam zůstal opět setříděný.
+
+Možná budete potřebovat napsat si pomocnou funkci; pokud ano, napište ji v rámci hlavní funkce pomocí `let-in` nebo `where`.
+
+```hs
+> 2 `sortInto` [1, 3, 4]
+1
+> 10 `sortInto` [0, 1, 2, 3, 4]
+5
+> 'o' `sortInto` "lmqz"
+2
+```
+
+9. Napište funkci `fib`, která vypočítá _n_-té fibonacciho číslo. První dvě Fibonacciho čísla jsou `1` a `1`, každé další se rovná součtu dvou předchozích. Začátek řady je tedy 1, 1, 2, 3, 5, 8, ...
+
+K napsání použijte `case-of`.
+
+10. Napište funkci `signum`, která dostane číslo a vrátí `-1`, `0`, nebo `1` podle jeho znaménka. Použijte guardy (`|`).
+
+Možná se bude hodit funkce `fromIntegral` (ale negerantuji to).
+
+```hs
+> signum 10.0
+1
+> signum 0
+0
+> signum -191.7
+-1
+```
