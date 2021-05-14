@@ -1,0 +1,142 @@
+export const metadata = {
+  title: 'Cesta k maturitě',
+  description: 'Když zvládnete tyto úlohy, zvládnete i ty maturitní',
+  timestamp: new Date(2021, 5 - 1, 14).valueOf(),
+  due: new Date(2021, 5 - 1, 18).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+1. Napište funkci `to5` a `from5`, která bude převádět mezi pětkovou a desítkovou soustavou. Zopakujte sei převody do binárky.
+2. Napište funkci `sublen`, která dostane seznam seznamů a vrátí seznam jejich délek
+
+```py
+> sublen([[1,2,3], [0], []])
+[3, 1, 0]
+```
+
+3. Napište funkci `dropwhile`, která se začátku seznamu bude vyhazovat prvky, dokud bude zadaný predikát pravdivý.
+
+```py
+> dropwhile(lambda x: x > 2, [5, 6, 2, 0, 8])
+[2, 0, 8]
+```
+
+4. Napište funkci, která rozhodne, zda je zadané číslo číslem složeným?
+
+```py
+> composite(10)
+true
+> composite(7)
+false
+```
+
+5. Spočítejte ve stringu počet slov se zadanou délkou.
+
+```py
+> countw("j dv tři čtyř pěttt šesšes zase čtyř", 4)
+3
+```
+
+6. Vymažte ze seznamu duplikované prvky, které jsou bezprostředně za sebou.
+
+```py
+> nub([1, 1, 1, 3, 3, 2, 1, 2, 2])
+[1, 3, 2, 1, 2]
+```
+
+7. Máte dán seznam 2D vektorů a stejně dlouhý seznam násobků. Každý z vektorů vynásobte příslušným číslem a všechny výsledky nálsedně odečtěte od sebe.
+
+```py
+> diff([(0, 0), (1, 1), (2, 2)], [1, 0, 2])
+(-4, -4)
+```
+
+8. Napište funkci, která v seznamu nechá jen ty prvky, pro které je pravdivý nějaký predikát.
+
+```py
+> myf([1, 2, 3, 4, 5], lambda x: x != 2)
+[1, 3, 4, 5]
+```
+
+9. Máte zadanou tabulku jako seznam řádků. Vraťe seznam průměrů všech sloupců.
+
+```py
+> mass_mean([[1, 1, 2], [1, 2, 3], [1, 0, 1]])
+[1, 1, 2]
+```
+
+10. Spočítejte výskyt všech znaků ve stringu.
+
+```py
+> countch("abracadabra")
+{"a": 5, "b": 2, "r": 2, "c": "1", "d": 1}
+```
+
+11. Rozhodněte, zda je číslo dělitelné třemi, za pomocí pravidla o ciferném součtu.
+
+```py
+> divisible3(33)
+true
+```
+
+12. Vyměňte všechny samohlásky v anglickém textu za tu zadanou.
+
+```py
+> change("holka modrooka", "u")
+"hulku mudruuku"
+```
+
+13. Napište funkci, které počítá součin dvou čísel, za pomocí `+` (a bez použití `*`).
+
+```py
+> times(3, 9)
+27
+```
+
+14. Máte zadané dvě funkce, nakreslete signum (znaménko) jejich rozdílu na zadaném intervalu, vždy v bodech celých čísel.
+
+```py
+> def f(x): return 2 # konstatní funkce
+> def g(x): return -3 + x
+> compare(f, g, (0, 5))
+  X # f(0) > g(0)
+  X
+  X
+ X  # f(0) == g(0)
+X
+X   # f(0) < g(0)
+```
+
+15. Zjistěte, zda je větší součet prvních _n_ (True), nebo posledních _n_ (False) prvků seznamu. Napište dvě verze, jednu z nich pomocí `reveresed`.
+
+```py
+> f_or_l([1,1,1, 2,2,2], 3)
+False
+```
+
+16. Máte zadaný slovník, ve kterém klíče jsou jména měst a hodnota u daného města je seznam měst, se kterými je to konkrétní město propojeno jednosměrnou cestou. Máte za úkol zjistit, zda se ze zadaného města dostanu do jiného zadaného města.
+
+## Teorie
+
+Bude zopakována na dvou následujících hodinách, zde jen pro přehled:
+
+- `yield` X `return` X `print`
+- `while` a `for/in` cykly, pojem _iterace_, `break`, `continue`
+- proč jsou `if/else` "lazy"
+- co je to algoritmus, časová složitost algoritmu
+- dynamické programování
+- binární vyhledávání v setřízeném seznamu a jeho časová složitost
+- co je to _truthy_ hodnota
+- jak se debugguje s breakpointy
+- co je to REPL, proč se používá
+- jak funguje binární soustava, proč se v počítačích používá
+- co jsou zač prvočísla
+- jaký je rozdíl mezi polem (seznamem), tuplem, a slovníkem
+  - kdy se používá co a proč (vč. rychlostí častých operací)
+  - jak zhruba fungují slovníky, co je hashování
+- co jsou funkce vyššího řádu, proč se hodí mít pro ně v jazyce podporu
+- na jaké dvě/tři základní části se dělí většina jednoduchých programů
+- co jsou typy, proč je v jazyce máme, jak se projevují v Pythonu
+- jak zhruba funguje spouštění programl na počítači
+  - kompilátor, interpreter, strojový kód
