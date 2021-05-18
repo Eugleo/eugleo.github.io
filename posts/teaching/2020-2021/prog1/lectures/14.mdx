@@ -1,0 +1,118 @@
+export const metadata = {
+  title: 'Efekty',
+  description: 'Functor, Applicative, Monad',
+  timestamp: new Date(2021, 5 - 1, 18).valueOf(),
+};
+
+## Functor
+
+Ze serveru stahujete data typu
+
+```hs
+data Video = Video { length :: Int, authors :: List String, year :: Int }
+```
+
+Nevíte ale, zda se vám jej opravdu povedlo stáhnout, jinými slovy, máte jen `Maybe Video`. Napište nyní funkce:
+
+- `addToAuthors :: String -> Maybe Video -> Maybe Video`
+- `changeIn :: (Video -> Video) -> Maybe Video -> Maybe Video`
+  - jak byste přepsali `addToAtuhors` pomocí `changeIn`
+- `runOverMaybe :: forall b. (Video -> b) -> Maybe Video -> Maybe b`
+
+Přepište všechny funkce výše pomocí posledního `runOverMaybeVideo`.
+
+Kromě videa máte také k dispozici celý playlist `List Video`. Napište následující funkce:
+
+- `getYears :: List Video -> List Int`
+- `getMergedAuthors :: List Video -> List String`
+- `runOverList :: forall b. (Video -> b) -> List Video -> List b`
+
+Přepište věci výše pomocí `runOverListVideo`.
+
+Porovnejme
+
+```hs
+runOverMaybeVideo :: forall b. (Video -> b) -> Maybe Video -> Maybe b
+runOverListVideo  :: forall b. (Video -> b) -> List  Video -> List  b
+```
+
+Očividně se taková funkce hodí pro různé "Containery", můžeme zobecnit na
+
+```hs
+runOverMaybeVideo :: forall b.   (Video -> b) -> Maybe Video -> Maybe b
+runOverListVideo  :: forall b.   (Video -> b) -> List  Video -> List  b
+runOverVideo      :: forall f b. (Video -> b) -> f     Video -> f     b
+```
+
+Jak by vypadal typ `runOverStringy`? Nebo `runOverNumber`?
+
+```hs
+runOverVideo  :: forall f b. (Video  -> b) -> f Video  -> f b
+runOverString :: forall f b. (String -> b) -> f String -> f b
+runOverNumber :: forall f b. (Number -> b) -> f Number -> f b
+```
+
+Šlo by to nějak dál zobecnit, abychom nemuseli mít tolik `runOver`-ů? Ano!
+
+```hs
+runOverVideo  :: forall f b.   (Video  -> b) -> f Video  -> f b
+runOverString :: forall f b.   (String -> b) -> f String -> f b
+runOverNumber :: forall f b.   (Number -> b) -> f Number -> f b
+runOver       :: forall f a b. (a      -> b) -> f a      -> f b
+```
+
+Tento `runOver` je v Purescriptu a Haskellu známý jako `map`, popř. infixně jako `<$>`, a je kolem něj postavena typová třída `Functor`. Jinými slovy, kdo chce být instancí `Functor`, musí nějak implementovat tento `map`.
+
+### Shrnutí
+
+1. Low: `Functor` je vše, na co může volat `map`
+2. Middle: `Functor` je druh krabice, z které vždy nějakou věc (typu `a`) vytáhnu, zavolám na ni funkci `a -> b`, a vrátím novou hodnotu (typu `b`) zpět na původní místo.
+3. High: `Functor`, potažmo `map`, se stará o to, aby u typů zůstaly zachovány **efekty**.
+
+## Apply + Applicative
+
+(1) Máte k dispozici funkci `checkNatural :: Int -> Maybe Natural`, která kontroluje, zda vaše číslo je či není přirozené. Použijte tuto funkci k tomu, abyste ověřili věk psa.
+
+```hs
+data Dog = MakeDog { age :: Natural }
+
+-- MakeDog je datový konstruktor: funkce :: Natural -> Dog
+
+checkAge :: Int -> Maybe User
+```
+
+(2) Máte ověřit, zda uživatel při registraci zadal mail a datum narození ve správném formátu. Vašim úkolem je napsat funkci `checkInput :: String -> String -> Maybe User` pro typ
+
+```hs
+data User = MakeUser { email :: Email, born :: Date }
+-- MakeUser je funkce :: Email -> Date -> User
+```
+
+K dispozici máte funkce `checkEmail :: String -> Maybe Email` a `checkDate :: String -> Maybe Date` a chcete je vhodně zkombinovat.
+
+Narazili jsme na problém — nemůžeme použít `map`, protože máme funkci `Maybe (Date -> User)`, zatímco pro `map` bychom potřebovali jen `(Date -> User)`. Hodila by se nám funkce
+
+```hs
+something :: forall a b. Maybe (a -> b) -> Maybe a -> Maybe b
+```
+
+potažmo v zobecněné podobě
+
+```hs
+something :: forall f a b. f (a -> b) -> f a -> f b
+```
+
+Tato funkce v Purescriptu už naštěstí existuje. Najděte její jméno a infixní alias (využijte název této sekce).
+
+### Shrnutí
+
+1. Low: Typy z `Apply` mají funkci `(<*>) :: f (a -> b) -> f a -> f b`, která vlastně takový rozšířený `map`. Oproti `map` nám dovoluje, aby _i aplikovaná funkce_ byla zabalena v nějakém `f`.
+2. Middle: `Apply` je podobně jako `Functor` druh krabice — dovoluje nám však mít v krabici i naši `a -> b` funkci, kterou vždy spolu s `a` vytáhneme z krabice, spočítáme `b` a výsledek strčíme zpět do krabice.
+3. High: `Apply` nám pomáhá **řetězit efekty**. "Vytahování z krabice" je vlastně "spouštění efektu" a `Apply` se stará o to, že spustíme nejprve efekt naší funkce `a -> b`, poté efekt hodnoty `a`, a nakonec tento spojený efekt přeneseme na hodnotu `b`.
+
+Většinou se místo `Apply` používá rovnou `Applicative`, což je její podtřída, která definuje ještě zabalovací funkci `pure :: a -> f a`.
+
+```hs
+class Apply f <= Applicative f where
+  pure :: forall a. a -> f a
+```
