@@ -1,0 +1,111 @@
+export const metadata = {
+  title: 'Cesta, krok 3',
+  description: 'Kapitola 4 + 5 (pouze pro poutníky na cestě)',
+  timestamp: new Date(2021, 5 - 1, 19).valueOf(),
+  due: new Date(2021, 5 - 1, 24).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+## Z minula
+
+- Přepsat `myProduct` a `sortInto` pomocí pattern matchingu a rekurze, bez použití listcomps, filteru, foldů a podobně.
+- Dovysvětlit pojmy typová třída, typ, a rozdíly mezi seznamem a tuplem (toto je spíše poznámka pro mne)
+
+## Sekce 1
+
+Implementujte následující funkce — kde není řečeno jinak použijte manuální **rekurzi** (a pattern matching), nepoužívejte listcomps, map, filter atp.
+
+- `myDrop`, která odstraní několik prvků z počátku seznamu
+
+  ```hs
+  > myDrop 0 ["a", "b", "c", "d"]
+  ["a", "b", "c", "d"]
+  > myDrop 2 [1, 2, 3, 4]
+  [3, 4]
+  > myDrop 10 [1, 2, 3, 4]
+  []
+  ```
+
+- `myDropWhile`, která odstraní všechny prvky z počátku seznamu, pro které je pravdivý zadaný predikát
+
+  ```hs
+  > myDropWhile (\x -> x <= 2) [1, 2, 3, 4]
+  [3, 4]
+  > myDropWhile (\x -> x <= 2) [1, 2, 3, 1, 2, 3]
+  [3, 1, 2, 3]
+  > myDropWhile (\x -> const True x) "abcdefg"
+  []
+  ```
+
+- `myGroup`, která dostane seznam prvků a "smrskne" k sobě ty, které jsou si rovny a jsou bezprostředně za sebou
+
+  ```hs
+  > myGroup [1, 1, 1, 2, 3, 3, 1]
+  [[1, 1, 1], [2], [3, 3], [1]]
+  ```
+
+- `myMap` a `myFilter`, které se chovají jako `map` a `filter`. Konkrétně přepište svůj původní `myFilter` pomocí rekurze a patter matchingu.
+
+## Sekce 2
+
+Implementujte následující funkce — kde není řečeno jinak použijte manuální **rekurzi** (a pattern matching), nepoužívejte listcomps, map, filter atp.
+
+- `mySum`, která sečte seznam čísel
+
+  ```hs
+  > mySum [1, 2, 3]
+  6
+  ```
+
+- `myConcat`, která poskládá stringy se seznamu za sebe
+
+  ```hs
+  > myConcat ["abc", "def", "ghi"]
+  "abcdefghi"
+  ```
+
+- `sumFromStartingPoint :: Int -> [Int] -> Int` jako `mySum`, ale její první argument je už nějaký nahromaděný součet, který by se měl objevit ve finálním výsledku. Viz příklady.
+
+  ```hs
+  > sumFromStartingPoint 0 [1, 2, 3] -- s 0 se chová jako mySum
+  6
+  > sumFromStartingPoint 3 [1, 2, 3] -- místo 0 je náš 'základ' 3
+  9
+  ```
+
+  Nepište celou funkci, ale doplňte následující implementaci:
+
+  ```
+  sumFromStartingPoint :: Int -> [Int] -> Int
+  sumFromStartingPoint base [] = base
+  sumFromStartingPoint base (x:xs) = ...
+  ```
+
+- `myFold :: (a -> b -> b) -> b -> [a] -> b`, která se chová jako `foldr`.
+
+  Prochází postupně seznam `[a]` a udržuje si mezivýsledek `b`, přičemž tento mezivýsledek vždy zkombinuje s dalším `a` z procházeného seznamu. Až projde celé `[a]`, vrátí poslední mezivýsledek. Inspirujte se svou funkcí `sumFromStartingPoint` — `myFold` je vlastně její zobecněná verze, která nepočítá pouze s `+` a s `Int`, ale funguje s jakoukoli kombinující funkcí `a -> b -> b`.
+
+  ```hs
+  -- jako sumFromStartingPoint 0
+  -- (1:2:3:[]) -> (1+2+3+0) -> 6
+  > myFold (\x meziV -> x + meziV) 0 [1, 2, 3]
+  6
+  -- jako sumFromStartingPoint 8
+  -- (1:2:3:[]) -> (1+2+3+8) -> 14
+  > myFold (\x meziV -> x + meziV) 8 [1, 2, 3]
+  14
+  -- Zde, u mínus, je už důležité závorkování
+  -- My se chováme jako foldR, takže závorkujeme zprava
+  -- (1:2:3:[]) -> (1-(2-(3-0)))
+  -- foldL by udělal (1:2:3:[]) -> (((1-0)-2)-3)
+  > myFold (\x meziV -> x - meziV) 0 [1, 2, 3]
+  2
+  ```
+
+Napište nyní nové verze následujících funkcí (např s přidanou `'`) pomocí `myFold`:
+
+- `mySum`
+- `myConcat`
+- `sumFromStartingPoint`
+- `myGroup`
