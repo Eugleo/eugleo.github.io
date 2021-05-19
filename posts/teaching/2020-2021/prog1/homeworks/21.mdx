@@ -103,7 +103,19 @@ Implementujte následující funkce — kde není řečeno jinak použijte manu�
   2
   ```
 
-Napište nyní nové verze následujících funkcí (např s přidanou `'`) pomocí `myFold`:
+- `myFold1 :: (b -> b -> b) -> [b] -> b`, která se chová jako `myFold`, ale 'základ', tj. první mezivýsledek, který byl předtím daný jako `b`, nebere zvenku jako argument, ale používá poslední prvek seznamu.
+
+  Srovnání:
+
+  ```hs
+  -- myFold ... 0:  (1:2:3:[]) -> (1+(2+(3+0))) -> 6
+  -- myFold1     :  (1:2:3:[]) -> (1+(2+3))     -> 6
+
+  -- myFold ... 0:  (1:2:3:[]) -> (1-(2-(3-0))) -> 2
+  -- myFold1     :  (1:2:3:[]) -> (1-(2-3)))    -> 2
+  ```
+
+Napište nyní nové verze následujících funkcí (např s přidanou `'`) pomocí `myFold` nebo `myFold1`:
 
 - `mySum`
 - `myConcat`
