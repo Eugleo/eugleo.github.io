@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Functory a Apply',
-  description: 'Seznamy, Maybe, Either',
+  description: 'Seznamy, Maybe, Either, Box a PPL',
   timestamp: new Date(2021, 5 - 1, 20).valueOf(),
   due: new Date(2021, 5 - 1, 24).valueOf(),
   lectures: [14],
@@ -87,7 +87,8 @@ data RoseTree a = Rose | Bush (RoseTree a) (List a) (RoseTree a)
 Opět vytvoříme svůj vlastní kopii třídy.
 
 ```
--- Jestliže nějaký typ b je PPL, pak typ b je i Box
+-- Jestliže nějaký typ f je PPL, pak typ f je i Box
+-- Jinými slovy, Box je nadřazený třídě PPL
 class Box f <= PPL f where
   logistics :: forall a b. f (a -> b) -> f a -> f b
 ```
