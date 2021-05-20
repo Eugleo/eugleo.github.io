@@ -1,0 +1,101 @@
+export const metadata = {
+  title: 'Functory a Apply',
+  description: 'Seznamy, Maybe, Either',
+  timestamp: new Date(2021, 5 - 1, 20).valueOf(),
+  due: new Date(2021, 5 - 1, 24).valueOf(),
+  lectures: [14],
+  points: 45,
+};
+
+V první části úkolu budete v rámci tréninku implementovat `Functor` a `Apply` pro běžné typy. V druhé části tyto instance budete používat k řešení úkolů.
+
+Všechny instance už v Purescriptu samozřejmě existují a dají se dohledat, kdybyste se zasekli. Abychom se vyhnuli problémům s pojmenováním, vytvoříme vlastní kopii třídy `Functor`, a instance pak budete psát pro tu.
+
+```hs
+class Box b where
+  -- Nemusíme používat jen jednopísmenné typové proměnné, pokud nechceme
+  lift :: forall before after. (before -> after) -> (b before -> b after)
+```
+
+## Jak na to?
+
+Abyste viděli, jaká syntax se při definici typových tříd a jejich instancí používá, máme pro vás malou ukázku.
+
+Pro ukázku budeme používat následující nudný typ `Ident`, který je jen wrapper, který nic nedělá. (Jinými slovy, jeho _efektem_ je _identita_, je to typová obdoba funkce `identity x = x`)
+
+```hs
+data Ident a = Ident a
+```
+
+Vytvoříme nyní instanci pro `Box`. Jak jí vymyslíme? Jsme omezeni typem `lift` a nakonec zjistíme, že máme jen jednu možnost, jak "smysluplnou" instanci napsat.
+
+```hs
+-- boxIdent může být libovolné jméno
+instance boxIdent :: Box Ident where
+  lift fab (Ident a) = Ident (fab a)
+```
+
+## Co je smysluplná instance?
+
+Ve většině případů nám typ `lift` hodně sváže ruce, a ze zbylých možností už tu správnou poznáte intuitivně. Kdyby však ne, můžete se zkusit opřít o zákony, které by každá správná instance měla dodržovat. **Nejspíše to však nebudete potřebovat.**
+
+1.  `lift identity = identity`
+
+    - tj. v naší analogii, je jedno, jestli vyrobíte identickou kopii celé krabice i s věcí uvnitř, nebo jestli tu věc nejprve vytáhnete, zkopírujete, a poté tu kopii vložíte do krabice
+    - tohle odpovídá tomu "zachování efektů"
+    - tohle přesně by porušoval ten nesmysluplný příklad, kdy dostanete `Nothing`, ale vrátíte nějaký smyšlený `Just`
+
+2.  `lift (f <<< g) = lift f <<< map g`
+    - pamatujte, `(f <<< g)(x) = f(g(x))`
+    - tj. je jedno, jestli nejdříve spojíte funkce, a pak tuhle spojenou funkci aplikujete do krabice, nebo jestli to děláte ve dvou krocích (tj. první funkce do krabice, potom druhá funkce na zakrabicovaný výsledek té první)
+
+Kdo tohle vymyslel? Proč to máme dodržovat? Vhodná diskuze na pátečníky po státnicích ;-)
+
+## Úkol 1: Instance pro existující typy (20 bodů)
+
+1. Napište instanci `Box` pro typ `Maybe a`
+2. Napište instanci `Box` pro typ `List a`
+3. Napište instanci `Box` pro typ `Either a b`
+   - Zdá se že máte na výběr mapovat do krabice `Left` nebo krabice `Right`. Je to opravdu tak?
+4. Proč nejde v Purescriptu napsat `Box` pro `Array a`?
+5. Napište instanci `Box` pro typ `(r ->)`, někdy také psaný jako `(->) r`. Jinými slovy, funkce (o jednom argumentu, jiná ani neexistuje) se zafixovaným typem tohoto argumentu, ale ne návratovým typem.
+   - Jeďte podle typů, nenechte se zmást
+   - Popište vlastními slovy, jaký je _efekt_ (význam, sémantika) typu `(r ->)`? Co znamená vyndat něco z této krabice? Co znamená to do ní vrátit?
+
+---
+
+(Bonus) Dokažte, že množiny (nezávisle na implementaci) nejsou `Functory`. Hint: functorové zákony.
+
+Jak dokázat, že něco neexistuje? Najít nějaký _protipříklad_, kterým vyvrátíte _všechny_ možné podoby implementace `map` (resp. vyvrátíte platnost functorových zákonů pro ně).
+
+## Úkol 2: Instance pro nové typy (5 bodů)
+
+1. Napište instanci `Box` pro následující typ binárního stromu
+
+```hs
+data Tree a = Leaf | Vertex (Tree a) a (Tree a)
+```
+
+2. Napište instanci `Box` pro následující strom, tzv. _rose tree_ (růžový keř). Využijte k části práce nějakou už existující instanci `Box`.
+
+```hs
+data RoseTree a = Rose | Bush (RoseTree a) (List a) (RoseTree a)
+```
+
+## Úkol 3: Apply (20 bodů)
+
+Opět vytvoříme svůj vlastní kopii třídy.
+
+```
+-- Jestliže nějaký typ b je PPL, pak typ b je i Box
+class Box f <= PPL f where
+  logistics :: forall a b. f (a -> b) -> f a -> f b
+```
+
+1. Napište instanci `PPL` pro typy `Maybe a`, `List a` a `Either a b`.
+2. Napište instaci `PPL` pro typ `((->) r)`.
+
+   - Říkali jsme, že `Apply` slouží pro řtězení efektů za sebe. Jakou by to mohlo mít pro tento typ interpretaci?
+
+3. Implementujte funkci `altLift` pomocí funkce `logistics`. Měla by "dělat" to samé jako `lift` (její typ bude samozřejmě trochu jiný, když vyžadujeme `logistics`).
+   - Hint: Tuto funkci bude stačit napsat pouze jednou, ne pro každý typ zvlášť.
