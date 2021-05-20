@@ -58,7 +58,7 @@ Kdo tohle vymyslel? Proč to máme dodržovat? Vhodná diskuze na pátečníky p
 3. Napište instanci `Box` pro typ `Either a b`
    - Zdá se že máte na výběr mapovat do krabice `Left` nebo krabice `Right`. Je to opravdu tak?
 4. Proč nejde v Purescriptu napsat `Box` pro `Array a`?
-5. Napište instanci `Box` pro typ `(r ->)`, někdy také psaný jako `(->) r`. Jinými slovy, funkce (o jednom argumentu, jiná ani neexistuje) se zafixovaným typem tohoto argumentu, ale ne návratovým typem.
+5. Napište instanci `Box` pro typ `(r ->)`, někdy také psaný jako `(->) r`. Jinými slovy, je to funkce o jednom argumentu (jiná ani neexistuje) se zafixovaným typem tohoto argumentu, ale s nezafixovaným návratovým typem
    - Jeďte podle typů, nenechte se zmást
    - Popište vlastními slovy, jaký je _efekt_ (význam, sémantika) typu `(r ->)`? Co znamená vyndat něco z této krabice? Co znamená to do ní vrátit?
 
@@ -82,6 +82,22 @@ data Tree a = Leaf | Vertex (Tree a) a (Tree a)
 data RoseTree a = Rose | Bush (RoseTree a) (List a) (RoseTree a)
 ```
 
+3. Napište instanci `Box` pro typ `StateFunction`, což je vlastně obalená funkce `s -> Tuple s a`, která
+
+   - dostane nějaký stav `s`
+   - nějak ho změní a pošle dál nový stav `s`
+   - kromě toho i vypočítá na základě vstupního stavu nějakou hodnotu `a`, kterou vrátí spolu s novým stavem
+
+Takovými funkcemi jsou často například funkce pohybu ve hře:
+
+- dostanu pozici panáčka na hracím poli (stav hry)
+- někam s ním pohnu a vrátím to jako nový stav
+- zároveň vygeneruji string, který se poté vykreslí jako mapa (například)
+
+```hs
+data StateFunction s a = StateFunction (s -> Tuple s a)
+```
+
 ## Úkol 3: Apply (20 bodů)
 
 Opět vytvoříme svůj vlastní kopii třídy.
@@ -98,5 +114,7 @@ class Box f <= PPL f where
 
    - Říkali jsme, že `Apply` slouží pro řtězení efektů za sebe. Jakou by to mohlo mít pro tento typ interpretaci?
 
-3. Implementujte funkci `altLift` pomocí funkce `logistics`. Měla by "dělat" to samé jako `lift` (její typ bude samozřejmě trochu jiný, když vyžadujeme `logistics`).
+3. Napište instanci `PPL` pro typ `StateFunction`
+
+4. Implementujte funkci `altLift` pomocí funkce `logistics`. Měla by "dělat" to samé jako `lift` (její typ bude samozřejmě trochu jiný, když vyžadujeme `logistics`).
    - Hint: Tuto funkci bude stačit napsat pouze jednou, ne pro každý typ zvlášť.
