@@ -119,16 +119,14 @@ False
 
 ## Teorie
 
-Bude zopakována na dvou následujících hodinách, zde jen pro přehled:
-
+- funkce, parametry, argumenty, loopy, podmiňovací příkazy if
 - `yield` X `return` X `print`
-- `while` a `for/in` cykly, pojem _iterace_, `break`, `continue`
+- `while` a `for/in` cykly, pojem _iterace_
 - proč jsou `if/else` "lazy"
 - co je to algoritmus, časová složitost algoritmu
 - dynamické programování
 - binární vyhledávání v setřízeném seznamu a jeho časová složitost
 - co je to _truthy_ hodnota
-- jak se debugguje s breakpointy
 - co je to REPL, proč se používá
 - jak funguje binární soustava, proč se v počítačích používá
 - co jsou zač prvočísla
@@ -137,6 +135,215 @@ Bude zopakována na dvou následujících hodinách, zde jen pro přehled:
   - jak zhruba fungují slovníky, co je hashování
 - co jsou funkce vyššího řádu, proč se hodí mít pro ně v jazyce podporu
 - na jaké dvě/tři základní části se dělí většina jednoduchých programů
-- co jsou typy, proč je v jazyce máme, jak se projevují v Pythonu
-- jak zhruba funguje spouštění programl na počítači
-  - kompilátor, interpreter, strojový kód
+
+## Řešení
+
+```py
+def to5(n):
+    temp = n
+    result = ""
+    while temp > 0:
+        result = str(temp % 5) + result
+        temp = temp // 5
+    return result
+
+
+def from5(n):
+    power = len(n) - 1
+    result = 0
+    for d in str(n):
+        result += int(d) * (5 ** power)
+        power -= 1
+    return result
+
+
+# ---------------------------
+
+
+def sublen(lol):
+    result = []
+    for l in lol:
+        result.append(len(l))
+    return result
+
+
+# ---------------------------
+
+
+def dropwhile(predicate, things):
+    result = []
+    for t in things:
+        if predicate(t):
+            result.append(t)
+        else:
+            return result
+
+
+# ---------------------------
+
+
+def composite(n):
+    for i in range(2, n):
+        if n % i == 0:
+            return True
+    return False  # Jednička není složená, ani prvočíslo
+
+
+# ---------------------------
+
+
+def countw(sentence, l):
+    result = 0
+    for word in sentence.split(" "):
+        if len(word) == l:
+            result += 1
+    return result
+
+
+# ---------------------------
+
+
+def nub(things):
+    result = []
+    for i, t in enumerate(things):
+        if i == 0 or things[i - 1] != t:
+            result.append(t)
+    return result
+
+
+# ---------------------------
+
+
+def diff(vectors, coefs):
+    result = (0, 0)
+    for v, c in zip(vectors, coefs):
+        result[0] -= v[0] * c
+        result[1] -= v[1] * c
+    return result
+
+
+# ---------------------------
+
+
+def myf(things, predicate):
+    result = []
+    for t in things:
+        if predicate(t):
+            result.append(t)
+    return result
+
+
+# ---------------------------
+
+
+def mean(nums):
+    return sum(nums) / len(nums)
+
+
+def mass_mean(table):
+    if table == []:
+        return []
+    else:
+        cols = len(table[0])
+        result = []
+        for j in range(0, cols):
+            nums_in_col = []
+            for row in table:
+                nums_in_col.append(row[j])
+            result.append(mean(nums_in_col))
+
+
+# ---------------------------
+
+
+def countch(word):
+    result = {}
+    for char in word:
+        if char in result:
+            result[char] += 1
+        else:
+            result[char] = 1
+
+
+# ---------------------------
+
+
+def divisible3(n):
+    digsum = 0
+    for d in str(n):
+        digsum += int(d)
+    return digsum % 3 == 0
+
+
+# ---------------------------
+
+
+def change(word, replacement):
+    result = ""
+    for char in word:
+        if char in "aeiouy":
+            result += replacement
+        else:
+            result += char
+    return result
+
+
+# ---------------------------
+
+
+def times(n, k):
+    result = 0
+    for _ in k:
+        result += n
+    return result
+
+
+# ---------------------------
+
+
+def compare(f, g, interval):
+    a, b = interval
+    for i in range(a, b + 1):
+        if f(i) > g(i):
+            print("  X")
+        elif f(i) == g(i):
+            print(" X ")
+        else:
+            print("X  ")
+
+
+# ---------------------------
+
+
+def f_or_l(things, n):
+    return sum(things[:n]) > sum(things[-n:])
+
+
+def f_or_l2(things, n):
+    return sum(things[:n]) > sum(list(reversed(things))[:n])
+
+
+# ---------------------------
+
+
+def haspath(neigbours, start, target):
+    def helper(s, t, history):
+        if t in neigbours[s]:
+            return True
+        else:
+            return any(
+                helper(n, t, history + [s]) for n in neigbours[s] if n not in history
+            )
+
+    return helper(start, target, [])
+
+
+def haspath_simple(neigbour, start, target):
+    history = set()
+    current = start
+    while current not in history:
+        if current == target:
+            return True
+        history.add(current)
+        current = neigbour[current]
+```
