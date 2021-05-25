@@ -76,10 +76,10 @@ Jak dokázat, že něco neexistuje? Najít nějaký _protipříklad_, kterým vy
 data Tree a = Leaf | Vertex (Tree a) a (Tree a)
 ```
 
-2. Napište instanci `Box` pro následující strom, tzv. _rose tree_ (růžový keř). Využijte k části práce nějakou už existující instanci `Box`.
+2. [UPDATE zadání] Napište instanci `Box` pro následující strom, tzv. _rose tree_ (růžový keř). Využijte k části práce nějakou už existující instanci `Box`.
 
 ```hs
-data RoseTree a = Rose | Bush (RoseTree a) (List a) (RoseTree a)
+data RoseTree a = Rose | Bush a (List (RoseTree a))
 ```
 
 3. Napište instanci `Box` pro typ `StateFunction`, což je vlastně obalená funkce `s -> Tuple s a`, která
