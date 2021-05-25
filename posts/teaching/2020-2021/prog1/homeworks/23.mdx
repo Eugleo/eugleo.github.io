@@ -1,0 +1,24 @@
+export const metadata = {
+  title: 'Cesta, krok 4',
+  description: 'Kapitola 7 (pouze pro poutníky na cestě)',
+  timestamp: new Date(2021, 5 - 1, 25).valueOf(),
+  due: new Date(2021, 5 - 1, 31).valueOf(),
+  lectures: [],
+  points: 0,
+};
+
+1. Napište si svou vlastní verzi `isPrefixOf`. Co přesně tato funkce dělá najděte na [Hoogle](https://hoogle.haskell.org), na hackage, nebo v textu kapitoly 7.
+2. Napište si svou vlastní verzi `elemIndex`. Co přesně tato funkce dělá najděte na [Hoogle](https://hoogle.haskell.org), na hackage, nebo v textu kapitoly 7.
+3. Napište funkci `grep`, která dostane několik řádků textu ("kupku sena") a nějaký text ("jehlu") a má vrátit očíslovaný seznam všech řádků, na kterých se jehla nachází. Použijte funkce z `Data.List` a nepište si všechno sami, abyste si ušetřili práci (zvláště na vyhledávání věcí ve stringu).
+
+```hs
+> text = "řádek 1\nTohle je na řádku 2\na zde vidíme řádek 3"
+> grep text "řádek"
+[(0, "řádek 1"), (2, "A zde vidíme řádek 3")]
+> grep text "na"
+[(1, "Tohle je na řádku 2")]
+> grep text "d"
+[(0, "řádek 1"), (1, "Tohle je na řádku 2"), (2, "A zde vidíme řádek 3")]
+```
+
+4. Napište si svůj vlastní modul `Caesar`, který bude implementovat Caesarovu šifru. Pokud si nepamatujete, jak přesně funfuje, najděte je na netu. Z tohoto modulu exportuje pouze funkce `code` a `decode`, zbytek "pomocných" funkcí nechte schovaný. Pro samotné kódování jednotlivých písmen se budou hodit funkce z `Data.Char`. Sami vymyslete, jak by si měly funkce `code` a `decode` poradit s interpunkcí.
